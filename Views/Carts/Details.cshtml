@@ -1,0 +1,60 @@
+﻿@model VeeStoreA.Models.Cart
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cart</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Name)
+        </dd>
+        <dt>
+            Total Amount
+        </dt>
+        <dd>
+            @ViewBag.totalAmount
+        </dd>
+
+    </dl>
+</div>
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+    </tr>          
+    @foreach (var item in Model.CartItems)
+    {
+<tr>
+    <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+    <td>@Html.DisplayFor(modelItem => item.Product.Price)</td>
+    <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+    <td>
+        @{ var total = (int)item.Quantity * (int)item.Product.Price;}
+        @Html.DisplayFor(modelItem => total)
+    </td>
+</tr>
+}
+</table>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
