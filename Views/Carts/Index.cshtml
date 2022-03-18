@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Customer.Name)
+            Total Amount
         </th>
         <th></th>
     </tr>
@@ -26,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Customer.Name)
+           @item.CartItems.Sum(p=> p.Quantity * p.Product.Price) QAR
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
