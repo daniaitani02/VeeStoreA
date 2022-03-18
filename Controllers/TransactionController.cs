@@ -87,7 +87,38 @@ namespace VeeStoreA.Controllers
             // Redirect user to their unpaid cart
             return RedirectToAction("Details", "Carts", new { id = cart.Id });
         }
+        public ActionResult CheckOut(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cart cart = db.Carts.Find(id);
+            if (cart == null)
+            {
+                return HttpNotFound();
+            }
+            if (cart.Customer.UserName != User.Identity.Name && User.Identity.Name != "admin@admin.com")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
 
+            if (cart.CartItems.Count() == 0)
+            {
+                TempData["error"] = "Cart Is Empty";
+
+            }
+            else
+            {
+                cart.Status = "paid";
+                db.SaveChanges();
+            }
+
+
+            return RedirectToAction("Details", "Carts", new { id = id });
+
+
+        }
 
     }
 }

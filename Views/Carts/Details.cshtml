@@ -55,6 +55,10 @@
 }
 </table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (Model.Status == "unpaid")
+    {
+        @Html.ActionLink("Check Out", "CheckOut", "Transaction", new { id = Model.Id }, new { @class = "btn btn-danger" })
+    }
+
     @Html.ActionLink("Back to List", "Index")
 </p>
