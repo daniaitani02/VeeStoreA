@@ -55,7 +55,7 @@ GO
 CREATE NONCLUSTERED INDEX [IX_FK_CartItem_CartId]
  ON [dbo].[CartItem]([CartId] ASC);
  ```
- ##Lastly, run this command in the package manager console:
+ ## Lastly, run this command in the package manager console:
  ```
  Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
  ```
