@@ -17,14 +17,14 @@ namespace VeeStoreA.Controllers
         // GET: Products
         public ActionResult Index(string SearchString)
         {
-            var name = from n in db.Products
-                       select n;
+            var products = from p in db.Products
+                       select p;
             if (!String.IsNullOrEmpty(SearchString))
             {
-                name = name.Where(x => x.Name.Contains(SearchString));
+                products = products.Where(p => p.Name.Contains(SearchString));
 
             }
-            return View(name);
+            return View(products);
             //return View(db.Products.ToList());
         }
 
