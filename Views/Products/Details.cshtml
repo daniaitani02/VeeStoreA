@@ -29,6 +29,20 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+
+    @if (User.Identity.Name == "admin@admin.com")
+    {
+
+        <span>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        </span>
+
+    }
+    else
+    {
+        @Html.ActionLink("Add to cart", "CheckOut", "Transaction", new { id = Model.Id }, new { @class = "btn btn-success" })
+
+    }
+
     @Html.ActionLink("Back to List", "Index")
 </p>
