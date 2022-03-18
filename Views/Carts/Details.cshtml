@@ -55,7 +55,7 @@
 }
 </table>
 <p>
-    @if (Model.Status == "unpaid")
+    @if (Model.Status == "Unpaid")
     {
         @Html.ActionLink("Check Out", "CheckOut", "Transaction", new { id = Model.Id }, new { @class = "btn btn-danger" })
     }

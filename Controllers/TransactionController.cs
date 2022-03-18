@@ -110,7 +110,7 @@ namespace VeeStoreA.Controllers
             }
             else
             {
-                cart.Status = "paid";
+                cart.Status = "Paid";
                 db.SaveChanges();
             }
 
