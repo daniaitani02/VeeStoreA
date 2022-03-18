@@ -17,7 +17,8 @@ namespace VeeStoreA.Controllers
         // GET: Carts
         public ActionResult Index()
         {
-            var carts = db.Carts.Include(c => c.Customer);
+            //Only return carts of current logged in cutsomer
+            var carts = db.Carts.Where(c => c.CustomerName == User.Identity.Name);
             return View(carts.ToList());
         }
 
