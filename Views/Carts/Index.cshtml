@@ -6,9 +6,7 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -29,9 +27,12 @@
            @item.CartItems.Sum(p=> p.Quantity * p.Product.Price) QAR
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @if(item.Status == "Unpaid"){
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id });
+            }
+
         </td>
     </tr>
 }
