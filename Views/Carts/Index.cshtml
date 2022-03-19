@@ -6,6 +6,13 @@
 
 <h2>Index</h2>
 
+@if (TempData["error"] != null)
+{
+<div class="alert alert-dismissible alert-danger">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Error</strong> @TempData["error"]
+</div>
+}
 
 <table class="table">
     <tr>
@@ -18,23 +25,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-           @item.CartItems.Sum(p=> p.Quantity * p.Product.Price) QAR
-        </td>
-        <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @item.CartItems.Sum(p => p.Quantity * p.Product.Price) QAR
+            </td>
+            <td>
 
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @if(item.Status == "Unpaid"){
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id });
-            }
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @if (item.Status == "Unpaid")
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id });
+                }
 
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
