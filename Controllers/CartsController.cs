@@ -17,8 +17,16 @@ namespace VeeStoreA.Controllers
         // GET: Carts
         public ActionResult Index()
         {
-            //Only return carts of current logged in cutsomer
-            var carts = db.Carts.Where(c => c.CustomerName == User.Identity.Name);
+            var carts = from c in db.Carts
+                        select c;
+
+            if (User.Identity.Name != "admin@admin.com")
+            {
+                //Only return carts of current logged in cutsomer
+                carts = db.Carts.Where(c => c.CustomerName == User.Identity.Name);
+            }
+           
+           
             return View(carts.ToList());
         }
 
