@@ -21,7 +21,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                 
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Contact us", "Contact", "Home")</li>
+
                     @if (User.Identity.Name != "admin@admin.com")
                     {
                         <li>@Html.ActionLink("My Cart", "MyCart", "Transaction")</li>
@@ -30,6 +33,7 @@
                     {
                         <li>@Html.ActionLink("Show All Carts", "Index", "Carts")</li>
                     }
+
 
 
                 </ul>

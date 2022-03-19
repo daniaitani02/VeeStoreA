@@ -6,7 +6,8 @@ namespace VeeStoreA.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index","Products");
+           
+            return View();
         }
 
         public ActionResult About()
