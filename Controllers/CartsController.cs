@@ -125,7 +125,12 @@ namespace VeeStoreA.Controllers
             }
             // Does the cart belong to the logged in user? If not, return Forbidden error
             if (cart.Customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (cart.CartItems.Count() != 0)
+            {
+                TempData["error"] = "Cart Is Not Empty";
+                return RedirectToAction("Index");
 
+            }
 
             return View(cart);
         }
