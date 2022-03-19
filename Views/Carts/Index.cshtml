@@ -22,28 +22,41 @@
         <th>
             Total Amount
         </th>
+        <th>
+            Item Count
+        </th>
+        @if (User.Identity.Name == "admin@admin.com")
+        {
+    <th>  @Html.DisplayNameFor(model => model.Customer.Name)</th>
+        }
+
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @item.CartItems.Sum(p => p.Quantity * p.Product.Price) QAR
-            </td>
-            <td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @item.CartItems.Sum(p => p.Quantity * p.Product.Price) QAR
+    </td>
+    <td>@item.CartItems.Sum(p=>p.Quantity)</td>
+    @if (User.Identity.Name == "admin@admin.com")
+    {
+        <td>  @Html.DisplayFor(modelItem => item.Customer.Name)</td>
+    }
+    <td>
 
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @if (item.Status == "Unpaid")
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id });
-                }
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @if (item.Status == "Unpaid")
+        {
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id });
+        }
 
-            </td>
-        </tr>
+    </td>
+</tr>
     }
 
 </table>

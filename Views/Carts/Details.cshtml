@@ -5,7 +5,13 @@
 }
 
 <h2>Details</h2>
-
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error</strong> @TempData["error"]
+    </div>
+}
 <div>
     <h4>Cart</h4>
     <hr />
@@ -40,19 +46,19 @@
         <th>Product Price</th>
         <th>Quantity</th>
         <th>Amount</th>
-    </tr>          
+    </tr>
     @foreach (var item in Model.CartItems)
     {
-<tr>
-    <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
-    <td>@Html.DisplayFor(modelItem => item.Product.Price)</td>
-    <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
-    <td>
-        @{ var total = (int)item.Quantity * (int)item.Product.Price;}
-        @Html.DisplayFor(modelItem => total)
-    </td>
-</tr>
-}
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Product.Price)</td>
+            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+            <td>
+                @{ var total = (int)item.Quantity * (int)item.Product.Price;}
+                @Html.DisplayFor(modelItem => total)
+            </td>
+        </tr>
+    }
 </table>
 <p>
     @if (Model.Status == "Unpaid")
