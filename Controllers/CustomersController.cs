@@ -33,6 +33,9 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
+            // Does the customer object belong to the logged in user? If not, return Forbidden error
+            if (customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
             return View(customer);
         }
 
@@ -84,6 +87,9 @@ namespace VeeStoreA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserName,Name,Address")] Customer customer)
         {
+            // Does the customer object belong to the logged in user? If not, return Forbidden error
+            if (customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
