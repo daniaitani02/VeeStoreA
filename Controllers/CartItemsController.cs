@@ -121,7 +121,7 @@ namespace VeeStoreA.Controllers
             CartItem cartItem = db.CartItems.Find(id);
             db.CartItems.Remove(cartItem);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Carts");
         }
 
         protected override void Dispose(bool disposing)

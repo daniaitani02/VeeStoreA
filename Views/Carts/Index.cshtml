@@ -49,9 +49,13 @@
     }
     <td>
 
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) 
         @if (item.Status == "Unpaid")
+
         {
+            <b>
+                |
+            </b>
             @Html.ActionLink("Delete", "Delete", new { id = item.Id });
         }
 
