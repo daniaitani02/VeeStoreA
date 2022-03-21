@@ -10,6 +10,7 @@ using VeeStoreA.Models;
 
 namespace VeeStoreA.Controllers
 {
+    [Authorize]
     public class CartItemsController : Controller
     {
         private VeeStoreDbEntities db = new VeeStoreDbEntities();
