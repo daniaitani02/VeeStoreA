@@ -10,7 +10,15 @@
         @Html.ActionLink("Hello " + User.Identity.GetUserName().Split('@')[0] + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </li>
     @{ var username = User.Identity.Name;}
-    <li>@Html.ActionLink("My Profile", "Details", "Customers", new { id = username + "/" }, null)</li>
+    @if (username == "admin@admin.com")
+    {
+        <li>@Html.ActionLink("Admin Panel", "AdminPanel", "Home")</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("My Profile", "Details", "Customers", new { id = username + "/" }, null)</li>
+    }
+
     <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
 </ul>
     }

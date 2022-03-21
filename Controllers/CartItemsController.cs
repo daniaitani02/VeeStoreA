@@ -10,16 +10,17 @@ using VeeStoreA.Models;
 
 namespace VeeStoreA.Controllers
 {
+    [Authorize]
     public class CartItemsController : Controller
     {
         private VeeStoreDbEntities db = new VeeStoreDbEntities();
 
         // GET: CartItems
-        public ActionResult Index()
-        {
-            var cartItems = db.CartItems.Include(c => c.Cart).Include(c => c.Product);
-            return View(cartItems.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    var cartItems = db.CartItems.Include(c => c.Cart).Include(c => c.Product);
+        //    return View(cartItems.ToList());
+        //}
 
         // GET: CartItems/Details/5
         public ActionResult Details(int? id)
@@ -36,67 +37,67 @@ namespace VeeStoreA.Controllers
             return View(cartItem);
         }
 
-        // GET: CartItems/Create
-        public ActionResult Create()
-        {
-            ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerEmail");
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
-            return View();
-        }
+        //// GET: CartItems/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerName");
+        //    ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
+        //    return View();
+        //}
 
-        // POST: CartItems/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProductId,CartId,Quantity")] CartItem cartItem)
-        {
-            if (ModelState.IsValid)
-            {
-                db.CartItems.Add(cartItem);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //// POST: CartItems/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,ProductId,CartId,Quantity")] CartItem cartItem)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.CartItems.Add(cartItem);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerEmail", cartItem.CartId);
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
-            return View(cartItem);
-        }
+        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerName", cartItem.CartId);
+        //    ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
+        //    return View(cartItem);
+        //}
 
         // GET: CartItems/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CartItem cartItem = db.CartItems.Find(id);
-            if (cartItem == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerEmail", cartItem.CartId);
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
-            return View(cartItem);
-        }
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    CartItem cartItem = db.CartItems.Find(id);
+        //    if (cartItem == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerName", cartItem.CartId);
+        //    ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
+        //    return View(cartItem);
+        //}
 
-        // POST: CartItems/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProductId,CartId,Quantity")] CartItem cartItem)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(cartItem).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerEmail", cartItem.CartId);
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
-            return View(cartItem);
-        }
+        //// POST: CartItems/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,ProductId,CartId,Quantity")] CartItem cartItem)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(cartItem).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerName", cartItem.CartId);
+        //    ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
+        //    return View(cartItem);
+        //}
 
         // GET: CartItems/Delete/5
         public ActionResult Delete(int? id)

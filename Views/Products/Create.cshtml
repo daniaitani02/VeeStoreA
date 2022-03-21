@@ -5,12 +5,18 @@
 }
 
 <h2>Create</h2>
+@if (ViewBag.error != null)
+{
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error</strong> @ViewBag.error
+    </div>
+}
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
