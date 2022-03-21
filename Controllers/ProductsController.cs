@@ -76,6 +76,8 @@ namespace VeeStoreA.Controllers
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.canEdit = true;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -84,6 +86,11 @@ namespace VeeStoreA.Controllers
             if (product == null)
             {
                 return HttpNotFound();
+            }
+            if(db.CartItems.Where(item => item.ProductId == product.Id).Count() != 0)
+            {
+                ViewBag.error = "This item cannot be edited because its already in a cart.";
+                ViewBag.canEdit = false;
             }
             return View(product);
         }
@@ -95,8 +102,15 @@ namespace VeeStoreA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Price")] Product product)
         {
+            ViewBag.canEdit = true;
             if (ModelState.IsValid)
             {
+                if (db.CartItems.Where(item => item.ProductId == product.Id).Count() != 0)
+                {
+                    ViewBag.error = "This item cannot be edited because its already in a cart.";
+                    ViewBag.canEdit = false;
+                    return View(product);
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
