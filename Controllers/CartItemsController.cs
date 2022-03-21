@@ -40,7 +40,7 @@ namespace VeeStoreA.Controllers
         //// GET: CartItems/Create
         //public ActionResult Create()
         //{
-        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerEmail");
+        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerName");
         //    ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
         //    return View();
         //}
@@ -59,7 +59,7 @@ namespace VeeStoreA.Controllers
         //        return RedirectToAction("Index");
         //    }
 
-        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerEmail", cartItem.CartId);
+        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerName", cartItem.CartId);
         //    ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
         //    return View(cartItem);
         //}
@@ -76,7 +76,7 @@ namespace VeeStoreA.Controllers
         //    {
         //        return HttpNotFound();
         //    }
-        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerEmail", cartItem.CartId);
+        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerName", cartItem.CartId);
         //    ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
         //    return View(cartItem);
         //}
@@ -94,7 +94,7 @@ namespace VeeStoreA.Controllers
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
-        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerEmail", cartItem.CartId);
+        //    ViewBag.CartId = new SelectList(db.Carts, "Id", "CustomerName", cartItem.CartId);
         //    ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cartItem.ProductId);
         //    return View(cartItem);
         //}
