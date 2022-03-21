@@ -56,8 +56,15 @@ namespace VeeStoreA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Price")] Product product)
         {
+            var dbProducts = from p in db.Products
+                             select p;
             if (ModelState.IsValid)
             {
+                if(dbProducts.Where(p => product.Name == p.Name || product.Id == p.Id).Count() != 0)
+                {
+                    ViewBag.error = "Product already exists!";
+                    return View(product);
+                }
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
