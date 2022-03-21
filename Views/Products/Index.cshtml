@@ -45,22 +45,22 @@
                     <a href="@Url.Action("Details",new { id=item.Id})">@Html.DisplayFor(modelItem => item.Name)</a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.Price) QAR
                 </td>
 
                 <td>
+                   
                     @if (User.Identity.Name == "admin@admin.com")
                     {
-
-                        <span>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-
-                        </span>
+                        
+                        @Html.ActionLink("Edit Product", "Edit", "Products", new { id = item.Id }, new { @class = "btn btn-danger" })
 
                     }
+                    else
+                    {
+                        @Html.ActionLink("Add to cart", "AddToCart", "Transaction", new { id = item.Id }, new { @class = "btn btn-success" })
 
-                    @*  @Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
-                    @Html.ActionLink("Add to cart", "AddToCart", "Transaction", new { id = item.Id }, new { @class = "btn btn-success" })
+                    }
 
 
                 </td>
