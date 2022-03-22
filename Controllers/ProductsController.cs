@@ -43,6 +43,7 @@ namespace VeeStoreA.Controllers
             return View(product);
         }
 
+        [Authorize(Users = "admin@admin.com")]
         // GET: Products/Create
         public ActionResult Create()
         {
@@ -54,6 +55,7 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Create([Bind(Include = "Id,Name,Price")] Product product)
         {
             var dbProducts = from p in db.Products
@@ -73,6 +75,7 @@ namespace VeeStoreA.Controllers
             return View(product);
         }
 
+        [Authorize(Users = "admin@admin.com")]
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -100,6 +103,7 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Edit([Bind(Include = "Id,Name,Price")] Product product)
         {
             ViewBag.canEdit = true;
@@ -119,6 +123,7 @@ namespace VeeStoreA.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -134,6 +139,7 @@ namespace VeeStoreA.Controllers
         }
 
         // POST: Products/Delete/5
+        [Authorize(Users = "admin@admin.com")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

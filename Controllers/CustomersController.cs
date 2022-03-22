@@ -33,6 +33,8 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
+            if (User.Identity.Name == "admin@admin.com") return View(customer);
+
             // Does the customer object belong to the logged in user? If not, return Forbidden error
             if (customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 

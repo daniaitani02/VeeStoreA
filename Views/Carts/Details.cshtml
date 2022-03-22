@@ -46,24 +46,31 @@
         <th>Product Price</th>
         <th>Quantity</th>
         <th>Amount</th>
+        @if (Model.Status == "Unpaid")
+        {
+    <th>Action</th>
+        }
+   
     </tr>
     @foreach (var item in Model.CartItems)
     {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Product.Price)</td>
-            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
-            <td>
-                @{ var total = (int)item.Quantity * (int)item.Product.Price;}
-                @Html.DisplayFor(modelItem => total)
-            </td>
-            <td align="center">
-                @if (Model.Status == "Unpaid")
-                {
-                  @Html.ActionLink("Delete", "Delete","CartItems", new { id = item.Id }, new { @class = "btn btn-danger" })
-                }
-            </td>
-        </tr>
+<tr>
+    <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+    <td>@Html.DisplayFor(modelItem => item.Product.Price)</td>
+    <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+    <td>
+        @{ var total = (int)item.Quantity * (int)item.Product.Price;}
+        @Html.DisplayFor(modelItem => total)
+    </td>
+
+    @if (Model.Status == "Unpaid")
+    {
+<td align="center">
+    @Html.ActionLink("Delete", "Delete", "CartItems", new { id = item.Id }, new { @class = "btn btn-danger" })
+</td>
+            }
+        
+    </tr>
     }
 </table>
 <p>
@@ -72,5 +79,5 @@
         @Html.ActionLink("Check Out", "CheckOut", "Transaction", new { id = Model.Id }, new { @class = "btn btn-success" })
     }
 
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Carts", "Index")
 </p>
