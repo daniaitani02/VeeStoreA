@@ -59,3 +59,18 @@ CREATE NONCLUSTERED INDEX [IX_FK_CartItem_CartId]
  ```
  Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
  ```
+
+About VeeStore
+
+VeeStore is an eCommerce platform that is specialized in selling digital content such as gift cards and online subscriptions, especially the highest quality and most needed from those products, and to make sure these products do match our standards, we only buy from the manufacturers themselves and check the authenticity of every product before making it available for sale.
+Our desire is to create an online store fueled by people interest and passion, so we created a store where people can buy the latest and most requested gift cards easily and cost-friendly.
+
+
+OUR VISION
+Make daily life easier through technology.
+
+OUR GOALS
+
+1. Providing the most requested gift cards and subscriptions all in one place for our customers.
+2. Selling these products at the best possible price.
+3. Providing a unique and fun shopping experience for our customers and visitors
