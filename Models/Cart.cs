@@ -11,7 +11,8 @@ namespace VeeStoreA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Cart
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,13 @@ namespace VeeStoreA.Models
         }
     
         public int Id { get; set; }
+
+        [Display(Name = "Customer Email")]
+        [Required(ErrorMessage = "Customer email is required")]
         public string CustomerName { get; set; }
+
+        [Required(ErrorMessage = "Status is required")]
+        [RegularExpression("Paid|Unpaid", ErrorMessage = "Status can only be Paid or Unpaid")]
         public string Status { get; set; }
     
         public virtual Customer Customer { get; set; }
