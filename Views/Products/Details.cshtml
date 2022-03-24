@@ -33,9 +33,8 @@
     @if (User.Identity.Name == "admin@admin.com")
     {
 
-        <span>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        </span>
+        @Html.ActionLink("Edit Product", "Edit", "Products", new { id = item.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Delete Product", "Delete", "Products", new { id = item.Id }, new { @class = "btn btn-danger" })
 
     }
     else
@@ -44,5 +43,5 @@
 
     }
 
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Products", "Index")
 </p>
