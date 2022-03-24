@@ -27,7 +27,7 @@ namespace VeeStoreA.Models
         [Required(ErrorMessage = "A name is required")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "An address is required")]
+        //[Required(ErrorMessage = "An address is required")]
         public string Address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
