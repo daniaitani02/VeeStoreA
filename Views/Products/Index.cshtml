@@ -55,6 +55,7 @@
                     {
 
                         @Html.ActionLink("Edit Product", "Edit", "Products", new { id = item.Id }, new { @class = "btn btn-warning" })
+                        @Html.Raw("&nbsp;&nbsp;")
                         @Html.ActionLink("Delete Product", "Delete", "Products", new { id = item.Id }, new { @class = "btn btn-danger" })
 
 
