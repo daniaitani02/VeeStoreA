@@ -126,6 +126,7 @@ namespace VeeStoreA.Controllers
         [Authorize(Users = "admin@admin.com")]
         public ActionResult Delete(int? id)
         {
+            ViewBag.canDelete = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -134,6 +135,12 @@ namespace VeeStoreA.Controllers
             if (product == null)
             {
                 return HttpNotFound();
+            }
+            if (db.CartItems.Where(item => item.ProductId == product.Id).Count() != 0)
+            {
+                ViewBag.error = "This item cannot be deleted because its already in a cart.";
+                ViewBag.canDelete = false;
+                return View(product);
             }
             return View(product);
         }
@@ -145,8 +152,14 @@ namespace VeeStoreA.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
+            if (db.CartItems.Where(item => item.ProductId == product.Id).Count() != 0)
+            {
+                ViewBag.error = "This item cannot be deleted because its already in a cart.";
+                return View(product);
+            }
             db.Products.Remove(product);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
