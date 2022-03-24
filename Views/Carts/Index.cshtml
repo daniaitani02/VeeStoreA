@@ -50,12 +50,10 @@
     <td>
 
         @Html.ActionLink("Details", "Details", new { id = item.Id }) 
-        @if (item.Status == "Unpaid")
+        @if (item.Status == "Unpaid" && User.Identity.Name != "admin@admin.com")
 
         {
-            <b>
-                |
-            </b>
+            <b>|</b>
             @Html.ActionLink("Delete", "Delete", new { id = item.Id });
         }
 

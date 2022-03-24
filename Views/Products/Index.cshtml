@@ -52,7 +52,7 @@
                    
                     @if (User.Identity.Name == "admin@admin.com")
                     {
-                        
+                        <b>|</b>
                         @Html.ActionLink("Edit Product", "Edit", "Products", new { id = item.Id }, new { @class = "btn btn-danger" })
 
                     }
