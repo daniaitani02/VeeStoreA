@@ -4,14 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fbd84676e4d246628b924181be7e4b3d" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="VeeStoreDbModel.Cart" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="VeeStoreDbModel.CartItem" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="VeeStoreDbModel.Customer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="VeeStoreDbModel.Product" Width="1.5" PointX="5.5" PointY="4.25" IsExpanded="true" />
+      <Diagram DiagramId="6a65654551e5410c835b76dd53484c82" Name="Diagram1">
+        <EntityTypeShape EntityType="VeeStoreDbModel.CardCode" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Cart" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.CartItem" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Currency" Width="1.5" PointX="1.5" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Customer" Width="1.5" PointX="1.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Product" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Product" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Cart_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Cart" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Prodcut" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Currency" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -11,7 +11,7 @@ namespace VeeStoreA.Controllers
     [Authorize]
     public class TransactionController : Controller
     {
-        private VeeStoreDbEntities db = new VeeStoreDbEntities();
+        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
         [AllowAnonymous]
         // GET: Transaction
         public ActionResult Index()
@@ -26,11 +26,11 @@ namespace VeeStoreA.Controllers
             string loggedInEmail = User.Identity.Name; // Get the logged in user email
 
             // Does the customer exist in the customers table?
-            if (db.Customers.Count(c => c.UserName.Equals(loggedInEmail)) == 0) // If the count is zero this means there is no customer so we add the customer
+            if (db.Customers.Count(c => c.Email.Equals(loggedInEmail)) == 0) // If the count is zero this means there is no customer so we add the customer
             {
 
                 // Adding the new customer
-                db.Customers.Add(new Customer { UserName = loggedInEmail, Name = loggedInEmail.Split('@')[0] });
+                db.Customers.Add(new Customer { Email = loggedInEmail, Name = loggedInEmail.Split('@')[0] });
                 db.SaveChanges();
             }
             Cart cart = null;
@@ -98,7 +98,7 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
-            if (cart.Customer.UserName != User.Identity.Name && User.Identity.Name != "admin@admin.com")
+            if (cart.Customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com")
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }

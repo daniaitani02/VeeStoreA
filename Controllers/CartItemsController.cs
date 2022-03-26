@@ -13,7 +13,7 @@ namespace VeeStoreA.Controllers
     [Authorize]
     public class CartItemsController : Controller
     {
-        private VeeStoreDbEntities db = new VeeStoreDbEntities();
+        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
 
         // GET: CartItems
         //public ActionResult Index()

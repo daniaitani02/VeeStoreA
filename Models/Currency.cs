@@ -12,24 +12,21 @@ namespace VeeStoreA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Currency
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public Currency()
         {
-            this.Carts = new HashSet<Cart>();
+            this.Customers = new HashSet<Customer>();
         }
     
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public string Gender { get; set; }
-        public string PhoneNumber { get; set; }
-        public System.DateTime JoinedAt { get; set; }
-        public string Status { get; set; }
-        public int CurrencyId { get; set; }
+        public int Id { get; set; }
+        public string ShortName { get; set; }
+        public string Symbol { get; set; }
+        public string Flag { get; set; }
+        public double Multiplier { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Carts { get; set; }
-        public virtual Currency Currency { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

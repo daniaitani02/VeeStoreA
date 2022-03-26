@@ -181,10 +181,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CardCode.cs">
+      <DependentUpon>StoreModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cart.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CartItem.cs">
+      <DependentUpon>StoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Currency.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
@@ -846,13 +852,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\StoreModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>StoreModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\StoreModel.edmx.diagram">
-      <DependentUpon>StoreModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\homeImg.webp" />
     <Content Include="Content\Theme\app-assets\css\.DS_Store" />
     <Content Include="Content\Theme\app-assets\data\fullcalendar\json\events.json" />
@@ -882,6 +881,13 @@
     <Content Include="Content\Theme\app-assets\vendors\js\editors\quill\assets\snow.styl" />
     <Content Include="Content\Theme\app-assets\vendors\js\editors\quill\assets\snow\toolbar.styl" />
     <Content Include="Content\Theme\app-assets\vendors\js\editors\quill\assets\snow\tooltip.styl" />
+    <EntityDeploy Include="Models\StoreModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StoreModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StoreModel.edmx.diagram">
+      <DependentUpon>StoreModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

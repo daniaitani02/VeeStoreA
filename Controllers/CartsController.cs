@@ -13,7 +13,7 @@ namespace VeeStoreA.Controllers
     [Authorize]
     public class CartsController : Controller
     {
-        private VeeStoreDbEntities db = new VeeStoreDbEntities();
+        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
 
         // GET: Carts
         public ActionResult Index()
@@ -46,7 +46,7 @@ namespace VeeStoreA.Controllers
                 return HttpNotFound();
             }
             // Does the cart belong to the logged in user? If not, return Forbidden error
-            if (cart.Customer.UserName != User.Identity.Name && User.Identity.Name != "admin@admin.com") return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (cart.Customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com") return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             ViewBag.totalAmount = cart.CartItems.Sum(p => (int)p.Quantity * (int)p.Product.Price);
             return View(cart);
         }
@@ -124,7 +124,7 @@ namespace VeeStoreA.Controllers
                 return HttpNotFound();
             }
             // Does the cart belong to the logged in user? If not, return Forbidden error
-            if (cart.Customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (cart.Customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             if (cart.CartItems.Count() != 0)
             {
                 TempData["error"] = "Cart Is Not Empty";
@@ -148,7 +148,7 @@ namespace VeeStoreA.Controllers
             if (cart == null) return HttpNotFound();
 
             // Does the cart belong to the logged in user? If not, return Forbidden error
-            if (cart.Customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (cart.Customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
             // Is cart empty? if not, store an error in TempData and dont delete cart.
             if (cart.CartItems.Count() != 0) TempData["error"] = "Cart Is Not Empty";

@@ -12,7 +12,7 @@ namespace VeeStoreA.Controllers
 {
     public class ProductsController : Controller
     {
-        private VeeStoreDbEntities db = new VeeStoreDbEntities();
+        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
 
         // GET: Products
         public ActionResult Index(string SearchString)

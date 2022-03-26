@@ -4,7 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="VeeStoreDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="VeeStoreDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CardCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UsedAt" Type="datetime" />
+        </EntityType>
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="Id" />
@@ -22,13 +33,27 @@
           <Property Name="CartId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Symbol" Type="nvarchar" MaxLength="10" />
+          <Property Name="Flag" Type="nvarchar" MaxLength="20" />
+          <Property Name="Multiplier" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="Customer">
           <Key>
-            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Email" />
           </Key>
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="JoinedAt" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
+          <Property Name="CurrencyId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -48,7 +73,7 @@
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
-              <PropertyRef Name="UserName" />
+              <PropertyRef Name="Email" />
             </Principal>
             <Dependent Role="Cart">
               <PropertyRef Name="CustomerName" />
@@ -67,6 +92,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Table_Prodcut">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="CartItem" Type="Self.CartItem" Multiplicity="*" />
@@ -79,9 +116,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="CardCode" Type="Self.CardCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardCode">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="VeeStoreDbModelStoreContainer">
+          <EntitySet Name="CardCode" EntityType="Self.CardCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CartItem" EntityType="Self.CartItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Cart_Customer" Association="Self.FK_Cart_Customer">
@@ -92,15 +143,36 @@
             <End Role="Cart" EntitySet="Cart" />
             <End Role="CartItem" EntitySet="CartItem" />
           </AssociationSet>
+          <AssociationSet Name="FK_Table_Currency" Association="Self.FK_Table_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Table_Prodcut" Association="Self.FK_Table_Prodcut">
             <End Role="Product" EntitySet="Product" />
             <End Role="CartItem" EntitySet="CartItem" />
           </AssociationSet>
+          <AssociationSet Name="FK_Table_Product" Association="Self.FK_Table_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="CardCode" EntitySet="CardCode" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VeeStoreDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CardCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Table_Product" FromRole="CardCode" ToRole="Product" />
+        </EntityType>
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="Id" />
@@ -122,14 +194,30 @@
           <NavigationProperty Name="Cart" Relationship="Self.FK_Table_Cart" FromRole="CartItem" ToRole="Cart" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Table_Prodcut" FromRole="CartItem" ToRole="Product" />
         </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Symbol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Flag" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Multiplier" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Table_Currency" FromRole="Currency" ToRole="Customer" />
+        </EntityType>
         <EntityType Name="Customer">
           <Key>
-            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Email" />
           </Key>
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="JoinedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencyId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Customer" FromRole="Customer" ToRole="Cart" />
+          <NavigationProperty Name="Currency" Relationship="Self.FK_Table_Currency" FromRole="Customer" ToRole="Currency" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -138,19 +226,32 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CartItems" Relationship="Self.FK_Table_Prodcut" FromRole="Product" ToRole="CartItem" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Category" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="ImageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CardCodes" Relationship="Self.FK_Table_Product" FromRole="Product" ToRole="CardCode" />
+          <NavigationProperty Name="CartItems" Relationship="Self.FK_Table_Prodcut" FromRole="Product" ToRole="CartItem" />
         </EntityType>
+        <Association Name="FK_Table_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="CardCode" Type="Self.CardCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardCode">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Cart_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
-              <PropertyRef Name="UserName" />
+              <PropertyRef Name="Email" />
             </Principal>
             <Dependent Role="Cart">
               <PropertyRef Name="CustomerName" />
@@ -181,11 +282,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="VeeStoreDbEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_Table_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VeeStoreDbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CardCodes" EntityType="Self.CardCode" />
           <EntitySet Name="Carts" EntityType="Self.Cart" />
           <EntitySet Name="CartItems" EntityType="Self.CartItem" />
+          <EntitySet Name="Currencies" EntityType="Self.Currency" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Products" EntityType="Self.Product" />
+          <AssociationSet Name="FK_Table_Product" Association="Self.FK_Table_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="CardCode" EntitySet="CardCodes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Cart_Customer" Association="Self.FK_Cart_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Cart" EntitySet="Carts" />
@@ -198,13 +317,29 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="CartItem" EntitySet="CartItems" />
           </AssociationSet>
+          <AssociationSet Name="FK_Table_Currency" Association="Self.FK_Table_Currency">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VeeStoreDbModelStoreContainer" CdmEntityContainer="VeeStoreDbEntities">
+        <EntityContainerMapping StorageEntityContainer="VeeStoreDbModelStoreContainer" CdmEntityContainer="VeeStoreDbEntities1">
+          <EntitySetMapping Name="CardCodes">
+            <EntityTypeMapping TypeName="VeeStoreDbModel.CardCode">
+              <MappingFragment StoreEntitySet="CardCode">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UsedAt" ColumnName="UsedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="VeeStoreDbModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
@@ -224,26 +359,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="VeeStoreDbModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="Multiplier" ColumnName="Multiplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="VeeStoreDbModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="JoinedAt" ColumnName="JoinedAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="VeeStoreDbModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

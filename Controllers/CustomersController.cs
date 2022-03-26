@@ -12,7 +12,7 @@ namespace VeeStoreA.Controllers
 {
     public class CustomersController : Controller
     {
-        private VeeStoreDbEntities db = new VeeStoreDbEntities();
+        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
 
         // GET: Customers
         [Authorize (Users ="admin@admin.com")]
@@ -36,7 +36,7 @@ namespace VeeStoreA.Controllers
             if (User.Identity.Name == "admin@admin.com") return View(customer);
 
             // Does the customer object belong to the logged in user? If not, return Forbidden error
-            if (customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
             return View(customer);
         }
@@ -77,7 +77,7 @@ namespace VeeStoreA.Controllers
                 return HttpNotFound();
             }
             // Does the customer object belong to the logged in user? If not, return Forbidden error
-            if (customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
             return View(customer);
         }
@@ -87,10 +87,10 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserName,Name,Address")] Customer customer)
+        public ActionResult Edit([Bind(Include = "Email,Name,Address")] Customer customer)
         {
             // Does the customer object belong to the logged in user? If not, return Forbidden error
-            if (customer.UserName != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
             if (ModelState.IsValid)
             {
