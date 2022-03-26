@@ -950,6 +950,7 @@
     <Content Include="Views\Home\AdminPanel.cshtml" />
     <Content Include="Views\Shared\_ThemeLayout.cshtml" />
     <Content Include="Views\Shared\_NewLoginPartial.cshtml" />
+    <Content Include="Views\Account\_ThemeAccountLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Transaction\" />
