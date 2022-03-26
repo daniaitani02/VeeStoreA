@@ -106,7 +106,7 @@ namespace VeeStoreA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin@admin.com")]
-        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,Category,ImageName,Status")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,Category,ImageName,Status,CreatedAt")] Product product)
         {
             ViewBag.canEdit = true;
             if (ModelState.IsValid)
@@ -117,6 +117,7 @@ namespace VeeStoreA.Controllers
                     ViewBag.canEdit = false;
                     return View(product);
                 }
+               
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
