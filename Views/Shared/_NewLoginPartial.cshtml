@@ -62,7 +62,16 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
                         @{ var username = User.Identity.Name;}
-                        <a class="dropdown-item" href="@Url.Action("Details","Customers",new {id=username+"/" })"><i class="me-50" data-feather="user"></i> Profile</a>
+                        @if (username == "admin@admin.com")
+                        {
+                            <a class="dropdown-item" href="@Url.Action("AdminPanel","Home")"><i class="me-50" data-feather="activity"></i>Admin Panel</a>
+
+                        }
+                        else
+                        {
+                            <a class="dropdown-item" href="@Url.Action("Details","Customers",new {id=username+"/" })"><i class="me-50" data-feather="user"></i> Profile</a>
+
+                        }
                         <a class="dropdown-item" href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a>
                         <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="me-50" data-feather="power"></i> Logout</a>
                     </div>
