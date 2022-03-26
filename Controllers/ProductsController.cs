@@ -56,10 +56,10 @@ namespace VeeStoreA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin@admin.com")]
-        public ActionResult Create([Bind(Include = "Id,Name,Price")] Product product)
+        public ActionResult Create([Bind(Include = "Id,Name,Price,Description,Category,ImageName,Status,CreatedAt")] Product product)
         {
-            var dbProducts = from p in db.Products
-                             select p;
+            var dbProducts = db.Products;
+                             
             if (ModelState.IsValid)
             {
                 if(dbProducts.Where(p => product.Name == p.Name || product.Id == p.Id).Count() != 0)
@@ -67,6 +67,8 @@ namespace VeeStoreA.Controllers
                     ViewBag.error = "Product already exists!";
                     return View(product);
                 }
+                DateTime now = DateTime.Now;
+                product.CreatedAt = now;
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -104,7 +106,7 @@ namespace VeeStoreA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin@admin.com")]
-        public ActionResult Edit([Bind(Include = "Id,Name,Price")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,Category,ImageName,Status")] Product product)
         {
             ViewBag.canEdit = true;
             if (ModelState.IsValid)
