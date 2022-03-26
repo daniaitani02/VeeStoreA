@@ -30,7 +30,8 @@ namespace VeeStoreA.Controllers
             {
 
                 // Adding the new customer
-                db.Customers.Add(new Customer { Email = loggedInEmail, Name = loggedInEmail.Split('@')[0] });
+                db.Customers.Add(new Customer { Email = loggedInEmail, Name = loggedInEmail.Split('@')[0],JoinedAt= DateTime.Now,CurrencyId=1
+            });
                 db.SaveChanges();
             }
             Cart cart = null;
