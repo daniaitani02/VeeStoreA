@@ -11,18 +11,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="./Content/Theme/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/vendors/css/vendors.min.css">
     <!-- END: Vendor CSS-->
     <!-- BEGIN: Theme CSS-->
 
-    <link rel="stylesheet" type="text/css" href="./Content/Theme/app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="./Content/Theme/app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="./Content/Theme/app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="./Content/Theme/app-assets/css/components.css">
-    <link rel="stylesheet" type="text/css" href="./Content/Theme/app-assets/css/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/themes/bordered-layout.css">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="./Content/Theme/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/core/menu/menu-types/horizontal-menu.css">
     <!-- END: Page CSS-->
     <!-- BEGIN: Custom CSS-->
     <!-- END: Custom CSS-->
@@ -51,6 +51,7 @@
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
                     <li class="nav-item @(ViewBag.title =="Home"?"active":null)"><a class="nav-link d-flex align-items-center" href="@Url.Action("Index","Home")"><i data-feather="home"></i><span>Home</span></a> </li>
                     <li class="nav-item @(ViewBag.title =="Products"?"active":null)"><a class="nav-link d-flex align-items-center" href="@Url.Action("Index","Products")"><i data-feather="shopping-bag"></i><span>Products</span></a> </li>
+                    <li class="nav-item @(ViewBag.title =="Contact Us"?"active":null)"><a class="nav-link d-flex align-items-center" href="@Url.Action("Contact","Home")"><i data-feather="help-circle"></i><span>Contact Us</span></a> </li>
 
                 </ul>
             </div>
@@ -72,11 +73,11 @@
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
     <!-- BEGIN: Vendor JS-->
-    <script src="./Content/Theme/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="../Content/Theme/app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
     <!-- BEGIN: Theme JS-->
-    <script src="./Content/Theme/app-assets/js/core/app-menu.js"></script>
-    <script src="./Content/Theme/app-assets/js/core/app.js"></script>
+    <script src="../Content/Theme/app-assets/js/core/app-menu.js"></script>
+    <script src="../Content/Theme/app-assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
     <!-- BEGIN: Page JS-->
     @Scripts.Render("~/bundles/jquery")
