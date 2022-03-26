@@ -22,7 +22,7 @@ namespace VeeStoreA.Models
         }
     
         public int Id { get; set; }
-
+        
         [Display(Name = "Customer Email")]
         [Required(ErrorMessage = "Customer email is required")]
         public string CustomerName { get; set; }
@@ -30,7 +30,7 @@ namespace VeeStoreA.Models
         [Required(ErrorMessage = "Status is required")]
         [RegularExpression("Paid|Unpaid", ErrorMessage = "Status can only be Paid or Unpaid")]
         public string Status { get; set; }
-    
+
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItems { get; set; }

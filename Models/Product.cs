@@ -22,15 +22,19 @@ namespace VeeStoreA.Models
         }
     
         public int Id { get; set; }
-
         [Required(ErrorMessage = "A name is required")]
-        [MinLength(10,ErrorMessage ="A minimum length of 10 characters is required")]
-        public string Name { get; set; }
+        [MinLength(10, ErrorMessage = "A minimum length of 10 characters is required")]
 
+        public string Name { get; set; }
         [Required(ErrorMessage = "A price is required")]
         [Display(Name = "Price (QAR)")]
         [Range(10, 1000, ErrorMessage = "Price must be at least 1 QAR and at most 1000 QAR")]
-        public Nullable<int> Price { get; set; }
+        public int Price { get; set; }
+        public string Description { get; set; }
+        public string Category { get; set; }
+        public string ImageName { get; set; }
+        public string Status { get; set; }
+        public System.DateTime CreatedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItems { get; set; }

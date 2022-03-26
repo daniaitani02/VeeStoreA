@@ -20,7 +20,7 @@ namespace VeeStoreA.Models
         {
             this.Carts = new HashSet<Cart>();
         }
-    
+
         public string UserName { get; set; }
 
         [Display(Name = "Full Name")]
@@ -29,7 +29,7 @@ namespace VeeStoreA.Models
 
         //[Required(ErrorMessage = "An address is required")]
         public string Address { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
     }

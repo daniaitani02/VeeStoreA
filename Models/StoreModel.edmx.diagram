@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="VeeStoreDbModel.Cart" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="VeeStoreDbModel.CartItem" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="VeeStoreDbModel.Customer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="VeeStoreDbModel.Product" Width="1.5" PointX="3.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Product" Width="1.5" PointX="5.5" PointY="4.25" IsExpanded="true" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Cart_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Cart" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Prodcut" ManuallyRouted="false" />
