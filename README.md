@@ -7,32 +7,48 @@ Before you begin, add the following SQL tables.
 ### Table 1 (Products Table):
 ```
 CREATE TABLE [dbo].[Product] (
- [Id] INT IDENTITY (1, 1) NOT NULL,
- [Name] NVARCHAR (50) NULL,
- [Price] INT NULL,
- PRIMARY KEY CLUSTERED ([Id] ASC)
+    [Id]          INT            IDENTITY (1, 1) NOT NULL,
+    [Name]        NVARCHAR (50)  NOT NULL,
+    [Price]       INT            NOT NULL,
+    [Description] NVARCHAR (100) NULL,
+    [Category]    NVARCHAR (30)  NULL,
+    [ImageName]   NVARCHAR (50)  NOT NULL,
+    [Status]      NVARCHAR (30)  NULL,
+    [CreatedAt]   DATETIME       NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 ```
 ### Table 2 (Customers Table): 
 ```
 CREATE TABLE [dbo].[Customer] (
- [UserName] NVARCHAR (50) NOT NULL,
- [Name] NVARCHAR (50) NULL,
- [Address] NVARCHAR (50) NULL,
- PRIMARY KEY CLUSTERED ([UserName] ASC)
+    [Email]       NVARCHAR (50) NOT NULL,
+    [Name]        NVARCHAR (50) NOT NULL,
+    [Gender]      NVARCHAR (10) NULL,
+    [PhoneNumber] NVARCHAR (20) NULL,
+    [JoinedAt]    DATETIME      NOT NULL,
+    [Status]      NVARCHAR (20) NULL,
+    [CurrencyId]  INT           NOT NULL,
+    PRIMARY KEY CLUSTERED ([Email] ASC),
+    CONSTRAINT [FK_Table_Currency] FOREIGN KEY ([CurrencyId]) REFERENCES [dbo].[Currency] ([Id])
 );
+
+
 ```
 ### Table 3 (Carts Table):
 ```
 CREATE TABLE [dbo].[Cart] (
- [Id] INT IDENTITY (1, 1) NOT NULL,
- [CustomerName] NVARCHAR (50) NOT NULL,
- [Status] NVARCHAR (50) NOT NULL,
- PRIMARY KEY CLUSTERED ([Id] ASC),
- CONSTRAINT [FK_Cart_Customer] FOREIGN KEY
-([CustomerName]) REFERENCES [dbo].[Customer]
-([UserName])
+    [Id]            INT           IDENTITY (1, 1) NOT NULL,
+    [CustomerEmail] NVARCHAR (50) NOT NULL,
+    [Status]        NVARCHAR (50) NOT NULL,
+    [PaidAt]        DATETIME      NOT NULL,
+    [CreatedAt]     DATETIME      NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Cart_Customer] FOREIGN KEY ([CustomerEmail]) REFERENCES [dbo].[Customer] ([Email])
 );
+
+
 ```
 ### Table 4 (CartItems Table):
 ```
@@ -41,6 +57,7 @@ CREATE TABLE [dbo].[CartItem] (
  [ProductId] INT NOT NULL,
  [CartId] INT NOT NULL,
  [Quantity] INT NOT NULL,
+ [AddedAt] DATETIME NOT NULL,
  PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [FK_Table_Cart] FOREIGN KEY ([CartId])
 REFERENCES [dbo].[Cart] ([Id]),
@@ -55,6 +72,54 @@ GO
 CREATE NONCLUSTERED INDEX [IX_FK_CartItem_CartId]
  ON [dbo].[CartItem]([CartId] ASC);
  ```
+ ### Table 5 (CardCodes):
+ ```
+ CREATE TABLE [dbo].[CardCode] (
+    [Id]        INT            IDENTITY (1, 1) NOT NULL,
+    [ProductId] INT            NOT NULL,
+    [Code]      NVARCHAR (100) NOT NULL,
+    [Status]    NVARCHAR (20)  NOT NULL,
+    [CreatedAt] DATETIME       NOT NULL,
+    [UsedAt]    DATETIME       NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Table_Product] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id])
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_FK_CardCode_ProductId]
+    ON [dbo].[CardCode]([ProductId] ASC);
+
+
+ ```
+ 
+ ### Table 6 (CouponCode):
+ ```
+ CREATE TABLE [dbo].[CouponCode] (
+    [Id]                 INT           IDENTITY (1, 1) NOT NULL,
+    [Code]               NVARCHAR (50) NOT NULL,
+    [ExpiryDate]         DATETIME      NOT NULL,
+    [CreatedAt]          DATETIME      NOT NULL,
+    [DiscountPercentage] INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+ ```
+ 
+ ### Table 7 (Currency)
+ ```
+ CREATE TABLE [dbo].[Currency] (
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [ShortName]  NVARCHAR (50) NULL,
+    [Symbol]     NVARCHAR (10) NULL,
+    [Flag]       NVARCHAR (20) NULL,
+    [Multiplier] FLOAT (53)    NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+ ```
+
  ## Lastly, run this command in the package manager console:
  ```
  Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
