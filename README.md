@@ -4,7 +4,7 @@ Before you begin, add the following SQL tables.
 
 ## Database Name: VeeStoreDb
 
-### Table 1 (Products Table):
+### Table 1 (Products):
 ```
 CREATE TABLE [dbo].[Product] (
     [Id]          INT            IDENTITY (1, 1) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE [dbo].[Product] (
 
 
 ```
-### Table 2 (Customers Table): 
+### Table 2 (Customers): 
 ```
 CREATE TABLE [dbo].[Customer] (
     [Email]       NVARCHAR (50) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE [dbo].[Customer] (
 
 
 ```
-### Table 3 (Carts Table):
+### Table 3 (Carts):
 ```
 CREATE TABLE [dbo].[Cart] (
     [Id]            INT           IDENTITY (1, 1) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE [dbo].[Cart] (
 
 
 ```
-### Table 4 (CartItems Table):
+### Table 4 (CartItems):
 ```
 CREATE TABLE [dbo].[CartItem] (
  [Id] INT IDENTITY (1, 1) NOT NULL,
@@ -93,7 +93,7 @@ CREATE NONCLUSTERED INDEX [IX_FK_CardCode_ProductId]
 
  ```
  
- ### Table 6 (CouponCode):
+ ### Table 6 (CouponCodes):
  ```
  CREATE TABLE [dbo].[CouponCode] (
     [Id]                 INT           IDENTITY (1, 1) NOT NULL,
@@ -119,7 +119,24 @@ CREATE NONCLUSTERED INDEX [IX_FK_CardCode_ProductId]
 );
 
  ```
-
+ ### Table 8 (FAQs)
+ ```
+ CREATE TABLE [dbo].[Currency] (
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [Question]  NVARCHAR (100) NOT NULL,
+    [Answer]     NVARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+ ```
+ ### Table 9 (Categories)
+ ```
+ CREATE TABLE [dbo].[Currency] (
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [Name]  NVARCHAR (30) NOT NULL,
+    [Description]     NVARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+ ```
  ## Lastly, run this command in the package manager console:
  ```
  Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
