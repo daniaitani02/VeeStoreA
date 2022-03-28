@@ -11,13 +11,13 @@ CREATE TABLE [dbo].[Product] (
     [Name]        NVARCHAR (50)  NOT NULL,
     [Price]       INT            NOT NULL,
     [Description] NVARCHAR (100) NULL,
-    [Category]    NVARCHAR (30)  NULL,
+    [CategoryId]  INT (30)       NULL,
     [ImageName]   NVARCHAR (50)  NOT NULL,
     [Status]      NVARCHAR (30)  NULL,
     [CreatedAt]   DATETIME       NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Table_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Category] ([Id])
 );
-
 
 ```
 ### Table 2 (Customers): 
@@ -121,7 +121,7 @@ CREATE NONCLUSTERED INDEX [IX_FK_CardCode_ProductId]
  ```
  ### Table 8 (FAQs)
  ```
- CREATE TABLE [dbo].[Currency] (
+ CREATE TABLE [dbo].[Faq] (
     [Id]         INT           IDENTITY (1, 1) NOT NULL,
     [Question]  NVARCHAR (100) NOT NULL,
     [Answer]     NVARCHAR (100) NOT NULL,
@@ -130,11 +130,23 @@ CREATE NONCLUSTERED INDEX [IX_FK_CardCode_ProductId]
  ```
  ### Table 9 (Categories)
  ```
- CREATE TABLE [dbo].[Currency] (
+ CREATE TABLE [dbo].[Category] (
     [Id]         INT           IDENTITY (1, 1) NOT NULL,
     [Name]  NVARCHAR (30) NOT NULL,
     [Description]     NVARCHAR (100) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+ ```
+ ### Table 10 (Ratings)
+ ```
+ CREATE TABLE [dbo].[Rating] (
+    [Id]            INT             IDENTITY (1, 1) NOT NULL,
+    [ProductId]     INT             NOT NULL,
+    [CustomerEmail] NVARCHAR(50)    NOT NULL,
+    [Stars]          INT             NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Table_Customer] FOREIGN KEY ([CustomerEmail]) REFERENCES [dbo].[Customer] ([Email]),
+    CONSTRAINT [FK_Table_Prodcut] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id])   
 );
  ```
  ## Lastly, run this command in the package manager console:
