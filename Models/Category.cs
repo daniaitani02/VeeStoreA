@@ -12,27 +12,19 @@ namespace VeeStoreA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public Category()
         {
-            this.Carts = new HashSet<Cart>();
-            this.Ratings = new HashSet<Rating>();
+            this.Products = new HashSet<Product>();
         }
     
-        public string Email { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string Gender { get; set; }
-        public string PhoneNumber { get; set; }
-        public System.DateTime JoinedAt { get; set; }
-        public string Status { get; set; }
-        public int CurrencyId { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Carts { get; set; }
-        public virtual Currency Currency { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

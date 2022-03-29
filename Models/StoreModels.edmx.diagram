@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="97be45fe8e5547549013786be86aec5a" Name="Diagram1" ZoomLevel="109">
+        <EntityTypeShape EntityType="VeeStoreDbModel.CardCode" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Cart" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.CartItem" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Category" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.CouponCode" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Currency" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Customer" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Faq" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Product" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.Rating" Width="1.5" PointX="5.5" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Cart_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Cart" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Prodcut" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_FAQ_Prodcut" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

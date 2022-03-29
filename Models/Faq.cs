@@ -12,15 +12,10 @@ namespace VeeStoreA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CartItem
+    public partial class Faq
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
-        public int CartId { get; set; }
-        public int Quantity { get; set; }
-        public System.DateTime AddedAt { get; set; }
-    
-        public virtual Cart Cart { get; set; }
-        public virtual Product Product { get; set; }
+        public string Question { get; set; }
+        public string Answer { get; set; }
     }
 }

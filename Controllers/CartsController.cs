@@ -13,7 +13,7 @@ namespace VeeStoreA.Controllers
     [Authorize]
     public class CartsController : Controller
     {
-        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
+        private VeeStoreDbEntities db = new VeeStoreDbEntities();
 
         // GET: Carts
         public ActionResult Index()
@@ -24,7 +24,7 @@ namespace VeeStoreA.Controllers
             if (User.Identity.Name != "admin@admin.com")
             {
                 //Only return carts of current logged in cutsomer
-                carts = db.Carts.Where(c => c.CustomerName == User.Identity.Name);
+                carts = db.Carts.Where(c => c.CustomerEmail == User.Identity.Name);
             }
            
            

@@ -12,22 +12,14 @@ namespace VeeStoreA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cart
+    public partial class Rating
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cart()
-        {
-            this.CartItems = new HashSet<CartItem>();
-        }
-    
         public int Id { get; set; }
+        public int ProductId { get; set; }
         public string CustomerEmail { get; set; }
-        public string Status { get; set; }
-        public System.DateTime PaidAt { get; set; }
-        public System.DateTime CreatedAt { get; set; }
+        public int Stars { get; set; }
     
         public virtual Customer Customer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

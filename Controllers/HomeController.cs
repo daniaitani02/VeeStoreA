@@ -7,7 +7,7 @@ namespace VeeStoreA.Controllers
 {
     public class HomeController : Controller
     {
-        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
+        private VeeStoreDbEntities db = new VeeStoreDbEntities();
         public ActionResult Index()
         {
            
