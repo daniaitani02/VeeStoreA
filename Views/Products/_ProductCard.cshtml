@@ -34,10 +34,21 @@
                 <h4 class="item-price">@Model.Price QAR</h4>
             </div>
         </div>
+        @if (User.Identity != "admin@admin.com")
+        {
+            <a href="@Url.Action("AddToCart", "Transaction", new { id = Model.Id },null)" class="btn btn-primary btn-cart">
+                <i data-feather="shopping-cart"></i>
+                <span class="add-to-cart">Add to cart</span>
+            </a>
 
-        <a href="@Url.Action("AddToCart", "Transaction", new { id = Model.Id },null)" class="btn btn-primary btn-cart">
-            <i data-feather="shopping-cart"></i>
-            <span class="add-to-cart">Add to cart</span>
-        </a>
+        }
+        else
+        {
+            <a href="@Url.Action("Edit", "Products", new { id = Model.Id },null)" class="btn btn-primary btn-cart">
+                <i data-feather="shopping-cart"></i>
+                <span class="add-to-cart">Edit Product</span>
+            </a>
+        }
+
     </div>
 </div>
