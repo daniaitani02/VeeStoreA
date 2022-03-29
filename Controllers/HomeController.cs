@@ -27,8 +27,15 @@ namespace VeeStoreA.Controllers
             if(User.Identity.Name != "admin@admin.com") return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             ViewBag.totalCustomers = db.Customers.Count();
             ViewBag.totalProducts = db.Products.Count();
-            ViewBag.totalEarnings = db.Carts.Where(c => c.Status == "Paid").Sum(c => c.CartItems.Sum(item => item.Quantity * item.Product.Price));
-            ViewBag.totalPaidCarts = db.Carts.Where(c => c.Status == "Paid").Count();
+            try {
+                ViewBag.totalEarnings = db.Carts.Where(c => c.Status == "Paid").Sum(c => c.CartItems.Sum(item => item.Quantity * item.Product.Price));
+                ViewBag.totalPaidCarts = db.Carts.Where(c => c.Status == "Paid").Count();
+            } catch
+            {
+                ViewBag.totalEarnings = 0;
+                ViewBag.totalPaidCarts = 0;
+            }
+            
 
 
             return View();

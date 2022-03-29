@@ -1,23 +1,23 @@
 ﻿
 @{
     ViewBag.Title = "AdminPanel";
+    Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
+
 
 <h2>Admin Panel</h2>
 
-
-
-    <div class="panel panel-danger text-center">
-        <div class="panel-heading">
+<div class="panel panel-danger text-center">
+    <div class="panel-heading">
         <h3 class="panel-title">Admin CRUD Actions</h3>
-        </div>
-        <div class="panel-body">
-            @Html.ActionLink("Manage Products", "Index", "Products", null, new { @class = "btn btn-info" })
-            @Html.ActionLink("Manage Customers", "Index", "Customers", null, new { @class = "btn btn-info" })
-            @Html.ActionLink("Manage Carts", "Index", "Carts", null, new { @class = "btn btn-info" })
-
-        </div>
     </div>
+    <div class="panel-body">
+        @Html.ActionLink("Manage Products", "Index", "Products", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Manage Customers", "Index", "Customers", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Manage Carts", "Index", "Carts", null, new { @class = "btn btn-info" })
+
+    </div>
+</div>
 
 <div class="panel panel-info text-center">
     <div class="panel-heading">
@@ -30,4 +30,3 @@
         <h4>Total Earnings:  <strong>@ViewBag.totalEarnings QAR</strong></h4>
     </div>
 </div>
-
