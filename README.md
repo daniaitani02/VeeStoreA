@@ -4,43 +4,60 @@ Before you begin, add the following SQL tables.
 
 ## Database Name: VeeStoreDb
 
-### Table 1 (Products Table):
+### Table 1 (Products):
 ```
 CREATE TABLE [dbo].[Product] (
- [Id] INT IDENTITY (1, 1) NOT NULL,
- [Name] NVARCHAR (50) NULL,
- [Price] INT NULL,
- PRIMARY KEY CLUSTERED ([Id] ASC)
+    [Id]          INT            IDENTITY (1, 1) NOT NULL,
+    [Name]        NVARCHAR (50)  NOT NULL,
+    [Price]       INT            NOT NULL,
+    [Description] NVARCHAR (100) NULL,
+    [CategoryId]  INT (30)       NULL,
+    [ImageName]   NVARCHAR (50)  NOT NULL,
+    [Status]      NVARCHAR (30)  NULL,
+    [CreatedAt]   DATETIME       NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Table_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Category] ([Id])
 );
+
 ```
-### Table 2 (Customers Table): 
+### Table 2 (Customers): 
 ```
 CREATE TABLE [dbo].[Customer] (
- [UserName] NVARCHAR (50) NOT NULL,
- [Name] NVARCHAR (50) NULL,
- [Address] NVARCHAR (50) NULL,
- PRIMARY KEY CLUSTERED ([UserName] ASC)
+    [Email]       NVARCHAR (50) NOT NULL,
+    [Name]        NVARCHAR (50) NOT NULL,
+    [Gender]      NVARCHAR (10) NULL,
+    [PhoneNumber] NVARCHAR (20) NULL,
+    [JoinedAt]    DATETIME      NOT NULL,
+    [Status]      NVARCHAR (20) NULL,
+    [CurrencyId]  INT           NOT NULL,
+    PRIMARY KEY CLUSTERED ([Email] ASC),
+    CONSTRAINT [FK_Table_Currency] FOREIGN KEY ([CurrencyId]) REFERENCES [dbo].[Currency] ([Id])
 );
+
+
 ```
-### Table 3 (Carts Table):
+### Table 3 (Carts):
 ```
 CREATE TABLE [dbo].[Cart] (
- [Id] INT IDENTITY (1, 1) NOT NULL,
- [CustomerName] NVARCHAR (50) NOT NULL,
- [Status] NVARCHAR (50) NOT NULL,
- PRIMARY KEY CLUSTERED ([Id] ASC),
- CONSTRAINT [FK_Cart_Customer] FOREIGN KEY
-([CustomerName]) REFERENCES [dbo].[Customer]
-([UserName])
+    [Id]            INT           IDENTITY (1, 1) NOT NULL,
+    [CustomerEmail] NVARCHAR (50) NOT NULL,
+    [Status]        NVARCHAR (50) NOT NULL,
+    [PaidAt]        DATETIME      NOT NULL,
+    [CreatedAt]     DATETIME      NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Cart_Customer] FOREIGN KEY ([CustomerEmail]) REFERENCES [dbo].[Customer] ([Email])
 );
+
+
 ```
-### Table 4 (CartItems Table):
+### Table 4 (CartItems):
 ```
 CREATE TABLE [dbo].[CartItem] (
  [Id] INT IDENTITY (1, 1) NOT NULL,
  [ProductId] INT NOT NULL,
  [CartId] INT NOT NULL,
  [Quantity] INT NOT NULL,
+ [AddedAt] DATETIME NOT NULL,
  PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [FK_Table_Cart] FOREIGN KEY ([CartId])
 REFERENCES [dbo].[Cart] ([Id]),
@@ -54,6 +71,83 @@ CREATE NONCLUSTERED INDEX
 GO
 CREATE NONCLUSTERED INDEX [IX_FK_CartItem_CartId]
  ON [dbo].[CartItem]([CartId] ASC);
+ ```
+ ### Table 5 (CardCodes):
+ ```
+ CREATE TABLE [dbo].[CardCode] (
+    [Id]        INT            IDENTITY (1, 1) NOT NULL,
+    [ProductId] INT            NOT NULL,
+    [Code]      NVARCHAR (100) NOT NULL,
+    [Status]    NVARCHAR (20)  NOT NULL,
+    [CreatedAt] DATETIME       NOT NULL,
+    [UsedAt]    DATETIME       NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Table_Product] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id])
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_FK_CardCode_ProductId]
+    ON [dbo].[CardCode]([ProductId] ASC);
+
+
+ ```
+ 
+ ### Table 6 (CouponCodes):
+ ```
+ CREATE TABLE [dbo].[CouponCode] (
+    [Id]                 INT           IDENTITY (1, 1) NOT NULL,
+    [Code]               NVARCHAR (50) NOT NULL,
+    [ExpiryDate]         DATETIME      NOT NULL,
+    [CreatedAt]          DATETIME      NOT NULL,
+    [DiscountPercentage] INT           NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+ ```
+ 
+ ### Table 7 (Currency)
+ ```
+ CREATE TABLE [dbo].[Currency] (
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [ShortName]  NVARCHAR (50) NULL,
+    [Symbol]     NVARCHAR (10) NULL,
+    [Flag]       NVARCHAR (20) NULL,
+    [Multiplier] FLOAT (53)    NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+ ```
+ ### Table 8 (FAQs)
+ ```
+ CREATE TABLE [dbo].[Faq] (
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [Question]  NVARCHAR (100) NOT NULL,
+    [Answer]     NVARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+ ```
+ ### Table 9 (Categories)
+ ```
+ CREATE TABLE [dbo].[Category] (
+    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [Name]  NVARCHAR (30) NOT NULL,
+    [Description]     NVARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+ ```
+ ### Table 10 (Ratings)
+ ```
+ CREATE TABLE [dbo].[Rating] (
+    [Id]            INT             IDENTITY (1, 1) NOT NULL,
+    [ProductId]     INT             NOT NULL,
+    [CustomerEmail] NVARCHAR(50)    NOT NULL,
+    [Stars]          INT             NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Table_Customer] FOREIGN KEY ([CustomerEmail]) REFERENCES [dbo].[Customer] ([Email]),
+    CONSTRAINT [FK_Table_Prodcut] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id])   
+);
  ```
  ## Lastly, run this command in the package manager console:
  ```
