@@ -182,39 +182,51 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CardCode.cs">
-      <DependentUpon>StoreModel.tt</DependentUpon>
+      <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs">
-      <DependentUpon>StoreModel.tt</DependentUpon>
+      <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CartItem.cs">
-      <DependentUpon>StoreModel.tt</DependentUpon>
+      <DependentUpon>StoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>StoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CouponCode.cs">
+      <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Currency.cs">
-      <DependentUpon>StoreModel.tt</DependentUpon>
+      <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
-      <DependentUpon>StoreModel.tt</DependentUpon>
+      <DependentUpon>StoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Faq.cs">
+      <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs">
-      <DependentUpon>StoreModel.tt</DependentUpon>
+      <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StoreModel.Context.cs">
+    <Compile Include="Models\Rating.cs">
+      <DependentUpon>StoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StoreModel.Context.tt</DependentUpon>
+      <DependentUpon>StoreModels.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StoreModel.cs">
+    <Compile Include="Models\StoreModels.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StoreModel.tt</DependentUpon>
+      <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StoreModel.Designer.cs">
+    <Compile Include="Models\StoreModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StoreModel.edmx</DependentUpon>
+      <DependentUpon>StoreModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -840,15 +852,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\StoreModel.Context.tt">
+    <Content Include="Models\StoreModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StoreModel.edmx</DependentUpon>
-      <LastGenOutput>StoreModel.Context.cs</LastGenOutput>
+      <DependentUpon>StoreModels.edmx</DependentUpon>
+      <LastGenOutput>StoreModels.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\StoreModel.tt">
+    <Content Include="Models\StoreModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StoreModel.edmx</DependentUpon>
-      <LastGenOutput>StoreModel.cs</LastGenOutput>
+      <DependentUpon>StoreModels.edmx</DependentUpon>
+      <LastGenOutput>StoreModels.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -881,12 +893,12 @@
     <Content Include="Content\Theme\app-assets\vendors\js\editors\quill\assets\snow.styl" />
     <Content Include="Content\Theme\app-assets\vendors\js\editors\quill\assets\snow\toolbar.styl" />
     <Content Include="Content\Theme\app-assets\vendors\js\editors\quill\assets\snow\tooltip.styl" />
-    <EntityDeploy Include="Models\StoreModel.edmx">
+    <EntityDeploy Include="Models\StoreModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>StoreModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>StoreModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\StoreModel.edmx.diagram">
-      <DependentUpon>StoreModel.edmx</DependentUpon>
+    <Content Include="Models\StoreModels.edmx.diagram">
+      <DependentUpon>StoreModels.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -947,7 +959,7 @@
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Index2.cshtml" />
     <Content Include="Views\CartItems\Create.cshtml" />
     <Content Include="Views\CartItems\Delete.cshtml" />
     <Content Include="Views\CartItems\Details.cshtml" />
@@ -957,6 +969,8 @@
     <Content Include="Views\Shared\_ThemeLayout.cshtml" />
     <Content Include="Views\Shared\_NewLoginPartial.cshtml" />
     <Content Include="Views\Account\_ThemeAccountLayout.cshtml" />
+    <Content Include="Views\Products\_ProductCard.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Transaction\" />

@@ -11,7 +11,7 @@ namespace VeeStoreA.Controllers
     [Authorize]
     public class TransactionController : Controller
     {
-        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
+        private VeeStoreDbEntities db = new VeeStoreDbEntities();
         [AllowAnonymous]
         // GET: Transaction
         public ActionResult Index()
@@ -38,11 +38,11 @@ namespace VeeStoreA.Controllers
             try
             {
                 // Check if the customer has an unpaid cart
-                cart = db.Carts.First(c => c.CustomerName.Equals(loggedInEmail) && c.Status.Equals("Unpaid"));
+                cart = db.Carts.First(c => c.CustomerEmail.Equals(loggedInEmail) && c.Status.Equals("Unpaid"));
             }
             catch (Exception)
             {   // If not, create a new one
-                cart = new Cart { CustomerName = loggedInEmail, Status = "Unpaid" };
+                cart = new Cart { CustomerEmail = loggedInEmail, Status = "Unpaid",CreatedAt=DateTime.Now };
                 db.Carts.Add(cart);
                 db.SaveChanges();
             }

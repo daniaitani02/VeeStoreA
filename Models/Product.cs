@@ -19,13 +19,14 @@ namespace VeeStoreA.Models
         {
             this.CardCodes = new HashSet<CardCode>();
             this.CartItems = new HashSet<CartItem>();
+            this.Ratings = new HashSet<Rating>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }
-        public string Category { get; set; }
+        public Nullable<int> CategoryId { get; set; }
         public string ImageName { get; set; }
         public string Status { get; set; }
         public System.DateTime CreatedAt { get; set; }
@@ -34,5 +35,8 @@ namespace VeeStoreA.Models
         public virtual ICollection<CardCode> CardCodes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

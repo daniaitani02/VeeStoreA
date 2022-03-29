@@ -2,74 +2,80 @@
 
 @{
     ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
 
-<h2>Products</h2>
 
-<p>
-    @if (User.Identity.Name == "admin@admin.com")
-    {
-        @Html.ActionLink("Create New", "Create")
-    }
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+<link rel="stylesheet" type="text/css" href="..//Content/Theme/app-assets/css/plugins/extensions/ext-component-sliders.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/pages/app-ecommerce.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/plugins/extensions/ext-component-toastr.css">
+<!-- END: Page CSS-->
+
+<div class="app-content content ecommerce-application">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+
+        <div class="content-detached">
+            <div class="content-body">
+                <!-- E-commerce Content Section Starts -->
+                <section id="ecommerce-header">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="ecommerce-header-items">
+                                <div class="result-toggler">
+                                    <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
+                                        <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
+                                    </button>
+                                    <div class="search-results">@Model.Count() result(s) found</div>
+                                </div>
+                                <div class="view-options d-flex">
+                                    <div class="btn-group dropdown-sort">
+                                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="active-sorting">Category</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Gaming</a>
+                                            <a class="dropdown-item" href="#">Movies</a>
+                                            <a class="dropdown-item" href="#">Music</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- E-commerce Content Section Starts -->
+                <!-- E-commerce Search Bar Starts -->
+                <section id="ecommerce-searchbar" class="ecommerce-searchbar">
+                    <div class="row mt-1">
+                        <div class="col-sm-12">
+                            <div class="input-group input-group-merge">
+                                <input type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+                                <span class="input-group-text"><i data-feather="search" class="text-muted"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- E-commerce Search Bar Ends -->
+                <!-- E-commerce Products Starts -->
+                <section id="ecommerce-products" class="grid-view">
 
 
-
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-inline" }))
-    {
-
-        @Html.TextBox("SearchString", null, new { @class = "form-control mb-2" })
-        <input type="submit" class="btn btn-danger mb-2" value="Search" />
-
-    }
-    <br />
-
-    <table class="table table-striped table-hover ">
-        <tr>
-
-            <th style="text-align: center;">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-
-            <th style="text-align: center;">Actions</th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-
-            <tr>
-                <td style="padding-top: 22px">
-     
-                    <strong><a href="@Url.Action("Details",new { id=item.Id})">@Html.DisplayFor(modelItem => item.Name)</a></strong>
-                </td>
-                <td style="padding-top: 20px">
-                    <span class="label label-success" style="padding: 10px 20px;">@Html.DisplayFor(modelItem => item.Price) QAR</span>
-                    @*@Html.DisplayFor(modelItem => item.Price) QAR*@
-                </td>
-
-                <td>
-
-                    @if (User.Identity.Name == "admin@admin.com")
+                    @foreach (var product in Model)
                     {
-
-                        @Html.ActionLink("Edit Product", "Edit", "Products", new { id = item.Id }, new { @class = "btn btn-warning" })
-                        @Html.Raw("&nbsp;&nbsp;")
-                        @Html.ActionLink("Delete Product", "Delete", "Products", new { id = item.Id }, new { @class = "btn btn-danger" })
-
-
+                       Html.RenderPartial("_ProductCard",product);
                     }
-                    else
-                    {
-                        @Html.ActionLink("Add to cart", "AddToCart", "Transaction", new { id = item.Id }, new { @class = "btn btn-success" })
-
-                    }
+                </section>
+                <!-- E-commerce Products Ends -->
 
 
-                </td>
-            </tr>
-        }
+            </div>
+        </div>
 
-    </table>
+    </div>
+</div>
 

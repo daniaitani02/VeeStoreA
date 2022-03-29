@@ -13,10 +13,10 @@ namespace VeeStoreA.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VeeStoreDbEntities1 : DbContext
+    public partial class VeeStoreDbEntities : DbContext
     {
-        public VeeStoreDbEntities1()
-            : base("name=VeeStoreDbEntities1")
+        public VeeStoreDbEntities()
+            : base("name=VeeStoreDbEntities")
         {
         }
     
@@ -28,8 +28,12 @@ namespace VeeStoreA.Models
         public virtual DbSet<CardCode> CardCodes { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<CartItem> CartItems { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<CouponCode> CouponCodes { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Faq> Faqs { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace VeeStoreA.Controllers
 {
     public class CustomersController : Controller
     {
-        private VeeStoreDbEntities1 db = new VeeStoreDbEntities1();
+        private VeeStoreDbEntities db = new VeeStoreDbEntities();
 
         // GET: Customers
         [Authorize (Users ="admin@admin.com")]
