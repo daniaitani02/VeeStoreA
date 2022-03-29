@@ -13,56 +13,59 @@
 <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/plugins/extensions/ext-component-toastr.css">
 <!-- END: Page CSS-->
 
+@if (User.Identity.Name == "admin@admin.com")
+{
+    @Html.ActionLink("Create New", "Create")
+}
 
-                <!-- E-commerce Content Section Starts -->
-                <section id="ecommerce-header">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="ecommerce-header-items">
-                                <div class="result-toggler">
-                                    <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
-                                        <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
-                                    </button>
-                                    <div class="search-results">@Model.Count() result(s) found</div>
-                                </div>
-                                <div class="view-options d-flex">
-                                    <div class="btn-group dropdown-sort">
-                                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="active-sorting">Category</span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Gaming</a>
-                                            <a class="dropdown-item" href="#">Movies</a>
-                                            <a class="dropdown-item" href="#">Music</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+<!-- E-commerce Content Section Starts -->
+<section id="ecommerce-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ecommerce-header-items">
+                <div class="result-toggler">
+                    <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
+                        <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
+                    </button>
+                    <div class="search-results">@Model.Count() result(s) found</div>
+                </div>
+                <div class="view-options d-flex">
+                    <div class="btn-group dropdown-sort">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="active-sorting">Category</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Gaming</a>
+                            <a class="dropdown-item" href="#">Movies</a>
+                            <a class="dropdown-item" href="#">Music</a>
                         </div>
                     </div>
-                </section>
-                <!-- E-commerce Content Section Starts -->
-                <!-- E-commerce Search Bar Starts -->
-                <section id="ecommerce-searchbar" class="ecommerce-searchbar">
-                    <div class="row mt-1">
-                        <div class="col-sm-12">
-                            <div class="input-group input-group-merge">
-                                <input type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
-                                <span class="input-group-text"><i data-feather="search" class="text-muted"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- E-commerce Search Bar Ends -->
-                <!-- E-commerce Products Starts -->
-                <section id="ecommerce-products" class="grid-view">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- E-commerce Content Section Starts -->
+<!-- E-commerce Search Bar Starts -->
+<section id="ecommerce-searchbar" class="ecommerce-searchbar">
+    <div class="row mt-1">
+        <div class="col-sm-12">
+            <div class="input-group input-group-merge">
+                <input type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+                <span class="input-group-text"><i data-feather="search" class="text-muted"></i></span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- E-commerce Search Bar Ends -->
+<!-- E-commerce Products Starts -->
+<section id="ecommerce-products" class="grid-view">
 
 
-                    @foreach (var product in Model)
-                    {
-                       Html.RenderPartial("_ProductCard",product);
-                    }
-                </section>
-                <!-- E-commerce Products Ends -->
-
+    @foreach (var product in Model)
+    {
+        Html.RenderPartial("_ProductCard", product);
+    }
+</section>
+<!-- E-commerce Products Ends -->
