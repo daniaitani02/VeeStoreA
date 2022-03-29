@@ -959,7 +959,7 @@
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Index2.cshtml" />
     <Content Include="Views\CartItems\Create.cshtml" />
     <Content Include="Views\CartItems\Delete.cshtml" />
     <Content Include="Views\CartItems\Details.cshtml" />
@@ -969,6 +969,8 @@
     <Content Include="Views\Shared\_ThemeLayout.cshtml" />
     <Content Include="Views\Shared\_NewLoginPartial.cshtml" />
     <Content Include="Views\Account\_ThemeAccountLayout.cshtml" />
+    <Content Include="Views\Products\_ProductCard.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Transaction\" />

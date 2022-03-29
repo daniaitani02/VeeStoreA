@@ -42,7 +42,7 @@ namespace VeeStoreA.Controllers
             }
             catch (Exception)
             {   // If not, create a new one
-                cart = new Cart { CustomerEmail = loggedInEmail, Status = "Unpaid" };
+                cart = new Cart { CustomerEmail = loggedInEmail, Status = "Unpaid",CreatedAt=DateTime.Now };
                 db.Carts.Add(cart);
                 db.SaveChanges();
             }

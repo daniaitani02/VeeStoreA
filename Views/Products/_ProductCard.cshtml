@@ -1,0 +1,43 @@
+﻿@model VeeStoreA.Models.Product
+<div class="card ecommerce-card">
+    <div class="text-center">
+        <a href="app-ecommerce-details.html">
+            <img class="img-fluid card-img-top" src="~/Content/Images/Products/@Model.ImageName" alt="img-placeholder" />
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="item-wrapper">
+            <div class="item-rating">
+                <ul class="unstyled-list list-inline">
+                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="item-price">@Model.Price QAR</h6>
+            </div>
+        </div>
+        <h6 class="item-name">
+            <a class="text-body" href="app-ecommerce-details.html">@Model.Name</a>
+            @*<span class="card-text item-company">By <a href="#" class="company-name">Apple</a></span>*@
+        </h6>
+        <p class="card-text item-description">
+            @Model.Description
+        </p>
+    </div>
+    <div class="item-options text-center">
+        <div class="item-wrapper">
+            <div class="item-cost">
+                <h4 class="item-price">@Model.Price QAR</h4>
+            </div>
+        </div>
+
+        <a href="@Url.Action("AddToCart", "Transaction", new { id = Model.Id },null)" class="btn btn-primary btn-cart">
+            <i data-feather="shopping-cart"></i>
+            <span class="add-to-cart">Add to cart</span>
+        </a>
+    </div>
+</div>
