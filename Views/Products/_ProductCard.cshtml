@@ -34,7 +34,7 @@
                 <h4 class="item-price">@Model.Price QAR</h4>
             </div>
         </div>
-        @if (User.Identity != "admin@admin.com")
+        @if (User.Identity.Name != "admin@admin.com")
         {
             <a href="@Url.Action("AddToCart", "Transaction", new { id = Model.Id },null)" class="btn btn-primary btn-cart">
                 <i data-feather="shopping-cart"></i>
