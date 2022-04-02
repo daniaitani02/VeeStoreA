@@ -1,0 +1,64 @@
+﻿@model IEnumerable<VeeStoreA.Models.Cart>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (TempData["error"] != null)
+{
+<div class="alert alert-dismissible alert-danger">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Error</strong> @TempData["error"]
+</div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            Total Amount
+        </th>
+        <th>
+            Item Count
+        </th>
+        @if (User.Identity.Name == "admin@admin.com")
+        {
+    <th>  @Html.DisplayNameFor(model => model.Customer.Name)</th>
+        }
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @item.CartItems.Sum(p => p.Quantity * p.Product.Price) QAR
+    </td>
+    <td>@item.CartItems.Sum(p=>p.Quantity)</td>
+    @if (User.Identity.Name == "admin@admin.com")
+    {
+        <td>  @Html.DisplayFor(modelItem => item.Customer.Name)</td>
+    }
+    <td>
+
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) 
+        @if (item.Status == "Unpaid" && User.Identity.Name != "admin@admin.com")
+
+        {
+            <b>|</b>
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id });
+        }
+
+    </td>
+</tr>
+    }
+
+</table>
