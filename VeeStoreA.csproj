@@ -371,6 +371,7 @@
     <Content Include="Content\Theme\app-assets\js\core\app-menu.min.js" />
     <Content Include="Content\Theme\app-assets\js\core\app.js" />
     <Content Include="Content\Theme\app-assets\js\core\app.min.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-checkout.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\auth-two-steps.js" />
     <Content Include="Content\Theme\app-assets\vendors\css\animate\animate.css" />
     <Content Include="Content\Theme\app-assets\vendors\css\animate\animate.min.css" />
@@ -947,7 +948,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Carts\Create.cshtml" />
     <Content Include="Views\Carts\Delete.cshtml" />
-    <Content Include="Views\Carts\Details.cshtml" />
+    <Content Include="Views\Carts\Details2.cshtml" />
     <Content Include="Views\Carts\Edit.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
@@ -971,6 +972,8 @@
     <Content Include="Views\Account\_ThemeAccountLayout.cshtml" />
     <Content Include="Views\Products\_ProductCard.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Carts\Details.cshtml" />
+    <Content Include="Views\Carts\_CartItemCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Transaction\" />

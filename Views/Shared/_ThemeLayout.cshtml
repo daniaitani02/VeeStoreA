@@ -11,18 +11,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/vendors.min.css">
     <!-- END: Vendor CSS-->
     <!-- BEGIN: Theme CSS-->
 
-    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.css">
-    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/themes/bordered-layout.css">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/core/menu/menu-types/horizontal-menu.css">
     <!-- END: Page CSS-->
     <!-- BEGIN: Custom CSS-->
     <!-- END: Custom CSS-->
@@ -73,14 +73,16 @@
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
     <!-- BEGIN: Vendor JS-->
-    <script src="../Content/Theme/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="~/Content/Theme/app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
     <!-- BEGIN: Theme JS-->
-    <script src="../Content/Theme/app-assets/js/core/app-menu.js"></script>
-    <script src="../Content/Theme/app-assets/js/core/app.js"></script>
+    <script src="~/Content/Theme/app-assets/js/core/app-menu.js"></script>
+    <script src="~/Content/Theme/app-assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
     <!-- BEGIN: Page JS-->
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
+   
+    @*<script src="~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js"></script>*@
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("scripts", required: false)
     <!-- END: Page JS-->
