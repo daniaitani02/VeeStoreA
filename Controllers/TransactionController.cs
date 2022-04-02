@@ -24,13 +24,13 @@ namespace VeeStoreA.Controllers
         {
 
             string loggedInEmail = User.Identity.Name; // Get the logged in user email
-
+            DateTime currentTime = DateTime.Now;
             // Does the customer exist in the customers table?
             if (db.Customers.Count(c => c.Email.Equals(loggedInEmail)) == 0) // If the count is zero this means there is no customer so we add the customer
             {
 
                 // Adding the new customer
-                db.Customers.Add(new Customer { Email = loggedInEmail, Name = loggedInEmail.Split('@')[0],JoinedAt= DateTime.Now,CurrencyId=1
+                db.Customers.Add(new Customer { Email = loggedInEmail, Name = loggedInEmail.Split('@')[0],JoinedAt= currentTime,CurrencyId=1
             });
                 db.SaveChanges();
             }
@@ -42,7 +42,8 @@ namespace VeeStoreA.Controllers
             }
             catch (Exception)
             {   // If not, create a new one
-                cart = new Cart { CustomerEmail = loggedInEmail, Status = "Unpaid",CreatedAt=DateTime.Now };
+                cart = new Cart { CustomerEmail = loggedInEmail, Status = "Unpaid" };
+                cart.CreatedAt = currentTime;
                 db.Carts.Add(cart);
                 db.SaveChanges();
             }
@@ -72,7 +73,7 @@ namespace VeeStoreA.Controllers
             catch (Exception)
             {
                 // If item is not in cart, add it.
-                CartItem cartitem = new CartItem { ProductId = product.Id, CartId = cart.Id, Quantity = 1 };
+                CartItem cartitem = new CartItem { ProductId = product.Id, CartId = cart.Id, Quantity = 1,AddedAt= DateTime.Now };
                 db.CartItems.Add(cartitem);
             }
             db.SaveChanges();
