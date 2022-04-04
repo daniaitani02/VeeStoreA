@@ -47,6 +47,8 @@ namespace VeeStoreA.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+
             return View();
         }
 

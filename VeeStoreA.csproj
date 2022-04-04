@@ -371,6 +371,8 @@
     <Content Include="Content\Theme\app-assets\js\core\app-menu.min.js" />
     <Content Include="Content\Theme\app-assets\js\core\app.js" />
     <Content Include="Content\Theme\app-assets\js\core\app.min.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-checkout.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\auth-two-steps.js" />
     <Content Include="Content\Theme\app-assets\vendors\css\animate\animate.css" />

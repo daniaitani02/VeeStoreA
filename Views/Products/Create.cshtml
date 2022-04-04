@@ -4,8 +4,13 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
-
-<h2>Create</h2>
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/forms/select/select2.min.css">
+<style>
+    .select2-selection__arrow b {
+        display: none !important;
+    }
+</style>
+<h2>Create Product</h2>
 @if (ViewBag.error != null)
 {
     <div class="alert alert-dismissible alert-danger">
@@ -17,75 +22,90 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Create Product</h4>
+                </div>
+                <div class="card-body">
 
-    <div class="form-horizontal">
-        <h4>Product</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name"} })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="row">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-md-6 col-12">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6 col-12">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="col-md-6 col-12">
+                            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6 col-12">
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="col-md-6 col-12">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6 col-12">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
-
-                
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.EditorFor(model => model.ImageName, new { htmlAttributes = new { @class = "form-control" } })*@
-                <input class="form-control" type="file" id="formFile">
-                @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @Value = "Visible" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="col-md-6 col-12">
+                            @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6 col-12">
+                                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "hide-search form-select select2-hidden-accessible" })
+                                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                        <div class="col-md-6 col-12">
+                            @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6 col-12">
+                                @*@Html.EditorFor(model => model.ImageName, new { htmlAttributes = new { @class = "form-control" } })*@
+                                <input class="form-control" type="file" id="formFile">
+                                @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6 col-12">
+                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @Value = "Visible" } })
+                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-12">
+                            <div class="col-md-6 col-12">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>tEST</h3>
+                </div>
+
             </div>
         </div>
     </div>
+
+
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+@Scripts.Render("~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js")
+<script src="~/Content/Theme/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+
+<script src="~/Content/Theme/app-assets/js/scripts/forms/form-select2.js"></script>
