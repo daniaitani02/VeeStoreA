@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -47,6 +48,7 @@ namespace VeeStoreA.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            ViewBag.Status = new SelectList(new List<string> { "Visible", "Not Visible" });
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
 
             return View();
@@ -58,10 +60,12 @@ namespace VeeStoreA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin@admin.com")]
-        public ActionResult Create([Bind(Include = "Id,Name,Price,Description,Category,ImageName,Status,CreatedAt")] Product product)
+        public ActionResult Create([Bind(Include = "Id,Name,Price,Description,CategoryId,Status")] Product product)
         {
             var dbProducts = db.Products;
-                             
+            ViewBag.Status = new SelectList(new List<string> { "Visible", "Not Visible" });
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+            
             if (ModelState.IsValid)
             {
                 if(dbProducts.Where(p => product.Name == p.Name || product.Id == p.Id).Count() != 0)
@@ -71,6 +75,10 @@ namespace VeeStoreA.Controllers
                 }
                 DateTime now = DateTime.Now;
                 product.CreatedAt = now;
+                product.ImageName = "1.png";
+               
+
+                System.Diagnostics.Debug.WriteLine(product.CategoryId);
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
