@@ -14,10 +14,19 @@ namespace VeeStoreA.Models
     
     public partial class CouponCode
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CouponCode()
+        {
+            this.Carts = new HashSet<Cart>();
+        }
+    
         public int Id { get; set; }
         public string Code { get; set; }
         public System.DateTime ExpiryDate { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<int> DiscountPercentage { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

@@ -11,8 +11,7 @@ namespace VeeStoreA.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,7 +23,6 @@ namespace VeeStoreA.Models
         }
     
         public int Id { get; set; }
-        [Required (ErrorMessage ="Product Name is Required")]
         public string Name { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }

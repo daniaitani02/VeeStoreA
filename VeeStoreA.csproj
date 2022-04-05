@@ -266,6 +266,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\homeImg.jpg" />
+    <Content Include="Content\Images\banner.png" />
+    <Content Include="Content\Images\faq-illustrations.svg" />
     <Content Include="Content\Images\Products\1.png" />
     <Content Include="Content\Images\avatar.png" />
     <Content Include="Content\Theme\app-assets\css\bootstrap-extended.css" />
@@ -950,7 +952,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />

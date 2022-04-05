@@ -14,7 +14,7 @@ namespace VeeStoreA.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult FAQ()
         {
             ViewBag.Message = "Your application description page.";
 

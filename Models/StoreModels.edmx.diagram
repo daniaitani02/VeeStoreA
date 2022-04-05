@@ -23,6 +23,7 @@
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Currency" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_FAQ_Prodcut" ManuallyRouted="false" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Cart_Coupon" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
