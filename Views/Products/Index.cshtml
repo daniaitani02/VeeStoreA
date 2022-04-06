@@ -48,16 +48,24 @@
 </section>
 <!-- E-commerce Content Section Starts -->
 <!-- E-commerce Search Bar Starts -->
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-inline" }))
+{
 <section id="ecommerce-searchbar" class="ecommerce-searchbar">
     <div class="row mt-1">
         <div class="col-sm-12">
             <div class="input-group input-group-merge">
-                <input type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
-                <span class="input-group-text"><i data-feather="search" class="text-muted"></i></span>
+
+                <input type="text" name="SearchString" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+               
+                <span class="input-group-text"><i data-feather="search"></i></span>
+            </div>
             </div>
         </div>
-    </div>
+
 </section>
+
+}
 <!-- E-commerce Search Bar Ends -->
 <!-- E-commerce Products Starts -->
 <section id="ecommerce-products" class="grid-view">
