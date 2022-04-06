@@ -1,0 +1,134 @@
+﻿@model IEnumerable<VeeStoreA.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_ThemeLayout.cshtml";
+}
+
+
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/plugins/extensions/ext-component-sliders.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/pages/app-ecommerce.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/plugins/extensions/ext-component-toastr.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.min.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/boot">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.min.css">
+<!-- END: Page CSS-->
+
+@if (User.Identity.Name == "admin@admin.com")
+{
+    @Html.ActionLink("Create New", "Create")
+}
+
+<!-- E-commerce Content Section Starts -->
+<section id="ecommerce-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ecommerce-header-items">
+                <div class="result-toggler">
+                    <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
+                        <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
+                    </button>
+                    <div class="search-results">@Model.Count() result(s) found</div>
+                </div>
+                <div class="view-options d-flex">
+                    <div class="btn-group dropdown-sort">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="active-sorting">Category</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Gaming</a>
+                            <a class="dropdown-item" href="#">Movies</a>
+                            <a class="dropdown-item" href="#">Music</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- E-commerce Content Section Starts -->
+<!-- E-commerce Search Bar Starts -->
+<section id="ecommerce-searchbar" class="ecommerce-searchbar">
+    <div class="row mt-1">
+        <div class="col-sm-12">
+            <div class="input-group input-group-merge">
+                <input type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+                <span class="input-group-text"><i data-feather="search" class="text-muted"></i></span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- E-commerce Search Bar Ends -->
+<!-- E-commerce Products Starts -->
+
+<br />
+<br />
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Products</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category Name</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var product in Model)
+            {
+
+                <tr>
+                    <td>
+                        <img src="~/Content/Images/Products/@product.ImageName" alt="img-placeholder" class="me-75" height="40" width="40">
+                        <span class="fw-bold">@product.Name</span>
+                    </td>
+                    <td>@product.Description</td>
+                    <td>
+                        @product.Price
+                    </td>
+                    <td>@product.Category.Name</td>
+                    <td>
+                        @{
+                            if (product.Status == "Visible")
+                            {
+                                <span class="badge rounded-pill badge-light-primary me-1">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill badge-light-danger me-1">Inactive</span>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" style="">
+                                <a class="dropdown-item" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                                    <span>Edit</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    <span>Delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+
+            }
+        </tbody>
+        </table>
+</div>
+<!-- E-commerce Products Ends -->

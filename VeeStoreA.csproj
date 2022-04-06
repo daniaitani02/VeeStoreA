@@ -195,6 +195,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartItemsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
@@ -1003,6 +1004,7 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Carts\Details.cshtml" />
     <Content Include="Views\Carts\_CartItemCard.cshtml" />
+    <Content Include="Views\Admin\Products.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Transaction\" />
