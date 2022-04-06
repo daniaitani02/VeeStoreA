@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using VeeStoreA.Models;
@@ -10,15 +11,23 @@ namespace VeeStoreA.Controllers
         private VeeStoreDbEntities db = new VeeStoreDbEntities();
         public ActionResult Index()
         {
-           
+       
             return View();
+            
         }
 
-        public ActionResult FAQ()
+        public ActionResult FAQ(string faqSearchString)
         {
             ViewBag.Message = "Your application description page.";
+                        
+            var faqs = from f in db.Faqs
+                       select f;
+            if (!String.IsNullOrEmpty(faqSearchString))
+            {
+                faqs = faqs.Where(f => f.Name.Contains(faqSearchString));
 
-            return View();
+            }
+            return View(faqs);
         }
 
         public ActionResult AdminPanel()

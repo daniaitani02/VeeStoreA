@@ -49,50 +49,52 @@
                 {
                     @Html.AntiForgeryToken()
                 }
-                <li class="nav-item dropdown dropdown-cart me-25">
-                    <a class="nav-link" href="@Url.Action("MyCart","Transaction")"><i class="ficon" data-feather="shopping-cart"></i><span class="badge rounded-pill bg-primary badge-up cart-item-count">0</span></a>
+              var username = User.Identity.Name;
+                if (username != "admin@admin.com"){
+                    <li class="nav-item dropdown dropdown-cart me-25">
+                        <a class="nav-link" href="@Url.Action("MyCart", "Transaction")"><i class="ficon" data-feather="shopping-cart"></i><span class="badge rounded-pill bg-primary badge-up cart-item-count">0</span></a>
 
-                </li>
+                    </li>
+                }
 
 
+                    <li class="nav-item dropdown dropdown-user">
+                        <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">@(User.Identity.GetUserName().Split('@')[0].ToUpper())</span><span class="user-status">@(User.Identity.Name == "admin@admin.com"?"Admin":"Customer")</span></div><span class="avatar"><img class="round" src="~/Content/Images/avatar.png" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
+                           
+                            @if (username == "admin@admin.com")
+                            {
+                                <a class="dropdown-item" href="@Url.Action("AdminPanel","Home")"><i class="me-50" data-feather="activity"></i>Admin Panel</a>
 
-                <li class="nav-item dropdown dropdown-user">
-                    <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">@(User.Identity.GetUserName().Split('@')[0].ToUpper())</span><span class="user-status">@(User.Identity.Name == "admin@admin.com"?"Admin":"Customer")</span></div><span class="avatar"><img class="round" src="~/Content/Images/avatar.png" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                        @{ var username = User.Identity.Name;}
-                        @if (username == "admin@admin.com")
-                        {
-                            <a class="dropdown-item" href="@Url.Action("AdminPanel","Home")"><i class="me-50" data-feather="activity"></i>Admin Panel</a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item" href="@Url.Action("Details","Customers",new {id=username+"/" })"><i class="me-50" data-feather="user"></i> Profile</a>
 
-                        }
-                        else
-                        {
-                            <a class="dropdown-item" href="@Url.Action("Details","Customers",new {id=username+"/" })"><i class="me-50" data-feather="user"></i> Profile</a>
+                            }
+                            <a class="dropdown-item" href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a>
+                            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="me-50" data-feather="power"></i> Logout</a>
+                        </div>
+                    </li>
 
-                        }
-                        <a class="dropdown-item" href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a>
-                        <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="me-50" data-feather="power"></i> Logout</a>
-                    </div>
-                </li>
+                }
+                else
+                {
+                    <li class="nav-item me-25">
+                        @*<a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="shopping-cart"></i><span class="badge rounded-pill bg-primary badge-up cart-item-count">6</span></a>*@
+                        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary w-100 waves-effect waves-float waves-light" })
 
-            }
-            else
-            {
-                <li class="nav-item me-25">
-                    @*<a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="shopping-cart"></i><span class="badge rounded-pill bg-primary badge-up cart-item-count">6</span></a>*@
-                    @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary w-100 waves-effect waves-float waves-light" })
+                    </li>
 
-                </li>
+                    <li class="nav-item me-25">
+                        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-outline-primary w-100 waves-effect waves-float waves-light" })
 
-                <li class="nav-item me-25">
-                    @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-outline-primary w-100 waves-effect waves-float waves-light" })
+                    </li>
+                }
 
-                </li>
-            }
-
-        </ul>
+            </ul>
     </div>
 </nav>
 

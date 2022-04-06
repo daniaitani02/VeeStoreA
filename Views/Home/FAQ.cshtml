@@ -7,31 +7,40 @@
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper container-xxl p-0">
+
+       
+
         
         <div class="content-body">
             <!-- search header -->
-            <section id="faq-search-filter">
-                <div class="card faq-search" style="background-image: url('/Content/Images/banner.png')">
-                    <div class="card-body text-center">
-                        <!-- main title -->
-                        <h2 class="text-primary">Let's answer some questions</h2>
-                        <br />
-                        <br />
+            
+                <section id="faq-search-filter">
+                    <div class="card faq-search" style="background-image: url('/Content/Images/banner.png')">
+                        <div class="card-body text-center">
+                            <!-- main title -->
+                            <h2 class="text-primary">Let's answer some questions</h2>
+                            <br />
+                            <br />
 
-                        <!-- search input -->
-                        <form class="faq-search-input">
-                            <div class="input-group input-group-merge">
-                                <div class="input-group-text">
-                                    <i data-feather="search"></i>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Search FAQ..." />
+                            <!-- search input -->
+                            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-inline" }))
+                            {
+                                <form class="faq-search-input">
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-group-text">
+                                            <i data-feather="search"></i>
+                                        </div>
+                                        <input type="text" name="faqSearchString" class="form-control" placeholder="Search FAQ..." />
+                                    </div>
+                                </form>
+                            }
+                                <br />
+                                <br />
+
                             </div>
-                        </form>
-                        <br />
-                        <br />
                     </div>
-                </div>
-            </section>
+                </section>
+           
             <!-- /search header -->
             <!-- frequently asked questions tabs pills -->
             <section id="faq-tabs">
@@ -39,8 +48,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-12">
                         <div class="faq-navigation d-flex justify-content-between flex-column mb-2 mb-md-0">
-                           
-                       
+
+
                             <!-- FAQ image -->
                             <img src="~/Content/Images/faq-illustrations.svg" class="img-fluid d-none d-md-block" alt="demand img" />
                         </div>
@@ -63,6 +72,8 @@
                                 </div>
 
                                 <!-- frequent answer and question  collapse  -->
+                            
+            
                                 <div class="accordion accordion-margin mt-2" id="faq-payment-qna">
                                     <div class="card accordion-item">
                                         <h2 class="accordion-header" id="paymentOne">
@@ -169,8 +180,8 @@
                                 </div>
                             </div>
 
-                     
-                      
+
+
                         </div>
                     </div>
                 </div>
@@ -195,7 +206,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-1">
-                                             
+
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
                                                     <input type="text" id="first-name-icon" class="form-control" name="fname-icon" placeholder="Full Name">
@@ -204,7 +215,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-1">
-                                        
+
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></span>
                                                     <input type="email" id="email-id-icon" class="form-control" name="email-id-icon" placeholder="Email">
@@ -213,7 +224,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-1">
-                                                
+
                                                 <div class="input-group input-group-merge">
                                                     <textarea id="email-id-icon" class="form-control" name="email-id-icon" placeholder="Your Question"></textarea>
                                                 </div>
