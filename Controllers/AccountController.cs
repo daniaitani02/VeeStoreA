@@ -12,9 +12,11 @@ using VeeStoreA.Models;
 
 namespace VeeStoreA.Controllers
 {
+   
     [Authorize]
     public class AccountController : Controller
     {
+        private VeeStoreDbEntities db = new VeeStoreDbEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -156,7 +158,11 @@ namespace VeeStoreA.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    DateTime now = DateTime.Now;
+                    Customer customer = new Customer { Email = model.Email, Name = model.FullName, Gender = model.Gender,JoinedAt=now,CurrencyId=1 };
+
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

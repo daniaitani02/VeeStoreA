@@ -51,51 +51,68 @@
             </div>
             <div class="mb-1">
 
-                @Html.Label("name","Full Name", new { @class = "form-label" })
-                @Html.TextBox("name",null, new { @class = "form-control", placeholder = "Ahmed Yousef", @type = "text", @required = true, @autofocus = true })
+                @Html.LabelFor(m => m.FullName, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Ahmed Yousef", @type = "text", @required = true, @autofocus = true })
 
-              
+                @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+
+
             </div>
             <div class="mb-1">
-                <div class="d-flex justify-content-between">
-                    @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                <p class="form-label">Gender</p>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.Gender, "M", new { @class = "form-check-input form-check-danger" })
+
+                    @* <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="M" checked="" data-com.bitwarden.browser.user-edited="yes">*@
+                    <label class="form-check-label" for="maleRadio">Male</label>
 
                 </div>
-                <div class="input-group input-group-merge form-password-toggle">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-merge", placeholder = "***********", @required = true })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    @* <input type="password" class="form-control form-control-merge" id="login-password" name="login-password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />*@
-                    <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(model => model.Gender,"F",new { @class= "form-check-input form-check-danger" } )
+                   @* <input class="form-check-input form-check-danger" type="radio" name="gender" id="femaleRadio" value="F" data-com.bitwarden.browser.user-edited="yes">*@
+                    <label class="form-check-label" for="femaleRadio">Female</label>
                 </div>
+                </div>
+                <div class="mb-1">
+                    <div class="d-flex justify-content-between">
+                        @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+
+                    </div>
+                    <div class="input-group input-group-merge form-password-toggle">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-merge", placeholder = "***********", @required = true })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        @* <input type="password" class="form-control form-control-merge" id="login-password" name="login-password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />*@
+                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                    </div>
+                </div>
+                <div class="mb-1">
+                    <div class="d-flex justify-content-between">
+                        @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+
+                    </div>
+                    <div class="input-group input-group-merge form-password-toggle">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-merge", placeholder = "***********", @required = true })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        @* <input type="password" class="form-control form-control-merge" id="login-password" name="login-password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />*@
+                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <button class="btn btn-primary w-100" tabindex="4">Create Account</button>
+
+                }
+
+
+                <p class="text-center mt-2">
+                    <span>Already Have An Account?</span>
+                    @Html.ActionLink("Login", "Login")
+
+                </p>
+
+
             </div>
-            <div class="mb-1">
-                <div class="d-flex justify-content-between">
-                    @Html.LabelFor(m => m.Password, new { @class = "form-label" })
-
-                </div>
-                <div class="input-group input-group-merge form-password-toggle">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-merge", placeholder = "***********", @required = true })
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-                    @* <input type="password" class="form-control form-control-merge" id="login-password" name="login-password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />*@
-                    <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
-                </div>
-            </div>
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <button class="btn btn-primary w-100" tabindex="4">Create Account</button>
-
-        }
-
-
-        <p class="text-center mt-2">
-            <span>Already Have An Account?</span>
-            @Html.ActionLink("Login", "Login")
-
-        </p>
-
-
-    </div>
-</div>
+        </div>
 
 
 
