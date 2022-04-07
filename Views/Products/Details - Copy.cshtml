@@ -1,0 +1,88 @@
+﻿@model VeeStoreA.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+    @if (User.Identity.Name == "admin@admin.com")
+    {
+
+        @Html.ActionLink("Edit Product", "Edit", "Products", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.Raw("&nbsp;&nbsp;")
+        @Html.ActionLink("Delete Product", "Delete", "Products", new { id = Model.Id }, new { @class = "btn btn-danger" })
+
+    }
+    else
+    {
+        @Html.ActionLink("Add to cart", "AddToCart", "Transaction", new { id = Model.Id }, new { @class = "btn btn-success" })
+
+    }
+    &nbsp;
+    <strong>@Html.ActionLink("Back to Products", "Index")</strong>
+</p>

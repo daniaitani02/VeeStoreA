@@ -2,87 +2,126 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
 
-<h2>Details</h2>
+<div class=" content ecommerce-application" style="padding-top: 20px">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h2 class="content-header-title float-start mb-0">Product Details</h2>
+                        <div class="breadcrumb-wrapper">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="@Url.Action("Index", "Home")">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="@Url.Action("Index", "Products")">Products</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    Details
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- app e-commerce details start -->
+            <section class="app-ecommerce-details">
+                <div class="card">
+                    <!-- Product Details starts -->
+                    <div class="card-body">
+                        <div class="row my-2">
+                            <div class="col-12 col-md-5 d-flex align-items-center justify-content-center mb-2 mb-md-0">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <img src="~/Content/Images/Products/@Model.ImageName" class="img-fluid product-img" alt="product image" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <h4>@Model.Name</h4>
+                                <span class="card-text item-company">By <a href="#" class="company-name">@Model.Category.Name</a></span>
+                                <div class="ecommerce-details-price d-flex flex-wrap mt-1">
+                                    <h4 class="item-price me-1">@Model.Price</h4>
+                                    <ul class="unstyled-list list-inline ps-1 border-start">
+                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                    </ul>
+                                </div>
+                                @{ if (Model.Status == "Visible")
+                                    {
+                                        <p class="card-text">Available - <span class="text-success">In stock</span></p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text">Unavailable - <span class="text-danger">Out of stock</span></p>
+                                    }
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                                }
+                                <p class="card-text">
+                                    @Model.Description
+                                </p>
+                                <hr />
+                                <ul class="product-features list-unstyled">
+                                    <li><i data-feather="shopping-cart"></i> <span>Free Shipping</span></li>
+                                </ul>
+                                <hr />
+                                <div class="d-flex flex-column flex-sm-row pt-1">
+                                    @{
+                                        if (Model.Status == "Visible")
+                                        {
+                                            <a href="@Url.Action("AddToCart", "Transaction", new { id = Model.Id })" class="btn btn-primary btn-cart me-0 me-sm-1 mb-1 mb-sm-0">
+                                                <i data-feather="shopping-cart" class="me-50"></i>
+                                                <span class="add-to-cart">Add to cart</span>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-outline-dark btn-cart me-0 me-sm-1 mb-1 mb-sm-0" style="pointer-events:none;">
+                                                <i data-feather="shopping-cart" class="me-50"></i>
+                                                <span class="add-to-cart">Add to cart</span>
+                                            </a>
+                                        }
+                                    }
+                                    <a href="@Url.Action("Index", "Products")" class="btn btn-outline-secondary btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0">
+                                        @*<i data-feather="heart" class="me-50"></i>*@
+                                        <span>Back to products</span>
+                                    </a>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                                    @{
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+                                        if (User.Identity.Name == "admin@admin.com")
+                                        {
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+                                            <a href="@Url.Action("Edit", "Products", new { id = Model.Id })" class="btn btn-warning btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0">
+                                                <i data-feather="edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", "Products", new { id = Model.Id })" class="btn btn-danger btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0">
+                                                <i data-feather="trash-2"></i>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                                            </a>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                                        }
+                                    }
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Details ends -->
+                </div>
+            </section>
+            <!-- app e-commerce details end -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImageName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
 </div>
-<p>
 
-    @if (User.Identity.Name == "admin@admin.com")
-    {
-
-        @Html.ActionLink("Edit Product", "Edit", "Products", new { id = Model.Id }, new { @class = "btn btn-warning" })
-        @Html.Raw("&nbsp;&nbsp;")
-        @Html.ActionLink("Delete Product", "Delete", "Products", new { id = Model.Id }, new { @class = "btn btn-danger" })
-
-    }
-    else
-    {
-        @Html.ActionLink("Add to cart", "AddToCart", "Transaction", new { id = Model.Id }, new { @class = "btn btn-success" })
-
-    }
-    &nbsp;
-    <strong>@Html.ActionLink("Back to Products", "Index")</strong>
-</p>
