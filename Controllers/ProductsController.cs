@@ -18,8 +18,7 @@ namespace VeeStoreA.Controllers
         // GET: Products
         public ActionResult Index(string SearchString)
         {
-            var products = from p in db.Products
-                       select p;
+            var products = db.Products.Where(p => p.Status == "Visible");
             if (!String.IsNullOrEmpty(SearchString))
             {
                 products = products.Where(p => p.Name.Contains(SearchString));
@@ -49,7 +48,7 @@ namespace VeeStoreA.Controllers
         public ActionResult Create()
         {
             ViewBag.Status = new SelectList(new List<string> { "Visible", "Not Visible" });
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name",null);
 
             return View();
         }
@@ -92,6 +91,8 @@ namespace VeeStoreA.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.canEdit = true;
+           
+
 
             if (id == null)
             {
@@ -107,6 +108,8 @@ namespace VeeStoreA.Controllers
                 ViewBag.error = "This item cannot be edited because its already in a cart.";
                 ViewBag.canEdit = false;
             }
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name",product.Category);
+            ViewBag.Status = new SelectList(new List<string> { "Visible", "Not Visible" },product.Status);
             return View(product);
         }
 
@@ -116,7 +119,7 @@ namespace VeeStoreA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin@admin.com")]
-        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,Category,ImageName,Status,CreatedAt")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,CategoryId,ImageName,Status,CreatedAt")] Product product)
         {
             ViewBag.canEdit = true;
             if (ModelState.IsValid)
