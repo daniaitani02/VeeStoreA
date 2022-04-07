@@ -32,6 +32,28 @@ namespace VeeStoreA.Controllers
             //return View(db.Products.ToList());
         }
 
+        public ActionResult ToggleVisibility(int? id)
+        {
+
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (product.Status == "Visible")
+            {
+                product.Status = "Invisible";
+            } else
+            {
+                product.Status = "Visible";
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Products");
+        }
+
         // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
