@@ -1011,6 +1011,7 @@
     <Content Include="Views\CardCodes\Details.cshtml" />
     <Content Include="Views\CardCodes\Edit.cshtml" />
     <Content Include="Views\CardCodes\Index.cshtml" />
+    <Content Include="Views\Products\Details - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Transaction\" />
