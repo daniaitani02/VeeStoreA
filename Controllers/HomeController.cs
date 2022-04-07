@@ -29,7 +29,21 @@ namespace VeeStoreA.Controllers
             }
             return View(faqs);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FaqCreate([Bind(Include = "Email,Name,Question")] Faq faq)
+        {
+            if (ModelState.IsValid)
+            {
+                faq.Status = "Awaiting Aproval";
+                db.Faqs.Add(faq);
+                db.SaveChanges();
+                return RedirectToAction("FAQ");
+            }
 
+            //ViewBag.CustomerName = new SelectList(db.Customers, "UserName", "Name", cart.CustomerName);
+            return View(faq);
+        }
         public ActionResult AdminPanel()
         {
 
