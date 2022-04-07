@@ -19,7 +19,15 @@
                 </ul>
             </div>
         </div>
-        <span class="text-success mb-1">In Stock</span>
+        @if (Model.Product.CardCodes.Count() == 0)
+        {
+            <span class="text-danger mb-1">Out Of Stock</span>
+        }
+        else
+        {
+            <span class="text-success mb-1">In Stock</span>
+        }
+
         <div class="item-quantity">
             <span class="quantity-title">Qty:</span>
             <div class="quantity-counter-wrapper">
