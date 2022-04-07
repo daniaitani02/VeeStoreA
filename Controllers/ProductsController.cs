@@ -18,7 +18,15 @@ namespace VeeStoreA.Controllers
         // GET: Products
         public ActionResult Index(string SearchString)
         {
-            var products = db.Products.Where(p => p.Status == "Visible");
+            if (Request.IsAuthenticated)
+            {
+                Customer customer = db.Customers.Find(User.Identity.Name);
+                ViewBag.CurrencySymbol = customer.Currency.Symbol;
+                ViewBag.Mutliplier = customer.Currency.Multiplier;
+
+            }
+            var products = from p in db.Products
+                       select p;
             if (!String.IsNullOrEmpty(SearchString))
             {
                 products = products.Where(p => p.Name.Contains(SearchString));
