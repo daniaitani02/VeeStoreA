@@ -48,10 +48,12 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProductId,Code,Status,CreatedAt,UsedAt")] CardCode cardCode)
+        public ActionResult Create([Bind(Include = "Id,ProductId,Code,Status")] CardCode cardCode)
         {
             if (ModelState.IsValid)
             {
+                DateTime now = DateTime.Now;
+                cardCode.CreatedAt = now;
                 db.CardCodes.Add(cardCode);
                 db.SaveChanges();
                 return RedirectToAction("Index");
