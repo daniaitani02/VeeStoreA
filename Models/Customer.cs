@@ -19,6 +19,7 @@ namespace VeeStoreA.Models
         {
             this.Carts = new HashSet<Cart>();
             this.Ratings = new HashSet<Rating>();
+            this.CardCodes = new HashSet<CardCode>();
         }
     
         public string Email { get; set; }
@@ -34,5 +35,7 @@ namespace VeeStoreA.Models
         public virtual Currency Currency { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Ratings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CardCode> CardCodes { get; set; }
     }
 }

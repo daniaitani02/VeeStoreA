@@ -109,20 +109,26 @@ namespace VeeStoreA.Controllers
             if (cart.CartItems.Count() == 0)
             {
                 TempData["error"] = "Cart Is Empty";
+                return RedirectToAction("Details", "Carts", new { id = id });
 
             }
-            else
+           
+            //Check Stock Availability
+            foreach (CartItem cartItem in cart.CartItems)
             {
-                if (String.IsNullOrEmpty(deliveryMethod))
+                if(cartItem.Product.CardCodes.Where(cc=>cc.Status=="New").Count() < cartItem.Quantity)
                 {
-                    TempData["error"] = "Delivery Method Is Null";
+                    TempData["error"] = "There are not enough codes in stock for " + cartItem.Product.Name;
                     return RedirectToAction("Details", "Carts", new { id = id });
                 }
-                cart.Status = "Paid";
-                cart.PaidAt = DateTime.Now;
-                db.SaveChanges();
             }
-            System.Diagnostics.Debug.WriteLine(deliveryMethod);
+
+            
+
+                cart.Status = "Paid";
+            cart.PaidAt = DateTime.Now;
+            db.SaveChanges();
+
             TempData["error"] = deliveryMethod;
             return RedirectToAction("Details", "Carts", new { id = id });
 
