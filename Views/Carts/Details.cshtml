@@ -65,7 +65,7 @@
                 <i data-feather="chevron-right" class="font-medium-2"></i>
             </div>
             <div class="step" data-target="#step-address" role="tab" id="step-address-trigger">
-                <button type="button" class="step-trigger">
+                <button type="button" class="step-trigger" @(Model.CartItems.Count() == 0?"disabled":null)>
                     <span class="bs-stepper-box">
                         <i data-feather="home" class="font-medium-3"></i>
                     </span>
@@ -79,7 +79,7 @@
                 <i data-feather="chevron-right" class="font-medium-2"></i>
             </div>
             <div class="step" data-target="#step-payment" role="tab" id="step-payment-trigger">
-                <button type="button" class="step-trigger">
+                <button type="button" class="step-trigger" @(Model.CartItems.Count() == 0?"disabled":null)>
                     <span class="bs-stepper-box">
                         <i data-feather="credit-card" class="font-medium-3"></i>
                     </span>
@@ -99,10 +99,21 @@
                 <div id="place-order" class="list-view product-checkout">
                     <!-- Checkout Place Order Left starts -->
                     <div class="checkout-items">
-                        @foreach (var item in Model.CartItems)
+                        @if (Model.CartItems.Count() == 0)
                         {
-                            Html.RenderPartial("_CartItemCard", item);
+
+                        <center>
+                            <div class="detail-amt discount-amt text-danger">Your Cart is Empty</div>
+                        </center>
                         }
+                        else
+                        {
+                            foreach (var item in Model.CartItems)
+                            {
+                                Html.RenderPartial("_CartItemCard", item);
+                            }
+                        }
+                        
 
                     </div>
                     <!-- Checkout Place Order Left ends -->
@@ -171,7 +182,7 @@
                                             <div class="detail-amt fw-bolder">@(totalCart - discountAmount) @currecnySymbol</div>
                                         </li>
                                     </ul>
-                                    <button type="button" class="btn btn-primary w-100 btn-next place-order">Choose Delivery Method</button>
+                                    <button type="button" @(Model.CartItems.Count() == 0?"disabled":null) class="btn btn-primary w-100 btn-next place-order">Choose Delivery Method</button>
                                 </div>
                             </div>
                         </div>

@@ -97,12 +97,24 @@ namespace VeeStoreA.Controllers
             // Redirect user to their unpaid cart
             return RedirectToAction("Details", "Carts", new { id = cart.Id });
         }
-        public ActionResult Reciept()
+        public ActionResult Receipt(int? id)
         {
-
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cart cart = db.Carts.Find(id);
+            if (cart == null)
+            {
+                return HttpNotFound();
+            }
+            if (cart.Customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+            return View(cart);
         }
-        public ActionResult Checkout(int? id, String deliveryMethod)
+        public ActionResult Checkout(int? id, string deliveryMethod,int creditCardId)
         {
 
             if (id == null)
@@ -138,6 +150,8 @@ namespace VeeStoreA.Controllers
             //Flag Cart As Paid
             cart.Status = "Paid";
             cart.PaidAt = DateTime.Now;
+            cart.CreditCardId = creditCardId;
+            
             db.SaveChanges();
             var recieptTable = "";
             string text = System.IO.File.ReadAllText(HostingEnvironment.MapPath(@"~/Content/Reciept_Template.txt"));
@@ -159,24 +173,29 @@ namespace VeeStoreA.Controllers
                 db.SaveChanges();
 
                 recieptTable += @"<tr>
-                                    <td style=""font - family: 'Montserrat',Arial,sans - serif; font - size: 14px; padding - top: 10px; padding - bottom: 10px; width: 80 %; "" width=""80 % "">"+cardCode.Product.Name+@"
-                                       <br><strong> Code: "+cardCode.Code+@" </ strong ></ td >
+                                    <td style=""font - family: 'Montserrat',Arial,sans - serif; font - size: 14px; padding - top: 10px; padding - bottom: 10px; width: 80 %; "" width=""80 % "">"+cardCode.Product.Name+ @"
+                                       <br>Code: <strong style=""color:blue;"">" + cardCode.Code+@" </ strong ></ td >
                                     <td align = ""right"" style = ""font-family: 'Montserrat',Arial,sans-serif; font-size: 14px; text-align: right; width: 20%;"" width = ""20%"">"+ (cartItem.Product.Price * currecnyMutliplier).ToString() + currecnySymbol  + "</td></tr>";
 
                 }
+               
             }
 
-            
-
+            TempData["receiptTable"] = recieptTable;
+            if (deliveryMethod == "emailDelivery")
+            {
             text = text.Replace("Customer_Name!", cart.Customer.Name);
             text = text.Replace("Paid_At", cart.PaidAt.ToString());
             text = text.Replace("Cart_Id", cart.Id.ToString());
             text = text.Replace("Amount_Paid", ((totalCart - discountAmount) * currecnyMutliplier).ToString() + currecnySymbol);
             text = text.Replace("Discount_Amount", discountAmount.ToString());
             text = text.Replace("Reciept_Table", recieptTable);
-            sendEmail("Sp0derDev@protonmail.com", text, "VeeStore Reciept");
+           
+                sendEmail("Sp0derDev@protonmail.com", text, "VeeStore Reciept");
+            }
+           
 
-            return RedirectToAction("Details", "Carts", new { id = id });
+            return RedirectToAction("Receipt", new { id = id });
 
 
         }
