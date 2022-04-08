@@ -5,8 +5,8 @@
     var currecnySymbol = Model.Customer.Currency.Symbol;
     var currecnyMutliplier = Model.Customer.Currency.Multiplier;
     var totalCart = Model.CartItems.Sum(ci => ci.Quantity * ci.Product.Price) * currecnyMutliplier;
-    
-    var discountAmount = Model.CouponCode!=null?(totalCart * ((double)Model.CouponCode.DiscountPercentage / 100)):0;
+
+    var discountAmount = Model.CouponCode != null ? (totalCart * ((double)Model.CouponCode.DiscountPercentage / 100)) : 0;
 
 }
 
@@ -16,12 +16,11 @@
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
 
 <!-- END: Vendor CSS-->
-
-
 <!-- BEGIN: Page CSS-->
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/pages/app-ecommerce.css">
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/plugins/forms/pickers/form-pickadate.css">
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/plugins/forms/form-wizard.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/plugins/forms/form-validation.css">
 
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/plugins/forms/form-number-input.css">
 <!-- END: Page CSS-->
@@ -86,8 +85,8 @@
             </div>
         </div>
         <!-- Wizard ends -->
-      
-            @Html.AntiForgeryToken()
+
+        @Html.AntiForgeryToken()
     <div class="bs-stepper-content">
         <!-- Checkout Place order starts -->
         <div id="step-cart" class="content" role="tabpanel" aria-labelledby="step-cart-trigger">
@@ -175,6 +174,11 @@
             </div>
             <!-- Checkout Place order Ends -->
         </div>
+        @using (Html.BeginForm("AddCard", "Customer", FormMethod.Post, new { id = "addCard" }))
+
+        {
+            
+        }
         @using (Html.BeginForm("Checkout", "Transaction"))
         {
             <!-- Checkout Customer Address Starts -->
@@ -241,62 +245,92 @@
                 <div class="list-view product-checkout">
                     <div class="payment-type">
                         <div class="card">
-                            <div class="card-header flex-column align-items-start">
-                                <h4 class="card-title">Payment options</h4>
-                                <p class="card-text text-muted mt-25">Be sure to click on correct payment option</p>
+                            <div class="card-header border-bottom">
+                                <h4 class="card-title">Payment Methods</h4>
                             </div>
-                            <div class="card-body">
-                                <h6 class="card-holder-name my-75">John Doe</h6>
-                                <div class="form-check">
-                                    <input type="radio" id="customColorRadio1" name="paymentOptions" class="form-check-input" checked />
-                                    <label class="form-check-label" for="customColorRadio1">
-                                        US Unlocked Debit Card 12XX XXXX XXXX 0000
-                                    </label>
-                                </div>
-                                <div class="customer-cvv mt-1 row row-cols-lg-auto">
-                                    <div class="col-3 d-flex align-items-center">
-                                        <label class="mb-50 form-label" for="card-holder-cvv">Enter CVV:</label>
+                            <div class="card-body my-1 py-25">
+                                <div class="row gx-4">
+                                    <div class="col-lg-6">
+                                        <h6 class="fw-bolder mb-2">Add Card</h6>
+
+                                        <div id="creditCardForm" class="row gx-2 gy-1 validate-form">
+
+                                            <div class="col-12 mt-0">
+                                                <label class="form-label" for="addCardNumber">Card Number</label>
+                                                <div class="input-group input-group-merge">
+                                                    <input id="addCardNumber" name="addCard" form="addCard" class="form-control add-credit-card-mask" type="text" placeholder="xxxx xxxx xxxx xxxx" aria-describedby="addCard2" data-msg="Please enter your credit card number" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="form-label" for="addCardName">Name On Card</label>
+                                                <input type="text" id="addCardName"form="addCard" class="form-control" placeholder="John Doe" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <label class="form-label" for="addCardExpiryDate">Exp. Date</label>
+                                                <input type="text" id="addCardExpiryDate"form="addCard" class="form-control add-expiry-date-mask" placeholder="MM/YY" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <label class="form-label" for="addCardCvv">CVV</label>
+                                                <input type="text" id="addCardCvv"form="addCard" class="form-control add-cvv-code-mask" maxlength="3" placeholder="cvv">
+                                            </div>
+
+
+                                            <div class="col-12 mt-2 pt-1">
+                                                <button type="submit" form="addCard" class="btn btn-primary me-1 waves-effect waves-float waves-light">Save Card For Future Payments</button>
+                                            </div>
+
+
+                                        </div>
+
                                     </div>
-                                    <div class="col-4 p-0">
-                                        <input type="password" class="form-control mb-50 input-cvv" name="input-cvv" id="card-holder-cvv" />
+                                    <div class="col-lg-6 mt-2 mt-lg-0">
+                                        <h6 class="fw-bolder mb-2">My Cards</h6>
+                                        <div class="added-cards">
+                                            <div class="cardMaster rounded border p-2 mb-1">
+                                                <div class="d-flex justify-content-between flex-sm-row flex-column">
+                                                    <div class="card-information">
+                                                        <img class="mb-1 img-fluid" src="~/Content/Images/icons/payments/mastercard.png" alt="Master Card">
+                                                        <div class="d-flex align-items-center mb-50">
+                                                            <h6 class="mb-0">Tom McBride</h6>
+                                                            <span class="badge badge-light-primary ms-50">Primary</span>
+                                                        </div>
+                                                        <span class="card-number">∗∗∗∗ ∗∗∗∗ 9856</span>
+                                                    </div>
+                                                    <div class="d-flex flex-column text-start text-lg-end">
+                                                        <div class="d-flex order-sm-0 order-1 mt-1 mt-sm-0">
+                                                            <button class="btn btn-outline-primary me-75 waves-effect" data-bs-toggle="modal" data-bs-target="#editCard">
+                                                                Edit
+                                                            </button>
+                                                            <button class="btn btn-outline-secondary waves-effect">Delete</button>
+                                                        </div>
+                                                        <span class="mt-2">Card expires at 12/24</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cardMaster border rounded p-2">
+                                                <div class="d-flex justify-content-between flex-sm-row flex-column">
+                                                    <div class="card-information">
+                                                        <img class="mb-1 img-fluid" src="~/Content/Images/icons/payments/visa.png" alt="Visa Card">
+                                                        <h6>Mildred Wagner</h6>
+                                                        <span class="card-number">∗∗∗∗ ∗∗∗∗ 5896</span>
+                                                    </div>
+                                                    <div class="d-flex flex-column text-start text-lg-end">
+                                                        <div class="d-flex order-sm-0 order-1 mt-1 mt-sm-0">
+                                                            <button class="btn btn-outline-primary me-75 waves-effect" data-bs-toggle="modal" data-bs-target="#editCard">
+                                                                Edit
+                                                            </button>
+                                                            <button class="btn btn-outline-secondary waves-effect">Delete</button>
+                                                        </div>
+                                                        <span class="mt-2">Card expires at 02/24</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-3">
-                                        <button type="button" class="btn btn-primary btn-cvv mb-50">Continue</button>
-                                    </div>
-                                </div>
-                                <hr class="my-2" />
-                                <ul class="other-payment-options list-unstyled">
-                                    <li class="py-50">
-                                        <div class="form-check">
-                                            <input type="radio" id="customColorRadio2" name="paymentOptions" class="form-check-input" />
-                                            <label class="form-check-label" for="customColorRadio2"> Credit / Debit / ATM Card </label>
-                                        </div>
-                                    </li>
-                                    <li class="py-50">
-                                        <div class="form-check">
-                                            <input type="radio" id="customColorRadio3" name="paymentOptions" class="form-check-input" />
-                                            <label class="form-check-label" for="customColorRadio3"> Net Banking </label>
-                                        </div>
-                                    </li>
-                                    <li class="py-50">
-                                        <div class="form-check">
-                                            <input type="radio" id="customColorRadio4" name="paymentOptions" class="form-check-input" />
-                                            <label class="form-check-label" for="customColorRadio4"> EMI (Easy Installment) </label>
-                                        </div>
-                                    </li>
-                                    <li class="py-50">
-                                        <div class="form-check">
-                                            <input type="radio" id="customColorRadio5" name="paymentOptions" class="form-check-input" />
-                                            <label class="form-check-label" for="customColorRadio5"> Cash On Delivery </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <hr class="my-2" />
-                                <div class="gift-card mb-25">
-                                    <p class="card-text">
-                                        <i data-feather="plus-circle" class="me-50 font-medium-5"></i>
-                                        <span class="align-middle">Add Gift Card</span>
-                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -350,10 +384,10 @@
             </div>
             <!-- Checkout Payment Ends -->
         }
-            <!-- </div> -->
-        </div>
+        <!-- </div> -->
+    </div>
 
-        
+
     </div>
 </div>
 
