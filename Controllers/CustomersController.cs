@@ -67,6 +67,8 @@ namespace VeeStoreA.Controllers
         // GET: Customers/Edit/5
         public ActionResult Edit(string id)
         {
+            ViewBag.CurrencyId = new SelectList(db.Currencies, "Id", "ShortName",null);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -87,11 +89,10 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Email,Name,Address")] Customer customer)
+        public ActionResult Edit([Bind(Include = "Email,Name,CurrencyId,Gender,JoinedAt,Status")] Customer customer)
         {
             // Does the customer object belong to the logged in user? If not, return Forbidden error
-            if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-
+          
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;

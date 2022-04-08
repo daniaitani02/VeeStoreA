@@ -1,7 +1,7 @@
 ﻿@model VeeStoreA.Models.Product
 <div class="card ecommerce-card">
     <div class="text-center">
-        <a href="app-ecommerce-details.html">
+        <a href="@Url.Action("Details", "Products", new { id= Model.Id })">
             <img class="img-fluid card-img-top" src="~/Content/Images/Products/@Model.ImageName" alt="img-placeholder" />
         </a>
     </div>
@@ -17,11 +17,11 @@
                 </ul>
             </div>
             <div>
-                <h6 class="item-price">@Model.Price QAR</h6>
+                <h6 class="item-price">@((double)Model.Price * @ViewBag.Mutliplier) @ViewBag.CurrencySymbol</h6>
             </div>
         </div>
         <h6 class="item-name">
-            <a class="text-body" href="app-ecommerce-details.html">@Model.Name</a>
+            <a class="text-body" href="@Url.Action("Details", "Products", new { id= Model.Id })">@Model.Name</a>
             @*<span class="card-text item-company">By <a href="#" class="company-name">Apple</a></span>*@
         </h6>
         <p class="card-text item-description">
@@ -31,7 +31,7 @@
     <div class="item-options text-center">
         <div class="item-wrapper">
             <div class="item-cost">
-                <h4 class="item-price">@Model.Price QAR</h4>
+                <h4 class="item-price">@Model.Price * @ViewBag.Mutliplier+@ViewBag.CurrencySymbol</h4>
             </div>
         </div>
         @if (User.Identity.Name != "admin@admin.com")

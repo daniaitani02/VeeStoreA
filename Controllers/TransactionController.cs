@@ -121,6 +121,29 @@ namespace VeeStoreA.Controllers
 
 
         }
+        public ActionResult Apply(string code)
+        {
+            IEnumerable<CouponCode> couponCodes = db.CouponCodes.Where(c=>c.Code==code);
+           
+            Cart cart = GetUsersCart();
+            if (couponCodes.Count() == 0)
+            {
+                TempData["error"] = "Coupoun Code is not valid";
+
+            }
+            else
+            {
+                CouponCode couponCode = couponCodes.First();
+                TempData["info"] = "Applied Coupon Code";
+            }
+            //Cart cart = db.Carts.Find(id);
+            //if (cart.Customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            //if (cart.CouponCode != ) ;
+
+
+            return RedirectToAction("Details","Carts", new { id = cart.Id });
+
+        }
 
     }
 }

@@ -18,6 +18,13 @@ namespace VeeStoreA.Controllers
         // GET: Products
         public ActionResult Index(string SearchString)
         {
+            if (Request.IsAuthenticated)
+            {
+                Customer customer = db.Customers.Find(User.Identity.Name);
+                ViewBag.CurrencySymbol = customer.Currency.Symbol;
+                ViewBag.Mutliplier = customer.Currency.Multiplier;
+
+            }
             var products = from p in db.Products
                        select p;
             if (!String.IsNullOrEmpty(SearchString))
@@ -49,7 +56,7 @@ namespace VeeStoreA.Controllers
         public ActionResult Create()
         {
             ViewBag.Status = new SelectList(new List<string> { "Visible", "Not Visible" });
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name",null);
 
             return View();
         }
@@ -92,6 +99,8 @@ namespace VeeStoreA.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.canEdit = true;
+           
+
 
             if (id == null)
             {
@@ -107,6 +116,8 @@ namespace VeeStoreA.Controllers
                 ViewBag.error = "This item cannot be edited because its already in a cart.";
                 ViewBag.canEdit = false;
             }
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name",product.Category);
+            ViewBag.Status = new SelectList(new List<string> { "Visible", "Not Visible" },product.Status);
             return View(product);
         }
 
@@ -116,7 +127,7 @@ namespace VeeStoreA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin@admin.com")]
-        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,Category,ImageName,Status,CreatedAt")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description,CategoryId,ImageName,Status,CreatedAt")] Product product)
         {
             ViewBag.canEdit = true;
             if (ModelState.IsValid)

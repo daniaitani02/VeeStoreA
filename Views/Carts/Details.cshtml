@@ -28,6 +28,16 @@
 
         <div class="content-body">
             <div class="bs-stepper checkout-tab-steps">
+                @if(TempData["error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Error</h4>
+                    <div class="alert-body">
+                        @TempData["error"]
+                    </div>
+                </div>
+            }
+                
                 <!-- Wizard starts -->
                 <div class="bs-stepper-header">
                     <div class="step" data-target="#step-cart" role="tab" id="step-cart-trigger">
@@ -83,17 +93,23 @@
                                     Html.RenderPartial("_CartItemCard", item);
                                 }
 
-                                </div>
+                            </div>
                             <!-- Checkout Place Order Left ends -->
                             <!-- Checkout Place Order Right starts -->
                             <div class="checkout-options">
                                 <div class="card">
                                     <div class="card-body">
                                         <label class="section-label form-label mb-1">Options</label>
-                                        <div class="coupons input-group input-group-merge">
-                                            <input type="text" class="form-control" placeholder="Coupons" aria-label="Coupons" aria-describedby="input-coupons" />
-                                            <span class="input-group-text text-primary ps-1" id="input-coupons">Apply</span>
-                                        </div>
+
+                                        @using (Html.BeginForm("Apply", "Transaction"))
+                                        {<div class="coupons input-group input-group-merge">
+                                                <input type="text" id="code" class="form-control" placeholder="Coupons" aria-label="Coupons" aria-describedby="input-coupons" />
+                                                @*<a href="@Url.Action("Apply", "Transaction", l)" class="btn btn-primary btn-cart">Apply</a>*@
+                                                @*<button>Apply</button>*@
+                                                <input type="submit" value="Apply" class="input-group-text text-primary ps-1" id="input-coupons" />
+                                            </div>
+                                        }
+
                                         <hr />
                                         <div class="price-details">
                                             <h6 class="price-title">Price Details</h6>
@@ -173,7 +189,7 @@
                                     </div>
                                     <div class="card-body actions">
                                         <p class="card-text mb-0">Your Orders Will Always Be Accessible Through The "My Orders" Page</p>
-                                   
+
                                         <button type="button" class="btn btn-primary w-100 btn-next delivery-address mt-2">
                                             Confirm Delivery Method
                                         </button>
@@ -290,7 +306,6 @@
 
         </div>
     </div>
-<
 
 
 <!-- BEGIN: Page Vendor JS-->
