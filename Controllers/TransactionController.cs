@@ -89,8 +89,9 @@ namespace VeeStoreA.Controllers
             // Redirect user to their unpaid cart
             return RedirectToAction("Details", "Carts", new { id = cart.Id });
         }
-        public ActionResult CheckOut(int? id)
+        public ActionResult Checkout(int? id,String deliveryMethod)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -112,11 +113,17 @@ namespace VeeStoreA.Controllers
             }
             else
             {
+                if (String.IsNullOrEmpty(deliveryMethod))
+                {
+                    TempData["error"] = "Delivery Method Is Null";
+                    return RedirectToAction("Details", "Carts", new { id = id });
+                }
                 cart.Status = "Paid";
+                cart.PaidAt = DateTime.Now;
                 db.SaveChanges();
             }
-
-
+            System.Diagnostics.Debug.WriteLine(deliveryMethod);
+            TempData["error"] = deliveryMethod;
             return RedirectToAction("Details", "Carts", new { id = id });
 
 
