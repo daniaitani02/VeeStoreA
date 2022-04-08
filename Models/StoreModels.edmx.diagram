@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="97be45fe8e5547549013786be86aec5a" Name="Diagram1" ZoomLevel="109">
+      <Diagram DiagramId="97be45fe8e5547549013786be86aec5a" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="VeeStoreDbModel.CardCode" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="VeeStoreDbModel.Cart" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="VeeStoreDbModel.CartItem" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
@@ -24,6 +24,7 @@
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_FAQ_Prodcut" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Cart_Coupon" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

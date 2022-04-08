@@ -22,9 +22,9 @@ namespace VeeStoreA.Models
     
         public int Id { get; set; }
         public string Code { get; set; }
-        public System.DateTime ExpiryDate { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
         public System.DateTime CreatedAt { get; set; }
-        public Nullable<int> DiscountPercentage { get; set; }
+        public int DiscountPercentage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
