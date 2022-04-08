@@ -272,6 +272,7 @@
     <Content Include="Content\Images\faq-illustrations.svg" />
     <Content Include="Content\Images\Products\1.png" />
     <Content Include="Content\Images\avatar.png" />
+    <Content Include="Content\Reciept_Template.txt" />
     <Content Include="Content\Theme\app-assets\css\bootstrap-extended.css" />
     <Content Include="Content\Theme\app-assets\css\bootstrap-extended.min.css" />
     <Content Include="Content\Theme\app-assets\css\bootstrap.css" />
@@ -1012,10 +1013,9 @@
     <Content Include="Views\CardCodes\Edit.cshtml" />
     <Content Include="Views\CardCodes\Index.cshtml" />
     <Content Include="Views\Products\Details - Copy.cshtml" />
+    <Content Include="Views\Transaction\Reciept.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Transaction\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
