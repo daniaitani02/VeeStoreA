@@ -24,7 +24,7 @@ namespace VeeStoreA.Controllers
                        select f;
             if (!String.IsNullOrEmpty(faqSearchString))
             {
-                faqs = faqs.Where(f => f.Name.Contains(faqSearchString));
+                faqs = faqs.Where(f => f.Question.Contains(faqSearchString));
 
             }
             return View(faqs);
