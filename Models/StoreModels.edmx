@@ -67,6 +67,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Expiry" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="CVV" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
@@ -654,6 +655,7 @@
           <Property Name="CVV" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="VeeStoreDbModel.FK_Table_Customerss" FromRole="CreditCard" ToRole="Customer" />
           <NavigationProperty Name="Carts" Relationship="VeeStoreDbModel.FK_Cart_Payment" FromRole="CreditCard" ToRole="Cart" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Table_Customerss">
           <End Type="VeeStoreDbModel.Customer" Role="Customer" Multiplicity="1" />
@@ -805,6 +807,7 @@
           <EntitySetMapping Name="CreditCards">
             <EntityTypeMapping TypeName="VeeStoreDbModel.CreditCard">
               <MappingFragment StoreEntitySet="CreditCard">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="CVV" ColumnName="CVV" />
                 <ScalarProperty Name="Expiry" ColumnName="Expiry" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
