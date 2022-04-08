@@ -14,6 +14,12 @@ namespace VeeStoreA.Models
     
     public partial class CreditCard
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CreditCard()
+        {
+            this.Carts = new HashSet<Cart>();
+        }
+    
         public int Id { get; set; }
         public string CustomerEmail { get; set; }
         public int Number { get; set; }
@@ -22,5 +28,7 @@ namespace VeeStoreA.Models
         public int CVV { get; set; }
     
         public virtual Customer Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

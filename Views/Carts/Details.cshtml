@@ -1,4 +1,5 @@
 ﻿@model VeeStoreA.Models.Cart
+
 @{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
@@ -165,7 +166,7 @@
                                         <div class="detail-amt fw-bolder">@(ViewBag.totalAmount - discountAmount) @currecnySymbol</div>
                                     </li>
                                 </ul>
-                                <button type="button" class="btn btn-primary w-100 btn-next place-order">Place Order</button>
+                                <button type="button" class="btn btn-primary w-100 btn-next place-order">Choose Delivery Method</button>
                             </div>
                         </div>
                     </div>
@@ -174,7 +175,7 @@
             </div>
             <!-- Checkout Place order Ends -->
         </div>
-        @using (Html.BeginForm("AddCard", "Customer", FormMethod.Post, new { id = "addCard" }))
+        @using (Html.BeginForm("AddCreditCard", "Customers", FormMethod.Post, new { id = "addCard" }))
 
         {
             
@@ -256,31 +257,46 @@
                                         <div id="creditCardForm" class="row gx-2 gy-1 validate-form">
 
                                             <div class="col-12 mt-0">
-                                                <label class="form-label" for="addCardNumber">Card Number</label>
-                                                <div class="input-group input-group-merge">
-                                                    <input id="addCardNumber" name="addCard" form="addCard" class="form-control add-credit-card-mask" type="text" placeholder="xxxx xxxx xxxx xxxx" aria-describedby="addCard2" data-msg="Please enter your credit card number" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">
+                                                @Html.LabelFor(m => m.CreditCard.Number, htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.CreditCard.Number, new { htmlAttributes = new { @class = "form-control add-credit-card-mask", @placeholder = "XXXX XXXX XXXX XXXX", form = "addCard" } })
+                                                @Html.ValidationMessageFor(model => model.CreditCard.Number, "", new { @class = "text-danger" })
 
-                                                </div>
+                                                @*<label class="form-label" for="addCardNumber">Card Number</label>
+        <div class="input-group input-group-merge">
+            <input id="addCardNumber" name="addCard" form="addCard" class="form-control add-credit-card-mask" type="text" placeholder="XXXX XXXX XXXX XXXX" aria-describedby="addCard2" data-msg="Please enter your credit card number" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">
+
+        </div>*@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label class="form-label" for="addCardName">Name On Card</label>
-                                                <input type="text" id="addCardName"form="addCard" class="form-control" placeholder="John Doe" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">
+                                                @Html.LabelFor(m => m.CreditCard.Name, htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.CreditCard.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Dania Itani", form = "addCard" } })
+                                                @Html.ValidationMessageFor(model => model.CreditCard.Name, "", new { @class = "text-danger" })
+                                                @*<label class="form-label" for="addCardName">Name On Card</label>
+        <input type="text" id="addCardName" form="addCard" class="form-control" placeholder="John Doe" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">*@
                                             </div>
 
                                             <div class="col-6 col-md-3">
-                                                <label class="form-label" for="addCardExpiryDate">Exp. Date</label>
-                                                <input type="text" id="addCardExpiryDate"form="addCard" class="form-control add-expiry-date-mask" placeholder="MM/YY" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">
+                                                @Html.LabelFor(m => m.CreditCard.Expiry, htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.CreditCard.Expiry, new { htmlAttributes = new { @class = "form-control add-expiry-date-mask", @placeholder = "MM/YY", maxlength = "5",form = "addCard" } })
+                                                @Html.ValidationMessageFor(model => model.CreditCard.Expiry, "", new { @class = "text-danger" })
+                                                @*<label class="form-label" for="addCardExpiryDate">Exp. Date</label>
+                                                <input type="text" id="addCardExpiryDate" form="addCard" class="form-control add-expiry-date-mask" placeholder="MM/YY" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">*@
                                             </div>
 
                                             <div class="col-6 col-md-3">
-                                                <label class="form-label" for="addCardCvv">CVV</label>
-                                                <input type="text" id="addCardCvv"form="addCard" class="form-control add-cvv-code-mask" maxlength="3" placeholder="cvv">
+                                                @Html.LabelFor(m => m.CreditCard.CVV, htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.CreditCard.CVV, new { htmlAttributes = new { @class = "form-control add-cvv-code-mask", @placeholder = "CVV", @maxlength = "3",form = "addCard" } })
+                                                @Html.ValidationMessageFor(model => model.CreditCard.CVV, "", new { @class = "text-danger" })
+
+
+                                                @*<label class="form-label" for="addCardCvv">CVV</label>
+                                                <input type="text" id="addCardCvv" form="addCard" class="form-control add-cvv-code-mask" maxlength="3" placeholder="cvv">*@
                                             </div>
 
 
                                             <div class="col-12 mt-2 pt-1">
-                                                <button type="submit" form="addCard" class="btn btn-primary me-1 waves-effect waves-float waves-light">Save Card For Future Payments</button>
+                                                <button type="submit" form="addCard" class="btn btn-primary me-1 w-100 waves-effect waves-float waves-light">Save Card For Future Payments</button>
                                             </div>
 
 
@@ -290,45 +306,11 @@
                                     <div class="col-lg-6 mt-2 mt-lg-0">
                                         <h6 class="fw-bolder mb-2">My Cards</h6>
                                         <div class="added-cards">
-                                            <div class="cardMaster rounded border p-2 mb-1">
-                                                <div class="d-flex justify-content-between flex-sm-row flex-column">
-                                                    <div class="card-information">
-                                                        <img class="mb-1 img-fluid" src="~/Content/Images/icons/payments/mastercard.png" alt="Master Card">
-                                                        <div class="d-flex align-items-center mb-50">
-                                                            <h6 class="mb-0">Tom McBride</h6>
-                                                            <span class="badge badge-light-primary ms-50">Primary</span>
-                                                        </div>
-                                                        <span class="card-number">∗∗∗∗ ∗∗∗∗ 9856</span>
-                                                    </div>
-                                                    <div class="d-flex flex-column text-start text-lg-end">
-                                                        <div class="d-flex order-sm-0 order-1 mt-1 mt-sm-0">
-                                                            <button class="btn btn-outline-primary me-75 waves-effect" data-bs-toggle="modal" data-bs-target="#editCard">
-                                                                Edit
-                                                            </button>
-                                                            <button class="btn btn-outline-secondary waves-effect">Delete</button>
-                                                        </div>
-                                                        <span class="mt-2">Card expires at 12/24</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="cardMaster border rounded p-2">
-                                                <div class="d-flex justify-content-between flex-sm-row flex-column">
-                                                    <div class="card-information">
-                                                        <img class="mb-1 img-fluid" src="~/Content/Images/icons/payments/visa.png" alt="Visa Card">
-                                                        <h6>Mildred Wagner</h6>
-                                                        <span class="card-number">∗∗∗∗ ∗∗∗∗ 5896</span>
-                                                    </div>
-                                                    <div class="d-flex flex-column text-start text-lg-end">
-                                                        <div class="d-flex order-sm-0 order-1 mt-1 mt-sm-0">
-                                                            <button class="btn btn-outline-primary me-75 waves-effect" data-bs-toggle="modal" data-bs-target="#editCard">
-                                                                Edit
-                                                            </button>
-                                                            <button class="btn btn-outline-secondary waves-effect">Delete</button>
-                                                        </div>
-                                                        <span class="mt-2">Card expires at 02/24</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @foreach(var creditCard in Model.Customer.CreditCards)
+                                            {
+                                                Html.RenderPartial("_AddedCard", creditCard);
+                                            }
+                                           
                                         </div>
                                     </div>
                                 </div>

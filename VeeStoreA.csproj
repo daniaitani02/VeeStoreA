@@ -1029,6 +1029,7 @@
     <Content Include="Views\CardCodes\Index.cshtml" />
     <Content Include="Views\Products\Details - Copy.cshtml" />
     <Content Include="Views\Transaction\Reciept.cshtml" />
+    <Content Include="Views\Carts\_AddedCard.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -27,6 +27,7 @@
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customers" />
         <EntityTypeShape EntityType="VeeStoreDbModel.CreditCard" Width="1.5" PointX="5.25" PointY="13.25" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customerss" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Cart_Payment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

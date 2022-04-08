@@ -27,6 +27,7 @@
           <Property Name="PaidAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CouponCodeId" Type="int" />
+          <Property Name="CreditCardId" Type="int" />
         </EntityType>
         <EntityType Name="CartItem">
           <Key>
@@ -143,6 +144,18 @@
             </Principal>
             <Dependent Role="Cart">
               <PropertyRef Name="CustomerEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Payment">
+          <End Role="CreditCard" Type="Self.CreditCard" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditCard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="CreditCardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -274,6 +287,10 @@
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cart_Payment" Association="Self.FK_Cart_Payment">
+            <End Role="CreditCard" EntitySet="CreditCard" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
           <AssociationSet Name="FK_FAQ_Prodcut" Association="Self.FK_FAQ_Prodcut">
             <End Role="Product" EntitySet="Product" />
             <End Role="Rating" EntitySet="Rating" />
@@ -342,6 +359,8 @@
           <NavigationProperty Name="CartItems" Relationship="Self.FK_Table_Cart" FromRole="Cart" ToRole="CartItem" />
           <Property Name="CouponCodeId" Type="Int32" />
           <NavigationProperty Name="CouponCode" Relationship="VeeStoreDbModel.FK_Cart_Coupon" FromRole="Cart" ToRole="CouponCode" />
+          <Property Name="CreditCardId" Type="Int32" />
+          <NavigationProperty Name="CreditCard" Relationship="VeeStoreDbModel.FK_Cart_Payment" FromRole="Cart" ToRole="CreditCard" />
         </EntityType>
         <EntityType Name="CartItem">
           <Key>
@@ -594,6 +613,10 @@
             <End Role="Customer" EntitySet="Customers" />
             <End Role="CreditCard" EntitySet="CreditCards" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cart_Payment" Association="VeeStoreDbModel.FK_Cart_Payment">
+            <End Role="CreditCard" EntitySet="CreditCards" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Cart_Coupon">
           <End Type="VeeStoreDbModel.CouponCode" Role="CouponCode" Multiplicity="0..1" />
@@ -630,6 +653,7 @@
           <Property Name="Expiry" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CVV" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="VeeStoreDbModel.FK_Table_Customerss" FromRole="CreditCard" ToRole="Customer" />
+          <NavigationProperty Name="Carts" Relationship="VeeStoreDbModel.FK_Cart_Payment" FromRole="CreditCard" ToRole="Cart" />
         </EntityType>
         <Association Name="FK_Table_Customerss">
           <End Type="VeeStoreDbModel.Customer" Role="Customer" Multiplicity="1" />
@@ -640,6 +664,18 @@
             </Principal>
             <Dependent Role="CreditCard">
               <PropertyRef Name="CustomerEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Payment">
+          <End Type="VeeStoreDbModel.CreditCard" Role="CreditCard" Multiplicity="0..1" />
+          <End Type="VeeStoreDbModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditCard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="CreditCardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -665,6 +701,7 @@
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="VeeStoreDbModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="CreditCardId" ColumnName="CreditCardId" />
                 <ScalarProperty Name="CouponCodeId" ColumnName="CouponCodeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />

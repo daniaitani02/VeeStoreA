@@ -85,8 +85,9 @@ namespace VeeStoreA.Controllers
         public ActionResult AddCreditCard([Bind(Include = "Name,Number,CVV,Expiry")] CreditCard creditCard)
         {
             creditCard.CustomerEmail = User.Identity.Name;
-
-            return RedirectToAction("Details");
+            db.CreditCards.Add(creditCard);
+            db.SaveChanges();
+            return RedirectToAction("Details",new { id=creditCard.Customer.Email +"/"});
         }
         // GET: Customers/Delete/5
         //public ActionResult Delete(string id)
