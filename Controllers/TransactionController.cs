@@ -126,6 +126,7 @@ namespace VeeStoreA.Controllers
             IEnumerable<CouponCode> couponCodes = db.CouponCodes.Where(c=>c.Code==code);
            
             Cart cart = GetUsersCart();
+       
             if (couponCodes.Count() == 0)
             {
                 TempData["error"] = "Coupoun Code is not valid";
@@ -134,11 +135,11 @@ namespace VeeStoreA.Controllers
             else
             {
                 CouponCode couponCode = couponCodes.First();
+                cart.CouponCodeId = couponCode.Id;
+                db.SaveChanges();
                 TempData["info"] = "Applied Coupon Code";
             }
-            //Cart cart = db.Carts.Find(id);
-            //if (cart.Customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            //if (cart.CouponCode != ) ;
+            
 
 
             return RedirectToAction("Details","Carts", new { id = cart.Id });

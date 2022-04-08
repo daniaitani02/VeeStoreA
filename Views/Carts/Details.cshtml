@@ -3,6 +3,8 @@
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
     var currecnySymbol = Model.Customer.Currency.Symbol;
+    var currecnyMutliplier = Model.Customer.Currency.Multiplier;
+    var totalCart = Model.CartItems.Sum(ci => ci.Quantity * ci.Product.Price) * currecnyMutliplier;
 }
 
 <!-- BEGIN: Vendor CSS-->
@@ -11,8 +13,6 @@
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
 
 <!-- END: Vendor CSS-->
-
-
 <!-- BEGIN: Page CSS-->
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/pages/app-ecommerce.css">
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/plugins/forms/pickers/form-pickadate.css">
@@ -20,291 +20,319 @@
 
 <link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/plugins/forms/form-number-input.css">
 <!-- END: Page CSS-->
-
 <!-- BEGIN: Content-->
 
-    <div class="content-overlay"></div>
-    <div class="header-navbar-shadow"></div>
+<div class="content-overlay"></div>
+<div class="header-navbar-shadow"></div>
 
-        <div class="content-body">
-            <div class="bs-stepper checkout-tab-steps">
-                @if(TempData["error"] != null)
-            {
-                <div class="alert alert-danger" role="alert">
-                    <h4 class="alert-heading">Error</h4>
-                    <div class="alert-body">
-                        @TempData["error"]
-                    </div>
-                </div>
-            }
-                
-                <!-- Wizard starts -->
-                <div class="bs-stepper-header">
-                    <div class="step" data-target="#step-cart" role="tab" id="step-cart-trigger">
-                        <button type="button" class="step-trigger">
-                            <span class="bs-stepper-box">
-                                <i data-feather="shopping-cart" class="font-medium-3"></i>
-                            </span>
-                            <span class="bs-stepper-label">
-                                <span class="bs-stepper-title">Cart</span>
-                                <span class="bs-stepper-subtitle">Your Cart Items</span>
-                            </span>
-                        </button>
-                    </div>
-                    <div class="line">
-                        <i data-feather="chevron-right" class="font-medium-2"></i>
-                    </div>
-                    <div class="step" data-target="#step-address" role="tab" id="step-address-trigger">
-                        <button type="button" class="step-trigger">
-                            <span class="bs-stepper-box">
-                                <i data-feather="home" class="font-medium-3"></i>
-                            </span>
-                            <span class="bs-stepper-label">
-                                <span class="bs-stepper-title">Delivery</span>
-                                <span class="bs-stepper-subtitle">Choose Your Delivery Method</span>
-                            </span>
-                        </button>
-                    </div>
-                    <div class="line">
-                        <i data-feather="chevron-right" class="font-medium-2"></i>
-                    </div>
-                    <div class="step" data-target="#step-payment" role="tab" id="step-payment-trigger">
-                        <button type="button" class="step-trigger">
-                            <span class="bs-stepper-box">
-                                <i data-feather="credit-card" class="font-medium-3"></i>
-                            </span>
-                            <span class="bs-stepper-label">
-                                <span class="bs-stepper-title">Payment</span>
-                                <span class="bs-stepper-subtitle">Select Payment Method</span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <!-- Wizard ends -->
-
-                <div class="bs-stepper-content">
-                    <!-- Checkout Place order starts -->
-                    <div id="step-cart" class="content" role="tabpanel" aria-labelledby="step-cart-trigger">
-                        <div id="place-order" class="list-view product-checkout">
-                            <!-- Checkout Place Order Left starts -->
-                            <div class="checkout-items">
-                                @foreach (var item in Model.CartItems)
-                                {
-                                    Html.RenderPartial("_CartItemCard", item);
-                                }
-
-                            </div>
-                            <!-- Checkout Place Order Left ends -->
-                            <!-- Checkout Place Order Right starts -->
-                            <div class="checkout-options">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <label class="section-label form-label mb-1">Options</label>
-
-                                        @using (Html.BeginForm("Apply", "Transaction"))
-                                        {<div class="coupons input-group input-group-merge">
-                                                <input type="text" id="code" class="form-control" placeholder="Coupons" aria-label="Coupons" aria-describedby="input-coupons" />
-                                                @*<a href="@Url.Action("Apply", "Transaction", l)" class="btn btn-primary btn-cart">Apply</a>*@
-                                                @*<button>Apply</button>*@
-                                                <input type="submit" value="Apply" class="input-group-text text-primary ps-1" id="input-coupons" />
-                                            </div>
-                                        }
-
-                                        <hr />
-                                        <div class="price-details">
-                                            <h6 class="price-title">Price Details</h6>
-                                            <ul class="list-unstyled">
-                                                <li class="price-detail">
-                                                    <div class="detail-title">Total Price</div>
-                                                    <div class="detail-amt">@Model.CartItems.Sum(ci=> ci.Quantity* ci.Product.Price) @currecnySymbol</div>
-                                                </li>
-                                                <li class="price-detail">
-                                                    <div class="detail-title">Discount</div>
-                                                    <div class="detail-amt discount-amt text-success">0 @currecnySymbol</div>
-                                                </li>
-
-
-                                            </ul>
-                                            <hr />
-                                            <ul class="list-unstyled">
-                                                <li class="price-detail">
-                                                    <div class="detail-title detail-total">Total</div>
-                                                    <div class="detail-amt fw-bolder">@ViewBag.totalAmount @currecnySymbol</div>
-                                                </li>
-                                            </ul>
-                                            <button type="button" class="btn btn-primary w-100 btn-next place-order">Place Order</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Checkout Place Order Right ends -->
-                            </div>
-                        </div>
-                        <!-- Checkout Place order Ends -->
-                    </div>
-                    <!-- Checkout Customer Address Starts -->
-                    <div id="step-address" class="content" role="tabpanel" aria-labelledby="step-address-trigger">
-                        <form id="checkout-address" class="list-view product-checkout">
-                            <!-- Checkout Customer Address Left starts -->
-                            <div class="card">
-                                <div class="card-header flex-column align-items-start">
-                                    <h4 class="card-title">Choose Delivery Method</h4>
-                                    <p class="card-text text-muted mt-25">The Codes of The Cards You Will Buy Will Be Delivered Using The Selected Method</p>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row custom-options-checkable g-1">
-                                        <div class="col-md-4">
-                                            <input class="custom-option-item-check" type="radio" name="deliveryMethod" id="phoneMethod" checked="" value="emailDelivery">
-                                            <label class="custom-option-item text-center p-1" for="customOptionsCheckableRadiosWithIcon1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle font-large-1 mb-75"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
-                                                <span class="custom-option-item-title h4 d-block">By Phone</span>
-                                                <small>The codes will be sent to your phone through WhatsApp</small>
-                                            </label>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <input class="custom-option-item-check" type="radio" name="deliveryMethod" id="emailMethod" value="emailDelivery" data-com.bitwarden.browser.user-edited="yes">
-                                            <label class="custom-option-item text-center text-center p-1" for="customOptionsCheckableRadiosWithIcon2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox font-large-1 mb-75"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" /><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></svg>
-                                                <span class="custom-option-item-title h4 d-block">By Email</span>
-                                                <small>The codes will be sent to the registered email</small>
-                                            </label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input class="custom-option-item-check" type="radio" name="deliveryMethod" id="noMethod" value="noDelivery">
-                                            <label class="custom-option-item text-center p-1" for="customOptionsCheckableRadiosWithIcon3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-slash font-large-1 mb-75"><circle cx="12" cy="12" r="10" /><line x1="4.93" y1="4.93" x2="19.07" y2="19.07" /></svg>
-                                                <span class="custom-option-item-title h4 d-block">Do Not Send</span>
-                                                <small>The codes will not be sent, but will be accessible through the "My Orders" Page</small>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Checkout Customer Address Left ends -->
-                            <!-- Checkout Customer Address Right starts -->
-                            <div class="customer-card">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Delivery Method</h4>
-                                    </div>
-                                    <div class="card-body actions">
-                                        <p class="card-text mb-0">Your Orders Will Always Be Accessible Through The "My Orders" Page</p>
-
-                                        <button type="button" class="btn btn-primary w-100 btn-next delivery-address mt-2">
-                                            Confirm Delivery Method
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Checkout Customer Address Right ends -->
-                        </form>
-                    </div>
-                    <!-- Checkout Customer Address Ends -->
-                    <!-- Checkout Payment Starts -->
-                    <div id="step-payment" class="content" role="tabpanel" aria-labelledby="step-payment-trigger">
-                        <form id="checkout-payment" class="list-view product-checkout" onsubmit="return false;">
-                            <div class="payment-type">
-                                <div class="card">
-                                    <div class="card-header flex-column align-items-start">
-                                        <h4 class="card-title">Payment options</h4>
-                                        <p class="card-text text-muted mt-25">Be sure to click on correct payment option</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <h6 class="card-holder-name my-75">John Doe</h6>
-                                        <div class="form-check">
-                                            <input type="radio" id="customColorRadio1" name="paymentOptions" class="form-check-input" checked />
-                                            <label class="form-check-label" for="customColorRadio1">
-                                                US Unlocked Debit Card 12XX XXXX XXXX 0000
-                                            </label>
-                                        </div>
-                                        <div class="customer-cvv mt-1 row row-cols-lg-auto">
-                                            <div class="col-3 d-flex align-items-center">
-                                                <label class="mb-50 form-label" for="card-holder-cvv">Enter CVV:</label>
-                                            </div>
-                                            <div class="col-4 p-0">
-                                                <input type="password" class="form-control mb-50 input-cvv" name="input-cvv" id="card-holder-cvv" />
-                                            </div>
-                                            <div class="col-3">
-                                                <button type="button" class="btn btn-primary btn-cvv mb-50">Continue</button>
-                                            </div>
-                                        </div>
-                                        <hr class="my-2" />
-                                        <ul class="other-payment-options list-unstyled">
-                                            <li class="py-50">
-                                                <div class="form-check">
-                                                    <input type="radio" id="customColorRadio2" name="paymentOptions" class="form-check-input" />
-                                                    <label class="form-check-label" for="customColorRadio2"> Credit / Debit / ATM Card </label>
-                                                </div>
-                                            </li>
-                                            <li class="py-50">
-                                                <div class="form-check">
-                                                    <input type="radio" id="customColorRadio3" name="paymentOptions" class="form-check-input" />
-                                                    <label class="form-check-label" for="customColorRadio3"> Net Banking </label>
-                                                </div>
-                                            </li>
-                                            <li class="py-50">
-                                                <div class="form-check">
-                                                    <input type="radio" id="customColorRadio4" name="paymentOptions" class="form-check-input" />
-                                                    <label class="form-check-label" for="customColorRadio4"> EMI (Easy Installment) </label>
-                                                </div>
-                                            </li>
-                                            <li class="py-50">
-                                                <div class="form-check">
-                                                    <input type="radio" id="customColorRadio5" name="paymentOptions" class="form-check-input" />
-                                                    <label class="form-check-label" for="customColorRadio5"> Cash On Delivery </label>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <hr class="my-2" />
-                                        <div class="gift-card mb-25">
-                                            <p class="card-text">
-                                                <i data-feather="plus-circle" class="me-50 font-medium-5"></i>
-                                                <span class="align-middle">Add Gift Card</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="amount-payable checkout-options">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Price Details</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="list-unstyled price-details">
-                                            <li class="price-detail">
-                                                <div class="details-title">Price of @Model.CartItems.Sum(ci=>ci.Quantity) item(s)</div>
-                                                <div class="detail-amt">
-                                                    <strong>@Model.CartItems.Sum(ci => ci.Quantity * ci.Product.Price)</strong>
-                                                </div>
-                                            </li>
-                                            <li class="price-detail">
-                                                <div class="details-title">Delivery Charges</div>
-                                                <div class="detail-amt discount-amt text-success">Free</div>
-                                            </li>
-                                        </ul>
-                                        <hr />
-                                        <ul class="list-unstyled price-details">
-                                            <li class="price-detail">
-                                                <div class="details-title">Amount Payable</div>
-                                                <div class="detail-amt fw-bolder">$699.30</div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    @Html.ActionLink("","")
-                                    <a  class="btn btn-primary w-100 btn-next delivery-address mt-2">
-                                        Place Order
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Checkout Payment Ends -->
-                    <!-- </div> -->
+<div class="content-body">
+    <div class="bs-stepper checkout-tab-steps">
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Error</h4>
+                <div class="alert-body">
+                    @TempData["error"]
                 </div>
             </div>
+        }
 
+        <!-- Wizard starts -->
+        <div class="bs-stepper-header">
+            <div class="step" data-target="#step-cart" role="tab" id="step-cart-trigger">
+                <button type="button" class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i data-feather="shopping-cart" class="font-medium-3"></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Cart</span>
+                        <span class="bs-stepper-subtitle">Your Cart Items</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line">
+                <i data-feather="chevron-right" class="font-medium-2"></i>
+            </div>
+            <div class="step" data-target="#step-address" role="tab" id="step-address-trigger">
+                <button type="button" class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i data-feather="home" class="font-medium-3"></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Delivery</span>
+                        <span class="bs-stepper-subtitle">Choose Your Delivery Method</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line">
+                <i data-feather="chevron-right" class="font-medium-2"></i>
+            </div>
+            <div class="step" data-target="#step-payment" role="tab" id="step-payment-trigger">
+                <button type="button" class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i data-feather="credit-card" class="font-medium-3"></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Payment</span>
+                        <span class="bs-stepper-subtitle">Select Payment Method</span>
+                    </span>
+                </button>
+            </div>
         </div>
+        <!-- Wizard ends -->
+
+        <div class="bs-stepper-content">
+            <!-- Checkout Place order starts -->
+            <div id="step-cart" class="content" role="tabpanel" aria-labelledby="step-cart-trigger">
+                <div id="place-order" class="list-view product-checkout">
+                    <!-- Checkout Place Order Left starts -->
+                    <div class="checkout-items">
+                        @foreach (var item in Model.CartItems)
+                        {
+                            Html.RenderPartial("_CartItemCard", item);
+                        }
+
+                    </div>
+                    <!-- Checkout Place Order Left ends -->
+                    <!-- Checkout Place Order Right starts -->
+                    <div class="checkout-options">
+                        <div class="card">
+                            <div class="card-body">
+                                <label class="section-label form-label mb-1">Options</label>
+
+                                @using (Html.BeginForm("Apply", "Transaction"))
+
+                                {
+                                    if (Model.CouponCodeId == null)
+                                    {
+
+
+                                        <div class="coupons input-group input-group-merge">
+                                            <input type="text" id="code" name="code" class="form-control" placeholder="Coupon Code" aria-label="Coupons" aria-describedby="input-coupons" />
+
+                                            <input type="submit" value="Apply" class="input-group-text text-primary ps-1" id="input-coupons" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                            <div class="coupons input-group input-group-merge">
+                              
+                                
+                                <span class="badge rounded-pill badge-light-primary">@Model.CouponCode.Code</span>
+
+                                @*<input type="text" class="form-control" readonly placeholder="Coupon" value="Test" aria-label="Coupons" aria-describedby="input-coupons" />*@
+
+                                <input type="submit" value="Remove Coupon Code" class="input-group-text text-primary ps-1" id="input-coupons" />
+                            </div>
+                                    }
+
+
+                                }
+
+                                <hr />
+                                <div class="price-details">
+                                    <h6 class="price-title">Price Details</h6>
+                                    <ul class="list-unstyled">
+                                        <li class="price-detail">
+                                            <div class="detail-title">Total Price</div>
+                                            <div class="detail-amt">@totalCart @currecnySymbol</div>
+                                        </li>
+                                        <li class="price-detail">
+                                            <div class="detail-title">Discount</div>
+                                            @if (Model.CouponCode == null)
+                                            {
+                                                <div class="detail-amt discount-amt text-danger">No Discount</div>
+                                            }
+                                            else
+                                            {
+                                                var discountAmount = (totalCart * ((double)Model.CouponCode.DiscountPercentage / 100));
+                                                <div class="detail-amt discount-amt text-success">- @discountAmount @currecnySymbol</div>
+                                            }
+
+                                        </li>
+
+
+                                    </ul>
+                                    <hr />
+                                    <ul class="list-unstyled">
+                                        <li class="price-detail">
+                                            <div class="detail-title detail-total">Total</div>
+                                            <div class="detail-amt fw-bolder">@ViewBag.totalAmount @currecnySymbol</div>
+                                        </li>
+                                    </ul>
+                                    <button type="button" class="btn btn-primary w-100 btn-next place-order">Place Order</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Checkout Place Order Right ends -->
+                    </div>
+                </div>
+                <!-- Checkout Place order Ends -->
+            </div>
+            <!-- Checkout Customer Address Starts -->
+            <div id="step-address" class="content" role="tabpanel" aria-labelledby="step-address-trigger">
+                <form id="checkout-address" class="list-view product-checkout">
+                    <!-- Checkout Customer Address Left starts -->
+                    <div class="card">
+                        <div class="card-header flex-column align-items-start">
+                            <h4 class="card-title">Choose Delivery Method</h4>
+                            <p class="card-text text-muted mt-25">The Codes of The Cards You Will Buy Will Be Delivered Using The Selected Method</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row custom-options-checkable g-1">
+                                <div class="col-md-4">
+                                    <input class="custom-option-item-check" type="radio" name="deliveryMethod" id="phoneMethod" checked="" value="emailDelivery">
+                                    <label class="custom-option-item text-center p-1" for="customOptionsCheckableRadiosWithIcon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle font-large-1 mb-75"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
+                                        <span class="custom-option-item-title h4 d-block">By Phone</span>
+                                        <small>The codes will be sent to your phone through WhatsApp</small>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <input class="custom-option-item-check" type="radio" name="deliveryMethod" id="emailMethod" value="emailDelivery" data-com.bitwarden.browser.user-edited="yes">
+                                    <label class="custom-option-item text-center text-center p-1" for="customOptionsCheckableRadiosWithIcon2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox font-large-1 mb-75"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" /><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></svg>
+                                        <span class="custom-option-item-title h4 d-block">By Email</span>
+                                        <small>The codes will be sent to the registered email</small>
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="custom-option-item-check" type="radio" name="deliveryMethod" id="noMethod" value="noDelivery">
+                                    <label class="custom-option-item text-center p-1" for="customOptionsCheckableRadiosWithIcon3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-slash font-large-1 mb-75"><circle cx="12" cy="12" r="10" /><line x1="4.93" y1="4.93" x2="19.07" y2="19.07" /></svg>
+                                        <span class="custom-option-item-title h4 d-block">Do Not Send</span>
+                                        <small>The codes will not be sent, but will be accessible through the "My Orders" Page</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Checkout Customer Address Left ends -->
+                    <!-- Checkout Customer Address Right starts -->
+                    <div class="customer-card">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Delivery Method</h4>
+                            </div>
+                            <div class="card-body actions">
+                                <p class="card-text mb-0">Your Orders Will Always Be Accessible Through The "My Orders" Page</p>
+
+                                <button type="button" class="btn btn-primary w-100 btn-next delivery-address mt-2">
+                                    Confirm Delivery Method
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Checkout Customer Address Right ends -->
+                </form>
+            </div>
+            <!-- Checkout Customer Address Ends -->
+            <!-- Checkout Payment Starts -->
+            <div id="step-payment" class="content" role="tabpanel" aria-labelledby="step-payment-trigger">
+                <form id="checkout-payment" class="list-view product-checkout" onsubmit="return false;">
+                    <div class="payment-type">
+                        <div class="card">
+                            <div class="card-header flex-column align-items-start">
+                                <h4 class="card-title">Payment options</h4>
+                                <p class="card-text text-muted mt-25">Be sure to click on correct payment option</p>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-holder-name my-75">John Doe</h6>
+                                <div class="form-check">
+                                    <input type="radio" id="customColorRadio1" name="paymentOptions" class="form-check-input" checked />
+                                    <label class="form-check-label" for="customColorRadio1">
+                                        US Unlocked Debit Card 12XX XXXX XXXX 0000
+                                    </label>
+                                </div>
+                                <div class="customer-cvv mt-1 row row-cols-lg-auto">
+                                    <div class="col-3 d-flex align-items-center">
+                                        <label class="mb-50 form-label" for="card-holder-cvv">Enter CVV:</label>
+                                    </div>
+                                    <div class="col-4 p-0">
+                                        <input type="password" class="form-control mb-50 input-cvv" name="input-cvv" id="card-holder-cvv" />
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-primary btn-cvv mb-50">Continue</button>
+                                    </div>
+                                </div>
+                                <hr class="my-2" />
+                                <ul class="other-payment-options list-unstyled">
+                                    <li class="py-50">
+                                        <div class="form-check">
+                                            <input type="radio" id="customColorRadio2" name="paymentOptions" class="form-check-input" />
+                                            <label class="form-check-label" for="customColorRadio2"> Credit / Debit / ATM Card </label>
+                                        </div>
+                                    </li>
+                                    <li class="py-50">
+                                        <div class="form-check">
+                                            <input type="radio" id="customColorRadio3" name="paymentOptions" class="form-check-input" />
+                                            <label class="form-check-label" for="customColorRadio3"> Net Banking </label>
+                                        </div>
+                                    </li>
+                                    <li class="py-50">
+                                        <div class="form-check">
+                                            <input type="radio" id="customColorRadio4" name="paymentOptions" class="form-check-input" />
+                                            <label class="form-check-label" for="customColorRadio4"> EMI (Easy Installment) </label>
+                                        </div>
+                                    </li>
+                                    <li class="py-50">
+                                        <div class="form-check">
+                                            <input type="radio" id="customColorRadio5" name="paymentOptions" class="form-check-input" />
+                                            <label class="form-check-label" for="customColorRadio5"> Cash On Delivery </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <hr class="my-2" />
+                                <div class="gift-card mb-25">
+                                    <p class="card-text">
+                                        <i data-feather="plus-circle" class="me-50 font-medium-5"></i>
+                                        <span class="align-middle">Add Gift Card</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="amount-payable checkout-options">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Price Details</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled price-details">
+                                    <li class="price-detail">
+                                        <div class="details-title">Price of @Model.CartItems.Sum(ci => ci.Quantity) item(s)</div>
+                                        <div class="detail-amt">
+                                            <strong>@Model.CartItems.Sum(ci => ci.Quantity * ci.Product.Price)</strong>
+                                        </div>
+                                    </li>
+                                    <li class="price-detail">
+                                        <div class="details-title">Delivery Charges</div>
+                                        <div class="detail-amt discount-amt text-success">Free</div>
+                                    </li>
+                                </ul>
+                                <hr />
+                                <ul class="list-unstyled price-details">
+                                    <li class="price-detail">
+                                        <div class="details-title">Amount Payable</div>
+                                        <div class="detail-amt fw-bolder">$699.30</div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <a class="btn btn-primary w-100 btn-next delivery-address mt-2">
+                                Place Order
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Checkout Payment Ends -->
+            <!-- </div> -->
+        </div>
+    </div>
+
+</div>
     </div>
 
 
