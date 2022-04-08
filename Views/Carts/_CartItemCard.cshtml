@@ -1,7 +1,7 @@
 ﻿@model VeeStoreA.Models.CartItem
 <div class="card ecommerce-card">
     <div class="item-img">
-        <a href="app-ecommerce-details.html">
+        <a href="@Url.Action("Details","Products",new { id = Model.ProductId })">
             <img src="~/Content/Images/Products/@Model.Product.ImageName" alt="product" />
         </a>
     </div>
@@ -19,7 +19,7 @@
                 </ul>
             </div>
         </div>
-        @if (Model.Product.CardCodes.Count() == 0)
+        @if (Model.Product.CardCodes.Where(cc=>cc.Status=="New").Count() == 0)
         {
             <span class="text-danger mb-1">Out Of Stock</span>
         }

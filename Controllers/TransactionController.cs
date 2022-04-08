@@ -122,14 +122,26 @@ namespace VeeStoreA.Controllers
                     return RedirectToAction("Details", "Carts", new { id = id });
                 }
             }
-
-            
-
-                cart.Status = "Paid";
+            //Flag Cart As Paid
+            cart.Status = "Paid";
             cart.PaidAt = DateTime.Now;
             db.SaveChanges();
 
-            TempData["error"] = deliveryMethod;
+            //Flag Each Product As Used And Deliver
+            foreach (CartItem cartItem in cart.CartItems)
+            {
+                CardCode cardCode = cartItem.Product.CardCodes.Where(cc => cc.Status == "New").First();
+                cardCode.Status = "Used";
+                cardCode.UsedAt = DateTime.Now;
+                cardCode.CustomerEmail = cart.CustomerEmail;
+                db.SaveChanges();
+                TempData["error"] = "Your Code Is: " + cardCode.Code;
+
+            }
+
+           
+
+            
             return RedirectToAction("Details", "Carts", new { id = id });
 
 
