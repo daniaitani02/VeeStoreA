@@ -6,7 +6,7 @@
 
         <div class="d-flex justify-content-between flex-sm-row flex-column">
             <div class="card-information">
-                <img class="mb-1 img-fluid" src="~/Content/Images/icons/payments/mastercard.png" alt="Master Card">
+                <img class="mb-1 img-fluid" src="~/Content/Images/icons/payments/@(Model.Type.ToLower().Replace(" ","")).png" alt="Master Card">
                 <div class="d-flex align-items-center mb-50">
                     <h6 class="mb-0">@Model.Name</h6>
                     @*<span class="badge badge-light-primary ms-50">Primary</span>*@

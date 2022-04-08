@@ -273,7 +273,7 @@
     <Content Include="Content\homeImg.jpg" />
     <Content Include="Content\Images\banner.png" />
     <Content Include="Content\Images\faq-illustrations.svg" />
-    <Content Include="Content\Images\Icons\payments\american-ex.png" />
+    <Content Include="Content\Images\Icons\payments\americanexpress.png" />
     <Content Include="Content\Images\Icons\payments\amex-cc.png" />
     <Content Include="Content\Images\Icons\payments\diners-cc.png" />
     <Content Include="Content\Images\Icons\payments\discover-cc.png" />

@@ -82,12 +82,13 @@ namespace VeeStoreA.Controllers
             return View(customer);
         }
 
-        public ActionResult AddCreditCard([Bind(Include = "Name,Number,CVV,Expiry")] CreditCard creditCard)
+        public ActionResult AddCreditCard([Bind(Include = "Name,Number,CVV,Expiry")] CreditCard creditCard,string Type)
         {
             creditCard.CustomerEmail = User.Identity.Name;
+            creditCard.Type = Type;
             db.CreditCards.Add(creditCard);
             db.SaveChanges();
-            return RedirectToAction("Details",new { id=creditCard.Customer.Email +"/"});
+            return RedirectToAction("Details",new { id=User.Identity.Name +"/"});
         }
         // GET: Customers/Delete/5
         //public ActionResult Delete(string id)
