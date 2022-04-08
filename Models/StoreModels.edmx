@@ -56,6 +56,17 @@
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="DiscountPercentage" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="CreditCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expiry" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CVV" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Currency">
           <Key>
             <PropertyRef Name="Id" />
@@ -207,6 +218,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_Customerss">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CreditCard" Type="Self.CreditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="CreditCard">
+              <PropertyRef Name="CustomerEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Table_Prodcut">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="CartItem" Type="Self.CartItem" Multiplicity="*" />
@@ -237,6 +260,7 @@
           <EntitySet Name="CartItem" EntityType="Self.CartItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CouponCode" EntityType="Self.CouponCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditCard" EntityType="Self.CreditCard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Faq" EntityType="Self.Faq" Schema="dbo" store:Type="Tables" />
@@ -273,6 +297,10 @@
           <AssociationSet Name="FK_Table_Customers" Association="Self.FK_Table_Customers">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="CardCode" EntitySet="CardCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Customerss" Association="Self.FK_Table_Customerss">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CreditCard" EntitySet="CreditCard" />
           </AssociationSet>
           <AssociationSet Name="FK_Table_Prodcut" Association="Self.FK_Table_Prodcut">
             <End Role="Product" EntitySet="Product" />
@@ -373,6 +401,7 @@
           <NavigationProperty Name="Currency" Relationship="Self.FK_Table_Currency" FromRole="Customer" ToRole="Currency" />
           <NavigationProperty Name="Ratings" Relationship="Self.FK_Table_Customer" FromRole="Customer" ToRole="Rating" />
           <NavigationProperty Name="CardCodes" Relationship="VeeStoreDbModel.FK_Table_Customers" FromRole="Customer" ToRole="CardCode" />
+          <NavigationProperty Name="CreditCards" Relationship="VeeStoreDbModel.FK_Table_Customerss" FromRole="Customer" ToRole="CreditCard" />
         </EntityType>
         <EntityType Name="Faq">
           <Key>
@@ -560,6 +589,11 @@
             <End Role="Customer" EntitySet="Customers" />
             <End Role="CardCode" EntitySet="CardCodes" />
           </AssociationSet>
+          <EntitySet Name="CreditCards" EntityType="VeeStoreDbModel.CreditCard" />
+          <AssociationSet Name="FK_Table_Customerss" Association="VeeStoreDbModel.FK_Table_Customerss">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CreditCard" EntitySet="CreditCards" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Cart_Coupon">
           <End Type="VeeStoreDbModel.CouponCode" Role="CouponCode" Multiplicity="0..1" />
@@ -581,6 +615,30 @@
               <PropertyRef Name="Email" />
             </Principal>
             <Dependent Role="CardCode">
+              <PropertyRef Name="CustomerEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CreditCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Expiry" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CVV" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="VeeStoreDbModel.FK_Table_Customerss" FromRole="CreditCard" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_Table_Customerss">
+          <End Type="VeeStoreDbModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="VeeStoreDbModel.CreditCard" Role="CreditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="CreditCard">
               <PropertyRef Name="CustomerEmail" />
             </Dependent>
           </ReferentialConstraint>
@@ -704,6 +762,18 @@
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
                 <ScalarProperty Name="Stars" ColumnName="Stars" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditCards">
+            <EntityTypeMapping TypeName="VeeStoreDbModel.CreditCard">
+              <MappingFragment StoreEntitySet="CreditCard">
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="Expiry" ColumnName="Expiry" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

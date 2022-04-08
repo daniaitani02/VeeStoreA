@@ -223,6 +223,9 @@
     <Compile Include="Models\CouponCode.cs">
       <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreditCard.cs">
+      <DependentUpon>StoreModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Currency.cs">
       <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>

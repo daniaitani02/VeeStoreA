@@ -35,5 +35,6 @@ namespace VeeStoreA.Models
         public virtual DbSet<Faq> Faqs { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<CreditCard> CreditCards { get; set; }
     }
 }
