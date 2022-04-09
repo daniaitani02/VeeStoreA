@@ -21,6 +21,7 @@ namespace VeeStoreA.Models
             this.Ratings = new HashSet<Rating>();
             this.CardCodes = new HashSet<CardCode>();
             this.CreditCards = new HashSet<CreditCard>();
+            this.CardCodes1 = new HashSet<CardCode>();
         }
     
         public string Email { get; set; }
@@ -40,5 +41,7 @@ namespace VeeStoreA.Models
         public virtual ICollection<CardCode> CardCodes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CreditCard> CreditCards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CardCode> CardCodes1 { get; set; }
     }
 }

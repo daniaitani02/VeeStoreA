@@ -18,6 +18,7 @@ namespace VeeStoreA.Models
         public Cart()
         {
             this.CartItems = new HashSet<CartItem>();
+            this.CardCodes = new HashSet<CardCode>();
         }
     
         public int Id { get; set; }
@@ -33,5 +34,7 @@ namespace VeeStoreA.Models
         public virtual ICollection<CartItem> CartItems { get; set; }
         public virtual CouponCode CouponCode { get; set; }
         public virtual CreditCard CreditCard { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CardCode> CardCodes { get; set; }
     }
 }

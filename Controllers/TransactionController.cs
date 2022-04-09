@@ -173,12 +173,12 @@ namespace VeeStoreA.Controllers
                     CardCode cardCode = cartItem.Product.CardCodes.Where(cc => cc.Status == "New").First();
                     cardCode.Status = "Used";
                     cardCode.UsedAt = DateTime.Now;
-                    cardCode.CustomerEmail = cart.CustomerEmail;
+                    cardCode.CartId = cart.Id;
                     db.SaveChanges();
 
                     recieptTable += @"<tr>
-                                    <td style=""font - family: 'Montserrat',Arial,sans - serif; font - size: 14px; padding - top: 10px; padding - bottom: 10px; width: 80 %; "" width=""80 % "">" + cardCode.Product.Name + @"
-                                       <br>Code: <strong style=""color:blue;"">" + cardCode.Code + @" </ strong ></ td >
+                                    <td style=""font-family: 'Montserrat',Arial,sans-serif; font-size: 14px; padding-top: 10px; padding-bottom: 10px; width: 80%; "" width=""80%"">" + cardCode.Product.Name + @"
+                                       <br>Code: <strong style=""color:blue;"">" + cardCode.Code + @" </strong ></td >
                                     <td align = ""right"" style = ""font-family: 'Montserrat',Arial,sans-serif; font-size: 14px; text-align: right; width: 20%;"" width = ""20%"">" + (cartItem.Product.Price * currecnyMutliplier).ToString() + currecnySymbol + "</td></tr>";
                    whatsappCodeTable += @"*PlayStation 10$ Gift Card*
 - *Code:* _"+cardCode.Code+@"_
@@ -191,7 +191,7 @@ namespace VeeStoreA.Controllers
 
             }
 
-            TempData["receiptTable"] = recieptTable;
+            //TempData["receiptTable"] = recieptTable;
             if (deliveryMethod == "emailDelivery")
             {
                 text = text.Replace("Customer_Name!", cart.Customer.Name);
