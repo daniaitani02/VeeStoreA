@@ -37,6 +37,7 @@ namespace VeeStoreA.Controllers
                 products = products.Where(p => p.Name.Contains(SearchString));
 
             }
+            ViewBag.categories = db.Categories.Select(c=>c.Name);
             return View(products);
             //return View(db.Products.ToList());
         }
