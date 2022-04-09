@@ -1,4 +1,14 @@
 ﻿@model VeeStoreA.Models.Product
+@{
+
+    int rating = 0;
+    if (Model.Ratings.Count() != 0)
+    {
+        rating = Model.Ratings.Sum(r => r.Stars) / Model.Ratings.Count();
+    }
+    
+
+}
 <div class="card ecommerce-card">
     <div class="text-center">
         <a href="@Url.Action("Details", "Products", new { id= Model.Id })">
@@ -9,11 +19,11 @@
         <div class="item-wrapper">
             <div class="item-rating">
                 <ul class="unstyled-list list-inline">
-                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                    <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>0?"filled-star":"unfilled-star")"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>1?"filled-star":"unfilled-star")"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>2?"filled-star":"unfilled-star")"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>3?"filled-star":"unfilled-star")"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>4?"filled-star":"unfilled-star")"></i></li>
                 </ul>
             </div>
             <div>
