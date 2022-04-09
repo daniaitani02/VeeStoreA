@@ -4,7 +4,8 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
-
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/extensions/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/pages/app-ecommerce-details.min.css">
 <div class=" content ecommerce-application" style="padding-top: 20px">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -111,13 +112,37 @@
 
                                         }
                                     }
-                                    
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Product Details ends -->
+                    @if (Model.Category.Products.Where(p => p.Id != Model.Id).Count() != 0)
+                    {
+                        <div class="card-body">
+                            <div class="mt-4 mb-2 text-center">
+                                <h4>Related Products</h4>
+                                <p class="card-text">People also search for this items</p>
+                            </div>
+                            <div class="swiper-responsive-breakpoints swiper-container px-4 py-2 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+                                <div class="swiper-wrapper" id="swiper-wrapper-36e4e3c296b439d1" aria-live="polite" style="transform: translate3d(-1003.5px, 0px, 0px); transition-duration: 0ms;">
+                                    @foreach (var product in Model.Category.Products.Where(p => p.Id != Model.Id))
+                                    {
+                                        Html.RenderPartial("_RelatedProductCard", product);
+                                    }
+
+                                </div>
+                                <!-- Add Arrows -->
+                                <div class="swiper-button-next swiper-button-disabled" tabindex="-1" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-36e4e3c296b439d1" aria-disabled="true"></div>
+                                <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-36e4e3c296b439d1" aria-disabled="false"></div>
+                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                            </div>
+                        </div>
+                    }
+
                 </div>
+              
             </section>
             <!-- app e-commerce details end -->
 
@@ -125,3 +150,6 @@
     </div>
 </div>
 
+@Scripts.Render("~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js")
+<script src="~/Content/Theme/app-assets/vendors/js/extensions/swiper.min.js"></script>
+<script src="~/Content/Theme/app-assets/js/scripts/pages/app-ecommerce-details.min.js"></script>

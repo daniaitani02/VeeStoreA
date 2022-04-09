@@ -25,6 +25,11 @@ namespace VeeStoreA.Controllers
                 ViewBag.Mutliplier = customer.Currency.Multiplier;
 
             }
+            else
+            {
+                ViewBag.CurrencySymbol = "QR";
+                ViewBag.Mutliplier = 1;
+            }
             var products = from p in db.Products
                        select p;
             if (!String.IsNullOrEmpty(SearchString))
@@ -39,6 +44,7 @@ namespace VeeStoreA.Controllers
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -48,6 +54,19 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
+            if (Request.IsAuthenticated)
+            {
+                Customer customer = db.Customers.Find(User.Identity.Name);
+                ViewBag.CurrencySymbol = customer.Currency.Symbol;
+                ViewBag.Mutliplier = customer.Currency.Multiplier;
+
+            }
+            else
+            {
+                ViewBag.CurrencySymbol = "QR";
+                ViewBag.Mutliplier = 1;
+            }
+            ViewBag.relatedProducts = db.Products.Where(p=>p.CategoryId ==product.CategoryId);
             return View(product);
         }
 

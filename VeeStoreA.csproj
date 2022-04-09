@@ -418,6 +418,8 @@
     <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-checkout.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-details.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-details.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\auth-two-steps.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\page-account-settings-billing.js" />
     <Content Include="Content\Theme\app-assets\vendors\css\animate\animate.css" />
@@ -1030,6 +1032,7 @@
     <Content Include="Views\Products\Details - Copy.cshtml" />
     <Content Include="Views\Transaction\Receipt.cshtml" />
     <Content Include="Views\Carts\_AddedCard.cshtml" />
+    <Content Include="Views\Products\_RelatedProductCard.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
