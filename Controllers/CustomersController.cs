@@ -39,6 +39,7 @@ namespace VeeStoreA.Controllers
             // Does the customer object belong to the logged in user? If not, return Forbidden error
             if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             ViewBag.CurrencyId = new SelectList(db.Currencies, "Id", "ShortName", customer.CurrencyId);
+            ViewBag.Type = new SelectList(new List<string> { "Visa", "Mastercard", "American Express" }, "Visa");
 
             return View(customer);
         }
