@@ -96,6 +96,7 @@ namespace VeeStoreA.Controllers
         {
             CreditCard creditCard = db.CreditCards.Find(CardId);
             creditCard.Type = "Disabled";
+            db.SaveChanges();
             return RedirectToAction("Details", "Customers", new { id = User.Identity.Name +"/" });
         }
         public ActionResult Orders(string id)
