@@ -1,0 +1,49 @@
+﻿@model IEnumerable<VeeStoreA.Models.Cart>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_ThemeLayout.cshtml";
+}
+
+<h2>Orders</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Order Id #</th>
+                <th>Status</th>
+                <th>Paid at</th>
+                <th>Credit Card Used</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var order in Model)
+            {
+
+                <tr>
+                    <td>
+                        @order.Id
+                    </td>
+                    <td>
+                        <span class="badge rounded-pill badge-light-primary me-1">@order.Status</span></td>
+                    <td>
+                        @order.PaidAt
+                    </td>
+                    <td>@order.CreditCard.Name (XXXX XXXX @order.CreditCard.Number.ToString().Substring(order.CreditCard.Number.ToString().Length - 4))</td>
+                    <td>
+                        @order.CartItems.Sum(x => x.Product.Price * x.Quantity)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Receipt", "Transaction", new { id = order.Id })
+                    </td>
+                </tr>
+
+
+            }
+        </tbody>
+    </table>
+</div>

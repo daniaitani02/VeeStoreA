@@ -90,6 +90,27 @@ namespace VeeStoreA.Controllers
             db.SaveChanges();
             return RedirectToAction("Details",new { id=User.Identity.Name +"/"});
         }
+
+        public ActionResult Orders(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            if (User.Identity.Name == "admin@admin.com") return View(customer);
+
+            // Does the customer object belong to the logged in user? If not, return Forbidden error
+            if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
+            var orders = db.Carts.Where(x => x.CustomerEmail == customer.Email && x.Status == "Paid");
+
+            return View(orders.ToList());
+        }
         // GET: Customers/Delete/5
         //public ActionResult Delete(string id)
         //{

@@ -7,6 +7,7 @@ using VeeStoreA.Models;
 
 namespace VeeStoreA.Controllers
 {
+    [Authorize(Users = "admin@admin.com")]
     public class AdminController : Controller
 
     {
