@@ -67,7 +67,7 @@
                                     </td>*@
                                             <td>@order.CreditCard.Name (XXXX XXXX @order.CreditCard.Number.ToString().Substring(order.CreditCard.Number.ToString().Length - 4))</td>
                                             <td>
-                                                @order.CartItems.Sum(x => x.Product.Price * x.Quantity) QR
+                                                @(order.CartItems.Sum(x => x.Product.Price * x.Quantity) * order.Customer.Currency.Multiplier ) @order.Customer.Currency.Symbol
                                             </td>
                                             <td>
                                                 <a type="button" class="btn btn-gradient-primary" href="@Url.Action("Receipt", "Transaction", new { id = order.Id })">Receipt</a>
