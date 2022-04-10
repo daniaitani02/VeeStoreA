@@ -16,8 +16,9 @@ namespace VeeStoreA.Controllers
         private VeeStoreDbEntities db = new VeeStoreDbEntities();
 
         // GET: Products
-        public ActionResult Index(string SearchString)
+        public ActionResult Index(string SearchString, string categoryfilter, string price, string ratings)
         {
+            
             if (Request.IsAuthenticated)
             {
                 Customer customer = db.Customers.Find(User.Identity.Name);
@@ -32,10 +33,55 @@ namespace VeeStoreA.Controllers
             }
             var products = from p in db.Products
                        select p;
+           
             if (!String.IsNullOrEmpty(SearchString))
             {
                 products = products.Where(p => p.Name.Contains(SearchString));
 
+            }
+            ViewBag.search = SearchString;
+            if (price == "l30")
+            {
+                products = products.Where(p => p.Price < 30);
+
+            }
+            else if (price == "b30x100")
+            {
+                products = products.Where(p => p.Price  >=30 && p.Price <100);
+
+            }
+            else if (price == "m100")
+            {
+                products = products.Where(p => p.Price >= 100 );
+
+            }
+            if(!String.IsNullOrEmpty(categoryfilter))
+            {
+                products = products.Where(p => p.Category.Name.Equals(categoryfilter));
+            }
+            if (ratings =="5" )
+            {
+                products = products.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 5);
+            }
+            else if (ratings == "4")
+            {
+                products = products.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 4);
+            }
+            else if (ratings == "3")
+            {
+                products = products.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 3);
+            }
+            else if (ratings == "2")
+            {
+                products = products.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 2);
+            }
+            else if (ratings == "1")
+            {
+                products = products.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 1);
+            }
+            else if(ratings == "0")
+            {
+                products = products.Where(p => p.Ratings.Count() == 0);
             }
             ViewBag.categories = db.Categories.Select(c=>c.Name);
             return View(products);

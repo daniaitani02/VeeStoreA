@@ -125,6 +125,20 @@ namespace VeeStoreA.Controllers
             return RedirectToAction("Details", "Carts", new { id = cart.Id });
             
         }
+        public ActionResult DeleteItem(int? id)
+
+        {
+            CartItem cartitem = db.CartItems.Find(id);
+            db.CartItems.Remove(cartitem);
+            db.SaveChanges();
+
+            Cart cart = GetUsersCart();
+
+            // Redirect user to their unpaid cart
+            return RedirectToAction("Details", "Carts", new { id = cart.Id });
+
+
+        }
         public ActionResult MyCart()
         {
 
