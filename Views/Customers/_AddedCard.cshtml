@@ -1,0 +1,28 @@
+﻿@model VeeStoreA.Models.CreditCard
+
+<input class="custom-option-item-check" type="radio" name="CreditCard" id="@Model.Id" checked="">
+
+    <div class="cardMaster rounded border p-2 mb-1">
+
+        <div class="d-flex justify-content-between flex-sm-row flex-column">
+            <div class="card-information">
+                <img class="mb-1 img-fluid" src="~/Content/Images/icons/payments/@(Model.Type.ToLower().Replace(" ","")).png" alt="Master Card">
+                <div class="d-flex align-items-center mb-50">
+                    <h6 class="mb-0">@Model.Name</h6>
+                    @*<span class="badge badge-light-primary ms-50">Primary</span>*@
+                </div>
+                <span class="card-number">**** **** @Model.Number.ToString().Substring(Model.Number.ToString().Length - 4)</span>
+            </div>
+            <div class="d-flex flex-column text-start text-lg-end">
+                <div class="d-flex order-sm-0 order-1 mt-1 mt-sm-0">
+                    
+                    @*<button class="btn-outline-primary me-75 waves-effect" data-bs-toggle="modal" data-bs-target="#editCard">
+            Edit
+        </button>*@
+                    <a href="@Url.Action("RemoveCard","Customers", new { id=Model.Id})" class="btn btn-outline-danger waves-effect w-100">Remove Card</a>
+                </div>
+                <span class="mt-2">Card expires at @Model.Expiry</span>
+            </div>
+        </div>
+
+    </div>

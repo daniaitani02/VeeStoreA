@@ -1036,6 +1036,7 @@
     <Content Include="Views\Customers\Details - Copy.cshtml" />
     <Content Include="Views\Customers\Orders.cshtml" />
     <Content Include="Views\Manage\_Layout.cshtml" />
+    <Content Include="Views\Customers\_AddedCard.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

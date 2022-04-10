@@ -171,15 +171,15 @@
                                             <div class="col-lg-6 mt-2 mt-lg-0">
                                                 <h6 class="fw-bolder mb-2">My Cards</h6>
                                                 <div class="added-cards">
-                                                    @if (Model.CreditCards.Count() == 0)
+                                                    @if (Model.CreditCards.Where(cc=>cc.Type != "Disabled").Count() == 0)
                                                     {
                                                         <div class="detail-amt discount-amt text-danger">No Cards Found</div>
                                                     }
                                                     else
                                                     {
-                                                        foreach (var creditCard in Model.CreditCards)
+                                                        foreach (var creditCard in Model.CreditCards.Where(cc => cc.Type != "Disabled"))
                                                         {
-                                                            Html.RenderPartial("~/Views/Carts/_AddedCard.cshtml", creditCard);
+                                                            Html.RenderPartial("_AddedCard", creditCard);
                                                         }
                                                     }
 
