@@ -25,6 +25,11 @@
         <AssociationConnector Association="VeeStoreDbModel.FK_FAQ_Prodcut" ManuallyRouted="false" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Cart_Coupon" />
         <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customers" />
+        <EntityTypeShape EntityType="VeeStoreDbModel.CreditCard" Width="1.5" PointX="5.25" PointY="13.25" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customerss" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Cart_Payment" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_carts" />
+        <AssociationConnector Association="VeeStoreDbModel.FK_Table_Customers1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

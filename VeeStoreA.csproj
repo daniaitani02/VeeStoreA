@@ -223,6 +223,9 @@
     <Compile Include="Models\CouponCode.cs">
       <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreditCard.cs">
+      <DependentUpon>StoreModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Currency.cs">
       <DependentUpon>StoreModels.tt</DependentUpon>
     </Compile>
@@ -270,6 +273,17 @@
     <Content Include="Content\homeImg.jpg" />
     <Content Include="Content\Images\banner.png" />
     <Content Include="Content\Images\faq-illustrations.svg" />
+    <Content Include="Content\Images\Icons\payments\americanexpress.png" />
+    <Content Include="Content\Images\Icons\payments\amex-cc.png" />
+    <Content Include="Content\Images\Icons\payments\diners-cc.png" />
+    <Content Include="Content\Images\Icons\payments\discover-cc.png" />
+    <Content Include="Content\Images\Icons\payments\jcb-cc.png" />
+    <Content Include="Content\Images\Icons\payments\maestro-cc.png" />
+    <Content Include="Content\Images\Icons\payments\mastercard-cc.png" />
+    <Content Include="Content\Images\Icons\payments\mastercard.png" />
+    <Content Include="Content\Images\Icons\payments\uatp-cc.png" />
+    <Content Include="Content\Images\Icons\payments\visa-cc.png" />
+    <Content Include="Content\Images\Icons\payments\visa.png" />
     <Content Include="Content\Images\Products\1.png" />
     <Content Include="Content\Images\avatar.png" />
     <Content Include="Content\Reciept_Template.txt" />
@@ -404,7 +418,10 @@
     <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-checkout.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-details.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-details.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\auth-two-steps.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\pages\page-account-settings-billing.js" />
     <Content Include="Content\Theme\app-assets\vendors\css\animate\animate.css" />
     <Content Include="Content\Theme\app-assets\vendors\css\animate\animate.min.css" />
     <Content Include="Content\Theme\app-assets\vendors\css\calendars\fullcalendar.min.css" />
@@ -1013,7 +1030,9 @@
     <Content Include="Views\CardCodes\Edit.cshtml" />
     <Content Include="Views\CardCodes\Index.cshtml" />
     <Content Include="Views\Products\Details - Copy.cshtml" />
-    <Content Include="Views\Transaction\Reciept.cshtml" />
+    <Content Include="Views\Transaction\Receipt.cshtml" />
+    <Content Include="Views\Carts\_AddedCard.cshtml" />
+    <Content Include="Views\Products\_RelatedProductCard.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

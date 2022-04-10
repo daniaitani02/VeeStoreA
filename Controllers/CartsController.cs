@@ -47,69 +47,12 @@ namespace VeeStoreA.Controllers
             }
             // Does the cart belong to the logged in user? If not, return Forbidden error
             if (cart.Customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com") return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            ViewBag.totalAmount = cart.CartItems.Sum(p => (int)p.Quantity * (int)p.Product.Price);
+            //ViewBag.totalAmount = cart.CartItems.Sum(p => (int)p.Quantity * (int)p.Product.Price);
+            ViewBag.Type = new SelectList(new List<string> { "Visa", "Mastercard","American Express" },"Visa");
             return View(cart);
         }
 
-        // GET: Carts/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.CustomerName = new SelectList(db.Customers, "UserName", "Name");
-        //    return View();
-        //}
-
-        //// POST: Carts/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Id,CustomerName,Status")] Cart cart)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Carts.Add(cart);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.CustomerName = new SelectList(db.Customers, "UserName", "Name", cart.CustomerName);
-        //    return View(cart);
-        //}
-
-        //// GET: Carts/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Cart cart = db.Carts.Find(id);
-        //    if (cart == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.CustomerName = new SelectList(db.Customers, "UserName", "Name", cart.CustomerName);
-        //    return View(cart);
-        //}
-
-        //// POST: Carts/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,CustomerName,Status")] Cart cart)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(cart).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.CustomerName = new SelectList(db.Customers, "UserName", "Name", cart.CustomerName);
-        //    return View(cart);
-        //}
-
-        // GET: Carts/Delete/5
+     
         public ActionResult Delete(int? id)
         {
             // Is id null (not given)? if yes, return BadRequest error

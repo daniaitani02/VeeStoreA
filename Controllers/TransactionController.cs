@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -97,12 +99,24 @@ namespace VeeStoreA.Controllers
             // Redirect user to their unpaid cart
             return RedirectToAction("Details", "Carts", new { id = cart.Id });
         }
-        public ActionResult Reciept()
+        public ActionResult Receipt(int? id)
         {
-
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cart cart = db.Carts.Find(id);
+            if (cart == null)
+            {
+                return HttpNotFound();
+            }
+            if (cart.Customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+            return View(cart);
         }
-        public ActionResult Checkout(int? id, String deliveryMethod)
+        public async Task<ActionResult> Checkout(int? id, string deliveryMethod, int creditCardId)
         {
 
             if (id == null)
@@ -138,45 +152,78 @@ namespace VeeStoreA.Controllers
             //Flag Cart As Paid
             cart.Status = "Paid";
             cart.PaidAt = DateTime.Now;
+            cart.CreditCardId = creditCardId;
+
             db.SaveChanges();
             var recieptTable = "";
+            var whatsappCodeTable = "";
             string text = System.IO.File.ReadAllText(HostingEnvironment.MapPath(@"~/Content/Reciept_Template.txt"));
             var currecnySymbol = cart.Customer.Currency.Symbol;
             var currecnyMutliplier = cart.Customer.Currency.Multiplier;
             var totalCart = cart.CartItems.Sum(ci => ci.Quantity * ci.Product.Price) * currecnyMutliplier;
             var discountAmount = cart.CouponCode != null ? (totalCart * ((double)cart.CouponCode.DiscountPercentage / 100)) : 0;
+            var cardInfo = cart.CreditCard.Name + " (XXXX XXXX " + cart.CreditCard.Number.ToString().Substring(cart.CreditCard.Number.ToString().Length - 4) + ")";
             //Flag Each Product As Used And Deliver
             foreach (CartItem cartItem in cart.CartItems)
             {
                 foreach (int value in Enumerable.Range(1, cartItem.Quantity))
                 {
-                    
-                
-                CardCode cardCode = cartItem.Product.CardCodes.Where(cc => cc.Status == "New").First();
-                cardCode.Status = "Used";
-                cardCode.UsedAt = DateTime.Now;
-                cardCode.CustomerEmail = cart.CustomerEmail;
-                db.SaveChanges();
 
-                recieptTable += @"<tr>
-                                    <td style=""font - family: 'Montserrat',Arial,sans - serif; font - size: 14px; padding - top: 10px; padding - bottom: 10px; width: 80 %; "" width=""80 % "">"+cardCode.Product.Name+@"
-                                       <br><strong> Code: "+cardCode.Code+@" </ strong ></ td >
-                                    <td align = ""right"" style = ""font-family: 'Montserrat',Arial,sans-serif; font-size: 14px; text-align: right; width: 20%;"" width = ""20%"">"+ (cartItem.Product.Price * currecnyMutliplier).ToString() + currecnySymbol  + "</td></tr>";
+
+                    CardCode cardCode = cartItem.Product.CardCodes.Where(cc => cc.Status == "New").First();
+                    cardCode.Status = "Used";
+                    cardCode.UsedAt = DateTime.Now;
+                    cardCode.CartId = cart.Id;
+                    db.SaveChanges();
+
+                    recieptTable += @"<tr>
+                                    <td style=""font-family: 'Montserrat',Arial,sans-serif; font-size: 14px; padding-top: 10px; padding-bottom: 10px; width: 80%; "" width=""80%"">" + cardCode.Product.Name + @"
+                                       <br>Code: <strong style=""color:blue;"">" + cardCode.Code + @" </strong ></td >
+                                    <td align = ""right"" style = ""font-family: 'Montserrat',Arial,sans-serif; font-size: 14px; text-align: right; width: 20%;"" width = ""20%"">" + (cartItem.Product.Price * currecnyMutliplier).ToString() + currecnySymbol + "</td></tr>";
+                   whatsappCodeTable += @"*PlayStation 10$ Gift Card*
+- *Code:* _"+cardCode.Code+@"_
+- *Price:* _"+ (cartItem.Product.Price * currecnyMutliplier).ToString() + currecnySymbol + @"_
+
+
+";
 
                 }
+
             }
 
-            
+            //TempData["receiptTable"] = recieptTable;
+            if (deliveryMethod == "emailDelivery")
+            {
+                text = text.Replace("Customer_Name!", cart.Customer.Name);
+                text = text.Replace("Paid_At", cart.PaidAt.ToString());
+                text = text.Replace("Cart_Id", cart.Id.ToString());
+                text = text.Replace("Amount_Paid", ((totalCart - discountAmount) * currecnyMutliplier).ToString() + currecnySymbol);
+                text = text.Replace("Discount_Amount", discountAmount.ToString());
+                text = text.Replace("Reciept_Table", recieptTable);
 
-            text = text.Replace("Customer_Name!", cart.Customer.Name);
-            text = text.Replace("Paid_At", cart.PaidAt.ToString());
-            text = text.Replace("Cart_Id", cart.Id.ToString());
-            text = text.Replace("Amount_Paid", ((totalCart - discountAmount) * currecnyMutliplier).ToString() + currecnySymbol);
-            text = text.Replace("Discount_Amount", discountAmount.ToString());
-            text = text.Replace("Reciept_Table", recieptTable);
-            sendEmail("Sp0derDev@protonmail.com", text, "VeeStore Reciept");
+                SendEmail("Sp0derDev@protonmail.com", text, "VeeStore Reciept");
+            }
+            else if (deliveryMethod == "phoneDelivery")
+            {
+                var whatsappMessage = @"Hello, *" + cart.Customer.Name + @"* 👋
 
-            return RedirectToAction("Details", "Carts", new { id = id });
+Thank you for using VeeStore.
+This is a receipt for your recent purchase. 💵 
+
+
+*Order #:* " + cart.Id.ToString() + @"
+*Credit Card:* " + cardInfo + @"
+*Paid At:* " + cart.PaidAt.ToString() + @"
+*Discount:* -" + discountAmount + currecnySymbol + @"
+*Amount Paid:* " + (((totalCart - discountAmount) * currecnyMutliplier).ToString() + currecnySymbol) + @"
+
+
+"+whatsappCodeTable;
+                await SendWhatsapp(whatsappMessage, cart.Customer.PhoneNumber);
+            }
+
+
+            return RedirectToAction("Receipt", new { id = id });
 
 
         }
@@ -206,7 +253,7 @@ namespace VeeStoreA.Controllers
         }
 
 
-        private void sendEmail(String email, String message, String subject)
+        private void SendEmail(String email, String message, String subject)
         {
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
@@ -228,5 +275,24 @@ namespace VeeStoreA.Controllers
             smtpClient.Send(mailMessage);
 
         }
+
+        private async Task SendWhatsapp(string message, string number)
+        {
+
+            HttpClient client = new HttpClient();
+            var values = new Dictionary<string, string>{
+                      { "text", message},
+                      { "phoneNumber", "974"+number.Replace("974","").Replace(" ","").Replace("+","") }
+                  };
+
+            var content = new FormUrlEncodedContent(values);
+
+            var response = await client.PostAsync("https://api.sp0der.me/WhatsAppAPI/sendText", content);
+
+            //var responseString = await response.Content.ReadAsStringAsync();
+
+        }
+
+
     }
 }

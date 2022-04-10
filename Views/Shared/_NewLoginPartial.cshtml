@@ -52,7 +52,7 @@
               var username = User.Identity.Name;
                 if (username != "admin@admin.com"){
                     <li class="nav-item dropdown dropdown-cart me-25">
-                        <a class="nav-link" href="@Url.Action("MyCart", "Transaction")"><i class="ficon" data-feather="shopping-cart"></i><span class="badge rounded-pill bg-primary badge-up cart-item-count">0</span></a>
+                        <a class="nav-link active" href="@Url.Action("MyCart", "Transaction")"><i class="ficon active" data-feather="shopping-cart"></i></a>
 
                     </li>
                 }
