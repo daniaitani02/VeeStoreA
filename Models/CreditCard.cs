@@ -31,6 +31,5 @@ namespace VeeStoreA.Models
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
-        public virtual Customer Customer { get; set; }
     }
 }
