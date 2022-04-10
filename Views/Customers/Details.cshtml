@@ -39,8 +39,7 @@
                             </li>
                         </ul>
 
-                        @using (Html.BeginForm())
-                        {
+                      
                             @Html.AntiForgeryToken()
                             <!-- profile -->
                             <div class="card">
@@ -49,7 +48,10 @@
                                 </div>
                                 <div class="card-body py-2 my-25">
                                     <!-- form -->
-                                    <form class="validate-form pt-50">
+                                    @using (Html.BeginForm("Edit", "Customers", FormMethod.Post, new { @class = "validate-form pt-50" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                       
                                         <div class="row">
                                             <div class="col-12 col-sm-6 mb-1">
                                                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
@@ -70,6 +72,7 @@
 
                                             <div class="col-12 col-sm-6 mb-1">
                                                 @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "form-label" })
+                                                @Html.HiddenFor(model => model.PhoneNumber)
                                                 <div class="input-group">
                                                     <span class="input-group-text" id="basic-addon1">+974 </span>
                                                     <input type="text" disabled class="form-control" placeholder="Phone Number" value="@(Model.PhoneNumber == null?"No Phone Number Added":Model.PhoneNumber.Replace("+974",""))" aria-describedby="button-addon2">
@@ -85,15 +88,18 @@
                                             </div>
 
                                             <div class="col-12">
-                                                <a type="Button" class="btn btn-primary mt-1 me-1">Save changes</a>
-                                                <a type="reset" class="btn btn-outline-secondary mt-1">Discard</a>
+                                                @Html.HiddenFor(model => model.JoinedAt)
+                                                @Html.HiddenFor(model => model.Email)
+                                                <input type="submit" value="Save Changes" class="btn btn-primary mt-1 me-1" />
+
                                             </div>
                                         </div>
-                                    </form>
+
+                                    }
                                     <!--/ form -->
                                 </div>
                             </div>
-                        }
+                        
                         @using (Html.BeginForm("AddCreditCard", "Customers", FormMethod.Post, new { id = "addCard" }))
 
                         {

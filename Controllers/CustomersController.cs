@@ -47,31 +47,31 @@ namespace VeeStoreA.Controllers
         
 
         // GET: Customers/Edit/5
-        public ActionResult Edit(string id)
-        {
-            ViewBag.CurrencyId = new SelectList(db.Currencies, "Id", "ShortName",null);
+        //public ActionResult Edit(string id)
+        //{
+        //    ViewBag.CurrencyId = new SelectList(db.Currencies, "Id", "ShortName",null);
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            // Does the customer object belong to the logged in user? If not, return Forbidden error
-            if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Customer customer = db.Customers.Find(id);
+        //    if (customer == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    // Does the customer object belong to the logged in user? If not, return Forbidden error
+        //    if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
-            return View(customer);
-        }
+        //    return View(customer);
+        //}
 
         // POST: Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Email,Name,CurrencyId,Gender,JoinedAt,Status")] Customer customer)
+        public ActionResult Edit([Bind(Include = "Email,Name,CurrencyId,Gender,JoinedAt,Status,PhoneNumber")] Customer customer)
         {
             // Does the customer object belong to the logged in user? If not, return Forbidden error
           
@@ -79,9 +79,9 @@ namespace VeeStoreA.Controllers
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details",new { id=customer.Email +"/"});
             }
-            return View(customer);
+            return RedirectToAction("Details", new { id = customer.Email + "/" });
         }
 
         public ActionResult AddCreditCard([Bind(Include = "Name,Number,CVV,Expiry")] CreditCard creditCard,string Type)
