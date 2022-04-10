@@ -19,7 +19,7 @@
                     @*<button class="btn-outline-primary me-75 waves-effect" data-bs-toggle="modal" data-bs-target="#editCard">
             Edit
         </button>*@
-                    <a href="@Url.Action("RemoveCreditCard","Customers", new { id=Model.Id})" class="btn btn-outline-danger waves-effect w-100">Remove Card</a>
+                    <a href="@Url.Action("RemoveCreditCard","Customers", new { CardId=Model.Id})" class="btn btn-outline-danger waves-effect w-100">Remove Card</a>
                 </div>
                 <span class="mt-2">Card expires at @Model.Expiry</span>
             </div>

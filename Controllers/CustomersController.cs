@@ -92,7 +92,7 @@ namespace VeeStoreA.Controllers
             db.SaveChanges();
             return RedirectToAction("Details",new { id=User.Identity.Name +"/"});
         }
-        public ActionResult RemoveCreditCard(int CardId)
+        public ActionResult RemoveCreditCard(int? CardId)
         {
             CreditCard creditCard = db.CreditCards.Find(CardId);
             creditCard.Type = "Disabled";
