@@ -58,7 +58,7 @@
     <div class="item-options text-center">
         <div class="item-wrapper">
             <div class="item-cost">
-                <h4 class="item-price">@Model.Product.Price @Model.Cart.Customer.Currency.Symbol</h4>
+                <h4 class="item-price">@(Model.Product.Price * Model.Cart.Customer.Currency.Multiplier) @Model.Cart.Customer.Currency.Symbol</h4>
                 <p class="card-text shipping">
                     <span class="badge rounded-pill badge-light-success">Digital Delivery</span>
                 </p>
