@@ -71,8 +71,9 @@
                                             <div class="col-12 col-sm-6 mb-1">
                                                 @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "form-label" })
                                                 <div class="input-group">
-                                                    <input type="text" disabled class="form-control" placeholder="Phone Number" aria-describedby="button-addon2">
-                                                    <button class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">Add Phone Number</button>
+                                                    <span class="input-group-text" id="basic-addon1">+974 </span>
+                                                    <input type="text" disabled class="form-control" placeholder="Phone Number" value="@(Model.PhoneNumber == null?"No Phone Number Added":Model.PhoneNumber.Replace("+974",""))" aria-describedby="button-addon2">
+                                                    <a href="@Url.Action("AddPhoneNumber","Manage")" class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">@(Model.PhoneNumber == null?"Add Phone Number":"Change Phone Number")</a>
                                                 </div>
 
                                             </div>

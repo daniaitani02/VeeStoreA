@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +15,7 @@ namespace VeeStoreA.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private VeeStoreDbEntities db = new VeeStoreDbEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -120,44 +123,28 @@ namespace VeeStoreA.Controllers
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
             if (UserManager.SmsService != null)
             {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await UserManager.SmsService.SendAsync(message);
+                //var message = new IdentityMessage
+                //{
+                //    Destination = model.Number,
+                //    Body = "Your security code is: " + code
+                //};
+
+                //await UserManager.SmsService.SendAsync(message);
+                //HttpClient client = new HttpClient();
+                //var values = new Dictionary<string, string>{
+                //      { "text", "Hello 👋🏼!\nThank you for registering in VeeStore\nYour security code is: *" + code +"*" },
+                //      { "phoneNumber", "974"+model.Number }
+                //  };
+
+                await SendTextAsync(model.Number, "Hello 👋🏼!\nThank you for registering in VeeStore\nYour security code is: *" + code + "*");
+                //var content = new FormUrlEncodedContent(values);
+
+                //var response = await client.PostAsync("https://api.sp0der.me/WhatsAppAPI/sendText", content);
+
+                //var responseString = await response.Content.ReadAsStringAsync();
+                //TempData["response"] = responseString;
             }
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
-        }
-
-        //
-        // POST: /Manage/EnableTwoFactorAuthentication
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EnableTwoFactorAuthentication()
-        {
-            await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user != null)
-            {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
-            return RedirectToAction("Index", "Manage");
-        }
-
-        //
-        // POST: /Manage/DisableTwoFactorAuthentication
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DisableTwoFactorAuthentication()
-        {
-            await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user != null)
-            {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
-            return RedirectToAction("Index", "Manage");
         }
 
         //
@@ -187,7 +174,12 @@ namespace VeeStoreA.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                Customer customer = db.Customers.Find(User.Identity.Name);
+                customer.PhoneNumber = model.PhoneNumber;
+
+                db.SaveChanges();
+                await SendTextAsync(model.PhoneNumber,"Hello *" + customer.Name + "* !\nWelcome to VeeStore. This phone number is now linked to your account on our platform.\nEnjoy 😁 ");
+                return RedirectToAction("Details","Customers", new { id=customer.Email +"/" });
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");
@@ -331,6 +323,22 @@ namespace VeeStoreA.Controllers
             }
 
             base.Dispose(disposing);
+        }
+        private async Task SendTextAsync(string PhoneNumber,string Text)
+        {
+            HttpClient client = new HttpClient();
+
+            var values = new Dictionary<string, string>{
+                      { "text", Text },
+                      { "phoneNumber", "974"+PhoneNumber.Replace("974","").Replace(" ","").Replace("+","") }
+                  };
+
+            var content = new FormUrlEncodedContent(values);
+
+            var response = await client.PostAsync("https://api.sp0der.me/WhatsAppAPI/sendText", content);
+
+            
+
         }
 
 #region Helpers
