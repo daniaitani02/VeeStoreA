@@ -1,4 +1,14 @@
 ﻿@model VeeStoreA.Models.CartItem
+@{
+
+    int rating = 0;
+    if (Model.Product.Ratings.Count() != 0)
+    {
+        rating = Model.Product.Ratings.Sum(r => r.Stars) / Model.Product.Ratings.Count();
+    }
+
+
+}
 <div class="card ecommerce-card">
     <div class="item-img">
         <a href="@Url.Action("Details","Products",new { id = Model.ProductId })">
@@ -11,15 +21,15 @@
             <span class="item-company"><a href="#" class="company-name">@Model.Product.Category.Name</a></span>
             <div class="item-rating">
                 <ul class="unstyled-list list-inline">
-                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                    <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>0?"filled-star":"unfilled-star")"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>1?"filled-star":"unfilled-star")"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>2?"filled-star":"unfilled-star")"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>3?"filled-star":"unfilled-star")"></i></li>
+                    <li class="ratings-list-item"><i data-feather="star" class="@(rating>4?"filled-star":"unfilled-star")"></i></li>
                 </ul>
             </div>
         </div>
-        @if (Model.Product.CardCodes.Where(cc=>cc.Status=="New").Count() == 0)
+        @if (Model.Product.CardCodes.Where(cc => cc.Status == "New").Count() == 0)
         {
             <span class="text-danger mb-1">Out Of Stock</span>
         }
@@ -31,8 +41,14 @@
         <div class="item-quantity">
             <span class="quantity-title">Qty:</span>
             <div class="quantity-counter-wrapper">
-                <div class="input-group">
-                    <input type="text" class="quantity-counter" value="@Model.Quantity" />
+                <div class="input-group bootstrap-touchspin">
+                    <span class="input-group-btn bootstrap-touchspin-injected">
+                        <a href="@Url.Action("DecrementItem","Transaction",new { id=Model.Id})" class="btn btn-primary bootstrap-touchspin-down" type="button">-</a>
+                    </span>
+                    <input type="text" class=" form-control" value=@Model.Quantity>
+                    <span class="input-group-btn bootstrap-touchspin-injected">
+                        <a href="@Url.Action("IncrementItem","Transaction",new { id=Model.Id})" class="btn btn-primary bootstrap-touchspin-up" type="button">+</a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -52,6 +68,6 @@
             <i data-feather="x" class="align-middle me-25"></i>
             <span>Remove</span>
         </a>
-        
+
     </div>
 </div>

@@ -90,7 +90,41 @@ namespace VeeStoreA.Controllers
             return RedirectToAction("Details", "Carts", new { id = cart.Id });  // Finally, take the user to their cart.
 
         }
+        public ActionResult DecrementItem(int? id)
 
+        {
+            CartItem cartitem = db.CartItems.Find(id);
+            if(cartitem.Quantity == 1)
+            {
+                db.CartItems.Remove(cartitem);
+                db.SaveChanges();
+
+            }
+            else
+            {
+                cartitem.Quantity -= 1;
+
+                db.SaveChanges();
+            }
+          
+            Cart cart = GetUsersCart();
+            // Redirect user to their unpaid cart
+            return RedirectToAction("Details", "Carts", new { id = cart.Id });
+
+        
+        }
+        public ActionResult IncrementItem(int? id)
+        {
+           
+            CartItem cartitem = db.CartItems.Find(id);
+            cartitem.Quantity += 1;
+           
+                db.SaveChanges();
+            Cart cart = GetUsersCart();
+            // Redirect user to their unpaid cart
+            return RedirectToAction("Details", "Carts", new { id = cart.Id });
+            
+        }
         public ActionResult MyCart()
         {
 
@@ -99,6 +133,7 @@ namespace VeeStoreA.Controllers
             // Redirect user to their unpaid cart
             return RedirectToAction("Details", "Carts", new { id = cart.Id });
         }
+
         public ActionResult Receipt(int? id)
         {
             if (id == null)
