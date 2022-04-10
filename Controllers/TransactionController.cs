@@ -309,6 +309,7 @@ This is a receipt for your recent purchase. 💵
                 Port = 587,
                 Credentials = new NetworkCredential("veestore.info@gmail.com", "Vvvvvv1!"),
                 EnableSsl = true,
+                Timeout = 10000
             };
 
 

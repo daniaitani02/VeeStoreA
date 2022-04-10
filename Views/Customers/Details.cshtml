@@ -1,125 +1,125 @@
 ﻿@model VeeStoreA.Models.Customer
-    
-@{ 
+
+@{
 
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
-<div class=" content">
-    <div class="content-overlay"></div>
-    <div class="header-navbar-shadow"></div>
-    <div class="content-wrapper container-xxl p-0">
-        <div class="content-header row">
-            <div class="content-header-left col-md-9 col-12 mb-2">
-                <div class="row breadcrumbs-top">
-                    <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Account</h2>
+
+    <div class=" content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-start mb-0">Profile</h2>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="content-body">
-            <div class="row">
-                <div class="col-12">
-                    <ul class="nav nav-pills mb-2">
-                        <!-- account -->
-                        <li class="nav-item">
-                            <a class="nav-link active" href="page-account-settings-account.html">
-                                <i data-feather="user" class="font-medium-3 me-50"></i>
-                                <span class="fw-bold">Account</span>
-                            </a>
-                        </li>
-                        <!-- security -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Orders", "Customers", new { id= Model.Email +"/"})">
-                                <i data-feather="archive" class="font-medium-3 me-50"></i>
-                                <span class="fw-bold">My Orders</span>
-                            </a>
-                        </li>
-                    </ul>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-pills mb-2">
+                            <!-- account -->
+                            <li class="nav-item">
+                                <a class="nav-link active" style="pointer-events:none;">
+                                    <i data-feather="user" class="font-medium-3 me-50"></i>
+                                    <span class="fw-bold">Account</span>
+                                </a>
+                            </li>
+                            <!-- security -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Orders", "Customers", new { id = Model.Email + "/" })">
+                                    <i data-feather="archive" class="font-medium-3 me-50"></i>
+                                    <span class="fw-bold">My Orders</span>
+                                </a>
+                            </li>
+                        </ul>
 
-                    <!-- profile -->
-                    <div class="card">
-                        <div class="card-header border-bottom">
-                            <h4 class="card-title">Profile Details</h4>
-                        </div>
-                        <div class="card-body py-2 my-25">
-                            <!-- form -->
-                            <form class="validate-form pt-50">
-                                <div class="row">
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @disabled = true} })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
-                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
-                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "form-label" })
-                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone Number" } })
-                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "form-label" })
-                                        @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gender", @disabled = true } })
-                                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label for="currency" class="form-label">Currency</label>
-                                        <select id="currency" class="select2 form-select">
-                                            <option value="">Select Currency</option>
-                                            <option value="usd">USD</option>
-                                            <option value="euro">Euro</option>
-                                            <option value="pound">Pound</option>
-                                            <option value="bitcoin">Bitcoin</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary mt-1 me-1">Save changes</button>
-                                        <button type="reset" class="btn btn-outline-secondary mt-1">Discard</button>
-                                    </div>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <!-- profile -->
+                            <div class="card">
+                                <div class="card-header border-bottom">
+                                    <h4 class="card-title">Profile Details</h4>
                                 </div>
-                            </form>
-                            <!--/ form -->
-                        </div>
-                    </div>
+                                <div class="card-body py-2 my-25">
+                                    <!-- form -->
+                                    <form class="validate-form pt-50">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6 mb-1">
+                                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @disabled = true } })
+                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-12 col-sm-6 mb-1">
+                                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-12 col-sm-6 mb-1">
+                                                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone Number" } })
+                                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-12 col-sm-6 mb-1">
+                                                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "form-label" })
+                                                @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gender", @disabled = true } })
+                                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-12 col-sm-6 mb-1">
+                                                @Html.LabelFor(model => model.Currency, "Currency", htmlAttributes: new { @class = "form-label" })
 
-                    <!-- deactivate account  -->
-                    <div class="card">
-                        <div class="card-header border-bottom">
-                            <h4 class="card-title">Delete Account</h4>
-                        </div>
-                        <div class="card-body py-2 my-25">
-                            <div class="alert alert-warning">
-                                <h4 class="alert-heading">Are you sure you want to delete your account?</h4>
-                                <div class="alert-body fw-normal">
-                                    Once you delete your account, there is no going back. Please be certain.
+                                                @Html.DropDownList("CurrencyId", null, htmlAttributes: new { @class = "hide-search form-select select2-hidden-accessible" })
+                                                @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-12">
+                                                <a type="Button" class="btn btn-primary mt-1 me-1">Save changes</a>
+                                                <a type="reset" class="btn btn-outline-secondary mt-1">Discard</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!--/ form -->
                                 </div>
                             </div>
-
-                            <form id="formAccountDeactivation" class="validate-form" onsubmit="return false">
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox"
-                                           name="accountActivation"
-                                           id="accountActivation"
-                                           data-msg="Please confirm you want to delete account" />
-                                    <label class="form-check-label font-small-3" for="accountActivation">
-                                        I confirm my account deactivation
-                                    </label>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-danger deactivate-account mt-1">Deactivate Account</button>
-                                </div>
-                            </form>
+                        }
+                            <!-- deactivate account  -->
+                            @*<div class="card">
+                <div class="card-header border-bottom">
+                    <h4 class="card-title">Delete Account</h4>
+                </div>
+                <div class="card-body py-2 my-25">
+                    <div class="alert alert-warning">
+                        <h4 class="alert-heading">Are you sure you want to delete your account?</h4>
+                        <div class="alert-body fw-normal">
+                            Once you delete your account, there is no going back. Please be certain.
                         </div>
                     </div>
-                    <!--/ profile -->
+
+                    <form id="formAccountDeactivation" class="validate-form" onsubmit="return false">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="accountActivation"
+                                   id="accountActivation"
+                                   data-msg="Please confirm you want to delete account" />
+                            <label class="form-check-label font-small-3" for="accountActivation">
+                                I confirm my account deactivation
+                            </label>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-danger deactivate-account mt-1">Deactivate Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>*@
+                            <!--/ profile -->
+                        </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
