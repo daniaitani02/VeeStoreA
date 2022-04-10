@@ -20,12 +20,11 @@ namespace VeeStoreA.Models
         public string Status { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<System.DateTime> UsedAt { get; set; }
-        public Nullable<int> CartId { get; set; }
         public string CustomerEmail { get; set; }
+        public Nullable<int> CartId { get; set; }
     
-        public virtual Product Product { get; set; }
-        public virtual Customer Customer { get; set; }
         public virtual Cart Cart { get; set; }
-        public virtual Customer Customer1 { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

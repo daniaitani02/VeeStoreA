@@ -1033,6 +1033,8 @@
     <Content Include="Views\Transaction\Receipt.cshtml" />
     <Content Include="Views\Carts\_AddedCard.cshtml" />
     <Content Include="Views\Products\_RelatedProductCard.cshtml" />
+    <Content Include="Views\Customers\Details - Copy.cshtml" />
+    <Content Include="Views\Customers\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

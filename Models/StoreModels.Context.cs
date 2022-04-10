@@ -30,11 +30,11 @@ namespace VeeStoreA.Models
         public virtual DbSet<CartItem> CartItems { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CouponCode> CouponCodes { get; set; }
+        public virtual DbSet<CreditCard> CreditCards { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Faq> Faqs { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
-        public virtual DbSet<CreditCard> CreditCards { get; set; }
     }
 }

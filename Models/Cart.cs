@@ -17,8 +17,8 @@ namespace VeeStoreA.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cart()
         {
-            this.CartItems = new HashSet<CartItem>();
             this.CardCodes = new HashSet<CardCode>();
+            this.CartItems = new HashSet<CartItem>();
         }
     
         public int Id { get; set; }
@@ -29,12 +29,12 @@ namespace VeeStoreA.Models
         public Nullable<int> CouponCodeId { get; set; }
         public Nullable<int> CreditCardId { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItem> CartItems { get; set; }
-        public virtual CouponCode CouponCode { get; set; }
-        public virtual CreditCard CreditCard { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CardCode> CardCodes { get; set; }
+        public virtual CouponCode CouponCode { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual CreditCard CreditCard { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartItem> CartItems { get; set; }
     }
 }

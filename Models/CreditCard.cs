@@ -22,14 +22,14 @@ namespace VeeStoreA.Models
     
         public int Id { get; set; }
         public string CustomerEmail { get; set; }
-        public int Number { get; set; }
+        public string Number { get; set; }
         public string Name { get; set; }
         public string Expiry { get; set; }
         public int CVV { get; set; }
         public string Type { get; set; }
     
-        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }
