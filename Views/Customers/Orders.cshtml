@@ -5,45 +5,85 @@
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
 
-<h2>Orders</h2>
+<div class=" content">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h2 class="content-header-title float-start mb-0">Profile</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-pills mb-2">
+                        <!-- account -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Details", "Customers", new { id = User.Identity.Name + "/"})">
+                                <i data-feather="user" class="font-medium-3 me-50"></i>
+                                <span class="fw-bold">Account</span>
+                            </a>
+                        </li>
+                        <!-- security -->
+                        <li class="nav-item">
+                            <a class="nav-link active" style="pointer-events:none;">
+                                <i data-feather="archive" class="font-medium-3 me-50"></i>
+                                <span class="fw-bold">My Orders</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Order Id #</th>
+                                        <th>Status</th>
+                                        @*<th>Paid at</th>*@
+                                        <th>Credit Card Used</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Order Id #</th>
-                <th>Status</th>
-                <th>Paid at</th>
-                <th>Credit Card Used</th>
-                <th>Amount</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+                                <tbody>
+                                    @foreach (var order in Model)
+                                    {
 
-        <tbody>
-            @foreach (var order in Model)
-            {
-
-                <tr>
-                    <td>
-                        @order.Id
-                    </td>
-                    <td>
-                        <span class="badge rounded-pill badge-light-primary me-1">@order.Status</span></td>
-                    <td>
-                        @order.PaidAt
-                    </td>
-                    <td>@order.CreditCard.Name (XXXX XXXX @order.CreditCard.Number.ToString().Substring(order.CreditCard.Number.ToString().Length - 4))</td>
-                    <td>
-                        @order.CartItems.Sum(x => x.Product.Price * x.Quantity)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Receipt", "Transaction", new { id = order.Id })
-                    </td>
-                </tr>
+                                        <tr>
+                                            <td>
+                                                @order.Id
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-success me-1">@order.Status</span>
+                                            </td>
+                                            @*<td>
+                                        @order.PaidAt
+                                    </td>*@
+                                            <td>@order.CreditCard.Name (XXXX XXXX @order.CreditCard.Number.ToString().Substring(order.CreditCard.Number.ToString().Length - 4))</td>
+                                            <td>
+                                                @order.CartItems.Sum(x => x.Product.Price * x.Quantity) QR
+                                            </td>
+                                            <td>
+                                                <a type="button" class="btn btn-gradient-primary" href="@Url.Action("Receipt", "Transaction", new { id = order.Id })">Receipt</a>
+                                                @*@Html.ActionLink("Receipt", "Receipt", "Transaction", new { id = order.Id }, null)*@
+                                            </td>
+                                        </tr>
 
 
-            }
-        </tbody>
-    </table>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
