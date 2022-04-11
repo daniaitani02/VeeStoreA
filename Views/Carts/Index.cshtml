@@ -133,7 +133,7 @@
                             {
                                 <a type="button" class="btn btn-outline-primary" href="@Url.Action("Receipt", "Transaction", new { id = item.Id })">Receipt</a>
                             }
-                            else
+                            else if (item.CartItems.Where(x => x.CartId == item.Id).Count() != 0)
                             {
                                 <a type="button" class="btn btn-gradient-primary" href="@Url.Action("cartDetails", "Admin", new { id = item.Id })">View items</a>
                             }
