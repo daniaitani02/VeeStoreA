@@ -39,7 +39,8 @@ namespace VeeStoreA.Controllers
                     Email = loggedInEmail,
                     Name = loggedInEmail.Split('@')[0],
                     JoinedAt = currentTime,
-                    CurrencyId = 1
+                    CurrencyId = 1,
+                    Status="Active"
                 });
                 db.SaveChanges();
             }
