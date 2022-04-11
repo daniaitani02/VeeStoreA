@@ -49,7 +49,7 @@
                                             </div>
                                         </div>
                                         <h2 class="fw-bolder">@Model.JoinedAt.ToString().Split(' ')[0]</h2>
-                                        <p class="card-text">Joined At</p>
+                                        <p class="card-text">Member Since</p>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag font-medium-5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                                             </div>
                                         </div>
-                                        <h2 class="fw-bolder">@Model.Carts.Count()</h2>
+                                        <h2 class="fw-bolder">@Model.Carts.Where(c=>c.Status =="Paid").Count()</h2>
                                         <p class="card-text">Orders</p>
                                     </div>
                                 </div>
