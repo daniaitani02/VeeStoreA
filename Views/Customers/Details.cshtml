@@ -118,7 +118,7 @@
 
                                                     <div class="col-12 mt-0">
                                                         @Html.LabelFor(m => m.Carts.First().CreditCard.Number, htmlAttributes: new { @class = "form-label" })
-                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Number, new { htmlAttributes = new { @class = "form-control add-credit-card-mask", @placeholder = "XXXX XXXX XXXX XXXX", form = "addCard" } })
+                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Number, new { htmlAttributes = new { @class = "form-control add-credit-card-mask", @placeholder = "XXXX XXXX XXXX XXXX", form = "addCard", value = "" } })
                                                         @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.Number, "", new { @class = "text-danger" })
 
                                                         @*<label class="form-label" for="addCardNumber">Card Number</label>
@@ -130,7 +130,7 @@
 
                                                     <div class="col-md-6">
                                                         @Html.LabelFor(m => m.Carts.First().CreditCard.Name, htmlAttributes: new { @class = "form-label" })
-                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Dania Itani", form = "addCard" } })
+                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Dania Itani", form = "addCard", value = "" } })
                                                         @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.Name, "", new { @class = "text-danger" })
                                                         @*<label class="form-label" for="addCardName">Name On Card</label>
                                         <input type="text" id="addCardName" form="addCard" class="form-control" placeholder="John Doe" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">*@
@@ -138,7 +138,7 @@
 
                                                     <div class="col-6 col-md-3">
                                                         @Html.LabelFor(m => m.Carts.First().CreditCard.Expiry, htmlAttributes: new { @class = "form-label" })
-                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Expiry, new { htmlAttributes = new { @class = "form-control add-expiry-date-mask", @placeholder = "MM/YY", maxlength = "5", form = "addCard" } })
+                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Expiry, new { htmlAttributes = new { @class = "form-control add-expiry-date-mask", @placeholder = "MM/YY", maxlength = "5", form = "addCard", value = "" } })
                                                         @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.Expiry, "", new { @class = "text-danger" })
                                                         @*<label class="form-label" for="addCardExpiryDate">Exp. Date</label>
                                         <input type="text" id="addCardExpiryDate" form="addCard" class="form-control add-expiry-date-mask" placeholder="MM/YY" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">*@
@@ -146,7 +146,7 @@
 
                                                     <div class="col-6 col-md-3">
                                                         @Html.LabelFor(m => m.Carts.First().CreditCard.CVV, htmlAttributes: new { @class = "form-label" })
-                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.CVV, new { htmlAttributes = new { @class = "form-control add-cvv-code-mask", @placeholder = "CVV", @maxlength = "3", form = "addCard" } })
+                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.CVV, new { htmlAttributes = new { @class = "form-control add-cvv-code-mask", @placeholder = "CVV", @maxlength = "3", form = "addCard", value = "" } })
                                                         @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.CVV, "", new { @class = "text-danger" })
 
 
