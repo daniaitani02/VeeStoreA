@@ -138,15 +138,18 @@
                                     }
                                     else
                                     {
-                                        <div class="coupons input-group input-group-merge">
+                            <div class="coupons input-group input-group-merge">
 
 
-                                            <span class="badge rounded-pill badge-light-primary">@Model.CouponCode.Code</span>
+                                <span class="badge rounded-pill badge-light-primary">@Model.CouponCode.Code</span>
 
-                                            @*<input type="text" class="form-control" readonly placeholder="Coupon" value="Test" aria-label="Coupons" aria-describedby="input-coupons" />*@
+                               <a  href="@Url.Action("removecoupon","Transaction",new { id = Model.Id },null)">
+                                   <span class="input-group-text text-primary ps-1" id="input-coupons">
+                                       Remove Coupon Code
+                                   </span>
+                               </a>
 
-                                            <input type="submit" value="Remove Coupon Code" class="input-group-text text-primary ps-1" id="input-coupons" />
-                                        </div>
+                            </div>
                                     }
 
 

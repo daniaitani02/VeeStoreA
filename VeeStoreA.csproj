@@ -415,6 +415,8 @@
     <Content Include="Content\Theme\app-assets\js\core\app-menu.min.js" />
     <Content Include="Content\Theme\app-assets\js\core\app.js" />
     <Content Include="Content\Theme\app-assets\js\core\app.min.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\extensions\ext-component-ratings.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\extensions\ext-component-ratings.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-checkout.js" />
@@ -950,6 +952,7 @@
     <Content Include="Models\StoreModels.edmx.diagram">
       <DependentUpon>StoreModels.edmx</DependentUpon>
     </Content>
+    <Content Include="app-assets\data\locales\en.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
