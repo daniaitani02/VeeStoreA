@@ -34,10 +34,9 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
-            if (User.Identity.Name == "admin@admin.com") return View(customer);
 
             // Does the customer object belong to the logged in user? If not, return Forbidden error
-            if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com") return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             ViewBag.CurrencyId = new SelectList(db.Currencies, "Id", "ShortName", customer.CurrencyId);
             ViewBag.Type = new SelectList(new List<string> { "Visa", "Mastercard", "American Express" }, "Visa");
 
@@ -110,10 +109,9 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
-            if (User.Identity.Name == "admin@admin.com") return View(customer);
 
             // Does the customer object belong to the logged in user? If not, return Forbidden error
-            if (customer.Email != User.Identity.Name) return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com") return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
             var orders = db.Carts.Where(x => x.CustomerEmail == customer.Email && x.Status == "Paid");
 
