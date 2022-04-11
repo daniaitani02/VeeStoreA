@@ -139,15 +139,7 @@ namespace VeeStoreA.Controllers
 
 
         }
-        public ActionResult removecoupon ()
-        {
-           
-            Cart cart = GetUsersCart();
-            cart.CouponCodeId = null;
-            db.SaveChanges();
-            return RedirectToAction("Details", "Carts", new { id = cart.Id });
-
-        }
+        
         public ActionResult MyCart()
         {
 
@@ -311,6 +303,14 @@ This is a receipt for your recent purchase. 💵
         }
 
 
+        public ActionResult AddRating(int productId,int rating)
+        {
+
+            db.Ratings.Add(new Rating { ProductId =productId, Stars=rating,CustomerEmail=User.Identity.Name });
+            db.SaveChanges();
+            return RedirectToAction("Details", "Products", new { id = productId });
+
+        }
         private void SendEmail(String email, String message, String subject)
         {
             var smtpClient = new SmtpClient("smtp.gmail.com")
