@@ -17,11 +17,15 @@
 <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.min.css">
 <!-- END: Page CSS-->
 
-@if (User.Identity.Name == "admin@admin.com")
+@if (TempData["errorAdminProd"] != null)
 {
-    @Html.ActionLink("Create New", "Create", "Products")
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error</h4>
+        <div class="alert-body">
+            @TempData["errorAdminProd"]
+        </div>
+    </div>
 }
-
 <!-- E-commerce Content Section Starts -->
 <section id="ecommerce-header">
     <div class="row">
@@ -34,16 +38,10 @@
                     <div class="search-results">@Model.Count() result(s) found</div>
                 </div>
                 <div class="view-options d-flex">
-                    <div class="btn-group dropdown-sort">
-                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="active-sorting">Category</span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Gaming</a>
-                            <a class="dropdown-item" href="#">Movies</a>
-                            <a class="dropdown-item" href="#">Music</a>
-                        </div>
-                    </div>
+                    @if (User.Identity.Name == "admin@admin.com")
+                    {
+                        @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-outline-primary" })
+                    }
 
                 </div>
             </div>

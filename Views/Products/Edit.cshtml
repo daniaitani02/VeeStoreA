@@ -14,9 +14,11 @@
 
 @if (ViewBag.error != null)
 {
-    <div class="alert alert-dismissible alert-danger">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Error</strong> @ViewBag.error
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error</h4>
+        <div class="alert-body">
+            @ViewBag.error
+        </div>
     </div>
 }
 
@@ -79,13 +81,13 @@
                     @Html.HiddenFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
                     @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
 
-                <div class="col-12">
-                    @if (ViewBag.canEdit)
-                    {
-                        <input type="submit" value="Save" class="btn btn-primary mt-1 me-1 waves-effect waves-float waves-light"/>}
+                    <div class="col-12">
+                        @if (ViewBag.canEdit)
+                        {
+                            <input type="submit" value="Save" class="btn btn-primary mt-1 me-1 waves-effect waves-float waves-light" />}
 
-                    @Html.ActionLink("Back to Products", "Index", null, htmlAttributes: new { @class = "btn btn-outline-secondary mt-1 waves-effect" })
-                </div>
+                        @Html.ActionLink("Back to Products", "Index", null, htmlAttributes: new { @class = "btn btn-outline-secondary mt-1 waves-effect" })
+                    </div>
 
                 </div>
 
@@ -99,7 +101,7 @@
 </div>
 
 
-    @Scripts.Render("~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js")
+@Scripts.Render("~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js")
 
 <script src="~/Content/Theme/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
 

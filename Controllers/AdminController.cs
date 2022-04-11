@@ -56,9 +56,21 @@ namespace VeeStoreA.Controllers
         }
 
         // GET: Admin/Details/5
-        public ActionResult Details(int id)
+        public ActionResult cartDetails(int id)
         {
-            return View();
+            var cartItems = from p in db.CartItems
+                           select p;
+
+            Cart cart = db.Carts.Find(id);
+
+            if (cart == null)
+            {
+                return HttpNotFound();
+            }
+
+            //cartItems = cartItems.Where(x => x.CartId == id);
+
+            return View(cart);
         }
 
         // GET: Admin/Create

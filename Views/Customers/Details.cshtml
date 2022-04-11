@@ -38,69 +38,114 @@
                                 </a>
                             </li>
                         </ul>
+                        <div class="row">
+                            <div class="col-xl-2 col-md-4 col-sm-6">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div class="avatar bg-light-info p-50 mb-1">
+                                            <div class="avatar-content">
 
-                      
-                            @Html.AntiForgeryToken()
-                            <!-- profile -->
-                            <div class="card">
-                                <div class="card-header border-bottom">
-                                    <h4 class="card-title">Profile Details</h4>
-                                </div>
-                                <div class="card-body py-2 my-25">
-                                    <!-- form -->
-                                    @using (Html.BeginForm("Edit", "Customers", FormMethod.Post, new { @class = "validate-form pt-50" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                       
-                                        <div class="row">
-                                            <div class="col-12 col-sm-6 mb-1">
-                                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
-                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
-                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                            </div>
-                                            <div class="col-12 col-sm-6 mb-1">
-                                                @Html.LabelFor(model => model.Currency, "Currency", htmlAttributes: new { @class = "form-label" })
-
-                                                @Html.DropDownList("CurrencyId", null, htmlAttributes: new { @class = "hide-search form-select select2-hidden-accessible" })
-                                                @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
-                                            </div>
-                                            <div class="col-12 col-sm-6 mb-1">
-                                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
-                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @disabled = true } })
-                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                            </div>
-
-                                            <div class="col-12 col-sm-6 mb-1">
-                                                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "form-label" })
-                                                @Html.HiddenFor(model => model.PhoneNumber)
-                                                <div class="input-group">
-                                                    <span class="input-group-text" id="basic-addon1">+974 </span>
-                                                    <input type="text" disabled class="form-control" placeholder="Phone Number" value="@(Model.PhoneNumber == null?"No Phone Number Added":Model.PhoneNumber.Replace("+974",""))" aria-describedby="button-addon2">
-                                                    <a href="@Url.Action("AddPhoneNumber","Manage")" class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">@(Model.PhoneNumber == null?"Add Phone Number":"Change Phone Number")</a>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-12 col-sm-6 mb-1">
-                                                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "form-label" })
-                                                @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gender", @disabled = true } })
-                                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                                            </div>
-
-                                            <div class="col-12">
-                                                @Html.HiddenFor(model => model.JoinedAt)
-                                                @Html.HiddenFor(model => model.Email)
-                                                @Html.HiddenFor(model => model.Gender)
-                                                <input type="submit" value="Save Changes" class="btn btn-primary mt-1 me-1" />
-
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="19" height="19" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                                             </div>
                                         </div>
-
-                                    }
-                                    <!--/ form -->
+                                        <h2 class="fw-bolder">@Model.JoinedAt.ToString().Split(' ')[0]</h2>
+                                        <p class="card-text">Joined At</p>
+                                    </div>
                                 </div>
                             </div>
-                        
+
+                   
+                            <div class="col-xl-2 col-md-4 col-sm-6">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div class="avatar bg-light-danger p-50 mb-1">
+                                            <div class="avatar-content">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag font-medium-5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                            </div>
+                                        </div>
+                                        <h2 class="fw-bolder">@Model.Carts.Count()</h2>
+                                        <p class="card-text">Orders</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-md-4 col-sm-6">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div class="avatar bg-light-primary p-50 mb-1">
+                                            <div class="avatar-content">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                            </div>
+                                        </div>
+                                        <h2 class="fw-bolder">@(Model.Carts.Sum(c=>c.CartItems.Sum(ci=>ci.Quantity*ci.Product.Price))*@Model.Currency.Multiplier)@Model.Currency.Symbol</h2>
+                                        <p class="card-text">Money Spent</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        @Html.AntiForgeryToken()
+                        <!-- profile -->
+                        <div class="card">
+                            <div class="card-header border-bottom">
+                                <h4 class="card-title">Profile Details</h4>
+                            </div>
+                            <div class="card-body py-2 my-25">
+                                <!-- form -->
+                                @using (Html.BeginForm("Edit", "Customers", FormMethod.Post, new { @class = "validate-form pt-50" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 mb-1">
+                                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
+                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-12 col-sm-6 mb-1">
+                                            @Html.LabelFor(model => model.Currency, "Currency", htmlAttributes: new { @class = "form-label" })
+
+                                            @Html.DropDownList("CurrencyId", null, htmlAttributes: new { @class = "hide-search form-select select2-hidden-accessible" })
+                                            @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-12 col-sm-6 mb-1">
+                                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @disabled = true } })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 mb-1">
+                                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "form-label" })
+                                            @Html.HiddenFor(model => model.PhoneNumber)
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon1">+974 </span>
+                                                <input type="text" disabled class="form-control" placeholder="Phone Number" value="@(Model.PhoneNumber == null?"No Phone Number Added":Model.PhoneNumber.Replace("+974",""))" aria-describedby="button-addon2">
+                                                <a href="@Url.Action("AddPhoneNumber","Manage")" class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">@(Model.PhoneNumber == null?"Add Phone Number":"Change Phone Number")</a>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 mb-1">
+                                            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "form-label" })
+                                            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gender", @disabled = true } })
+                                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="col-12">
+                                            @Html.HiddenFor(model => model.JoinedAt)
+                                            @Html.HiddenFor(model => model.Email)
+                                            @Html.HiddenFor(model => model.Gender)
+                                            <input type="submit" value="Save Changes" class="btn btn-primary mt-1 me-1" />
+
+                                        </div>
+                                    </div>
+
+                                }
+                                <!--/ form -->
+                            </div>
+                        </div>
+
                         @using (Html.BeginForm("AddCreditCard", "Customers", FormMethod.Post, new { id = "addCard" }))
 
                         {
@@ -171,7 +216,7 @@
                                             <div class="col-lg-6 mt-2 mt-lg-0">
                                                 <h6 class="fw-bolder mb-2">My Cards</h6>
                                                 <div class="added-cards">
-                                                    @if (Model.CreditCards.Where(cc=>cc.Type != "Disabled").Count() == 0)
+                                                    @if (Model.CreditCards.Where(cc => cc.Type != "Disabled").Count() == 0)
                                                     {
                                                         <div class="detail-amt discount-amt text-danger">No Cards Found</div>
                                                     }
@@ -190,8 +235,8 @@
                                     </div>
                                 </div>
                             </div>
-                           
-                                 }
+
+                        }
                         <!-- deactivate account  -->
                         @*<div class="card">
             <div class="card-header border-bottom">
