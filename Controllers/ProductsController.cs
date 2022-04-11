@@ -228,11 +228,14 @@ namespace VeeStoreA.Controllers
             }
             if (db.CartItems.Where(item => item.ProductId == product.Id).Count() != 0)
             {
-                ViewBag.error = "This item cannot be deleted because its already in a cart.";
+                TempData["errorAdminProd"] = "This item cannot be deleted because its already in a cart.";
                 ViewBag.canDelete = false;
-                return View(product);
+                return RedirectToAction("Products", "Admin");
             }
-            return View(product);
+
+            db.Products.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("Products", "Admin");
         }
 
         // POST: Products/Delete/5
@@ -245,12 +248,12 @@ namespace VeeStoreA.Controllers
             if (db.CartItems.Where(item => item.ProductId == product.Id).Count() != 0)
             {
                 ViewBag.error = "This item cannot be deleted because its already in a cart.";
-                return View(product);
+                return RedirectToAction("Products", "Admin");
             }
             db.Products.Remove(product);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Products", "Admin");
         }
 
         protected override void Dispose(bool disposing)

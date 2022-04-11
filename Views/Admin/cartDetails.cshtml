@@ -1,0 +1,107 @@
+﻿@model VeeStoreA.Models.Cart
+
+@{
+    ViewBag.Title = "cartDetails";
+    Layout = "~/Views/Shared/_ThemeLayout.cshtml";
+}
+
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/plugins/extensions/ext-component-sliders.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/pages/app-ecommerce.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/plugins/extensions/ext-component-toastr.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.min.css">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/boot">
+<link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.min.css">
+<!-- END: Page CSS-->
+
+@if (ViewBag.errorAdminProd != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error</h4>
+        <div class="alert-body">
+            @ViewBag.errorAdminProd
+        </div>
+    </div>
+}
+
+<br />
+<br />
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Cart Id #</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th>Item Count</th>
+                <th>Email</th>
+                <th>Paid At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+
+                <tr>
+                    <td>@item.Id</td>
+                    <td>
+                        @{
+                            if (item.Status == "Paid")
+                            {
+                                <span class="badge rounded-pill bg-success me-1">
+                                    @item.Status
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill bg-danger me-1">
+                                    @item.Status
+                                </span>
+                            }
+                    }
+                </td>
+                <td>
+                    <span class="badge rounded-pill badge-light-success me-1">
+                        @item.CartItems.Sum(x => x.Product.Price * x.Quantity) @item.Customer.Currency.Symbol
+                    </span>
+                </td>
+                <td>
+                    @item.CartItems.Where(x => x.CartId == item.Id).Count()
+                </td>
+                <td>
+                    <a type="button" class="btn btn-flat-warning" href="@Url.Action("Details", "Customers", new { id = item.Customer.Email + "/"})">@item.CustomerEmail</a>
+                </td>
+                <td>
+                    @{
+                        if (item.Status == "Paid")
+                        {
+                            @item.PaidAt
+                        }
+
+                    }
+                </td>
+                <td>
+                    @{
+                        if (item.Status == "Paid")
+                        {
+                            <a type="button" class="btn btn-outline-primary" href="@Url.Action("Receipt", "Transaction", new { id = item.Id })">Receipt</a>
+                        }
+                        else
+                        {
+                            <a type="button" class="btn btn-gradient-primary" href="@Url.Action("cartDetails", "Admin", new { id = item.Id })">View items</a>
+                        }
+                    }
+                </td>
+            </tr>
+
+
+        }
+        </tbody>
+    </table>
+</div>
+<!-- E-commerce Products Ends -->

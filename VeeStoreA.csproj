@@ -1040,6 +1040,7 @@
     <Content Include="Views\Customers\Orders.cshtml" />
     <Content Include="Views\Manage\_Layout.cshtml" />
     <Content Include="Views\Customers\_AddedCard.cshtml" />
+    <Content Include="Views\Admin\cartDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
