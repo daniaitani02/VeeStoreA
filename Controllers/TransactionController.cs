@@ -139,6 +139,15 @@ namespace VeeStoreA.Controllers
 
 
         }
+        public ActionResult removecoupon ()
+        {
+           
+            Cart cart = GetUsersCart();
+            cart.CouponCodeId = null;
+            db.SaveChanges();
+            return RedirectToAction("Details", "Carts", new { id = cart.Id });
+
+        }
         public ActionResult MyCart()
         {
 
