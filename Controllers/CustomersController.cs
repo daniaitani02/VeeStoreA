@@ -52,7 +52,8 @@ namespace VeeStoreA.Controllers
         public ActionResult Edit([Bind(Include = "Email,Name,CurrencyId,Gender,JoinedAt,Status,PhoneNumber")] Customer customer)
         {
             // Does the customer object belong to the logged in user? If not, return Forbidden error
-          
+            if (customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com") return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
