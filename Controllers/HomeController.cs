@@ -27,6 +27,7 @@ namespace VeeStoreA.Controllers
                 faqs = faqs.Where(f => f.Question.Contains(faqSearchString));
 
             }
+            ViewBag.faqsearch = faqSearchString;
             return View(faqs);
         }
         [HttpPost]
