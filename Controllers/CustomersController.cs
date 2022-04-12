@@ -117,6 +117,34 @@ namespace VeeStoreA.Controllers
 
             return View(orders.ToList());
         }
+
+        [Authorize(Users = "admin@admin.com")]
+        public ActionResult ToggleCustomerVisibility(string id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (customer.Status == "Active" || customer.Status == null)
+            {
+                customer.Status = "Inactive";
+            }
+            else
+            {
+                customer.Status = "Active";
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index", "Customers");
+        }
         // GET: Customers/Delete/5
         //public ActionResult Delete(string id)
         //{
