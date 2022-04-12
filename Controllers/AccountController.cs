@@ -159,10 +159,11 @@ namespace VeeStoreA.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     DateTime now = DateTime.Now;
-                    Customer customer = new Customer { Email = model.Email, Name = model.FullName, Gender = model.Gender,JoinedAt=now,CurrencyId=1 };
-                    CreditCard creditCard = new CreditCard { CustomerEmail = model.Email, Type = "Disabled", Name = model.FullName, Number = "ForModel", CVV = 000, Expiry = "00" };
+                    Customer customer = new Customer { Email = model.Email, Name = model.FullName, Gender = model.Gender,JoinedAt=now,CurrencyId=1,Status="Active" };
+                   /* CreditCard creditCard = new CreditCard { CustomerEmail = model.Email, Type = "Disabled", Name = model.FullName, Number = "ForModel", CVV = 000, Expiry = "00" }*/;
+                    Cart cart = new Cart { CustomerEmail = model.Email, Status = "Unpaid",CreatedAt= now };
                     db.Customers.Add(customer);
-                    db.CreditCards.Add(creditCard);
+                    db.Carts.Add(cart);
                     db.SaveChanges();
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
