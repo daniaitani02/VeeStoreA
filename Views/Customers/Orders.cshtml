@@ -36,6 +36,12 @@
                                 <span class="fw-bold">My Orders</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CreateCreditCard", "Customers", new { id = User.Identity.Name  + "/" })">
+                                <i data-feather="credit-card" class="font-medium-3 me-50"></i>
+                                <span class="fw-bold">My Credit Cards</span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="card">
                         <div class="table-responsive">

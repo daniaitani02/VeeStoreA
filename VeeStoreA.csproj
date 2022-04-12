@@ -1041,6 +1041,7 @@
     <Content Include="Views\Manage\_Layout.cshtml" />
     <Content Include="Views\Customers\_AddedCard.cshtml" />
     <Content Include="Views\Admin\cartDetails.cshtml" />
+    <Content Include="Views\Customers\CreateCreditCard.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

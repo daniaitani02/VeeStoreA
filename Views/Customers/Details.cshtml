@@ -1,4 +1,6 @@
 ﻿@model VeeStoreA.Models.Customer
+@using VeeStoreA.Models
+
 
 @{
 
@@ -6,86 +8,92 @@
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
 
-    <div class=" content">
-        <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
-        <div class="content-wrapper container-xxl p-0">
-            <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
-                    <div class="row breadcrumbs-top">
-                        <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Profile</h2>
-                        </div>
+<div class=" content">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h2 class="content-header-title float-start mb-0">Profile</h2>
                     </div>
                 </div>
             </div>
-            <div class="content-body">
-                <div class="row">
-                    <div class="col-12">
-                        <ul class="nav nav-pills mb-2">
-                            <!-- account -->
-                            <li class="nav-item">
-                                <a class="nav-link active" style="pointer-events:none;">
-                                    <i data-feather="user" class="font-medium-3 me-50"></i>
-                                    <span class="fw-bold">Account</span>
-                                </a>
-                            </li>
-                            <!-- security -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Orders", "Customers", new { id = Model.Email + "/" })">
-                                    <i data-feather="archive" class="font-medium-3 me-50"></i>
-                                    <span class="fw-bold">My Orders</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="row">
-                            <div class="col-xl-2 col-md-4 col-sm-6">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <div class="avatar bg-light-info p-50 mb-1">
-                                            <div class="avatar-content">
+        </div>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-pills mb-2">
+                        <!-- account -->
+                        <li class="nav-item">
+                            <a class="nav-link active" style="pointer-events:none;">
+                                <i data-feather="user" class="font-medium-3 me-50"></i>
+                                <span class="fw-bold">Account</span>
+                            </a>
+                        </li>
+                        <!-- orders -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Orders", "Customers", new { id = Model.Email + "/" })">
+                                <i data-feather="archive" class="font-medium-3 me-50"></i>
+                                <span class="fw-bold">My Orders</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CreateCreditCard", "Customers", new { id = Model.Email + "/" })">
+                                <i data-feather="credit-card" class="font-medium-3 me-50"></i>
+                                <span class="fw-bold">My Credit Cards</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <div class="avatar bg-light-info p-50 mb-1">
+                                        <div class="avatar-content">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="19" height="19" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                            </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="19" height="19" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                                         </div>
-                                        <h2 class="fw-bolder">@Model.JoinedAt.ToString().Split(' ')[0]</h2>
-                                        <p class="card-text">Member Since</p>
                                     </div>
+                                    <h2 class="fw-bolder">@Model.JoinedAt.ToString().Split(' ')[0]</h2>
+                                    <p class="card-text">Member Since</p>
                                 </div>
                             </div>
+                        </div>
 
-                   
-                            <div class="col-xl-2 col-md-4 col-sm-6">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <div class="avatar bg-light-danger p-50 mb-1">
-                                            <div class="avatar-content">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag font-medium-5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                                            </div>
+
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <div class="avatar bg-light-danger p-50 mb-1">
+                                        <div class="avatar-content">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag font-medium-5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                                         </div>
-                                        <h2 class="fw-bolder">@Model.Carts.Where(c=>c.Status =="Paid").Count()</h2>
-                                        <p class="card-text">Orders</p>
                                     </div>
+                                    <h2 class="fw-bolder">@Model.Carts.Where(c => c.Status == "Paid").Count()</h2>
+                                    <p class="card-text">Orders</p>
                                 </div>
                             </div>
-                            <div class="col-xl-2 col-md-4 col-sm-6">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <div class="avatar bg-light-primary p-50 mb-1">
-                                            <div class="avatar-content">
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <div class="avatar bg-light-primary p-50 mb-1">
+                                        <div class="avatar-content">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                            </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                                         </div>
-                                        <h2 class="fw-bolder">@(Model.Carts.Sum(c=>c.CartItems.Sum(ci=>ci.Quantity*ci.Product.Price))*@Model.Currency.Multiplier)@Model.Currency.Symbol</h2>
-                                        <p class="card-text">Money Spent</p>
                                     </div>
+                                    <h2 class="fw-bolder">@(Model.Carts.Sum(c => c.CartItems.Sum(ci => ci.Quantity * ci.Product.Price)) * @Model.Currency.Multiplier)@Model.Currency.Symbol</h2>
+                                    <p class="card-text">Money Spent</p>
                                 </div>
                             </div>
+                        </div>
+                       </div>
 
 
 
-                        @Html.AntiForgeryToken()
                         <!-- profile -->
                         <div class="card">
                             <div class="card-header border-bottom">
@@ -120,8 +128,8 @@
                                             @Html.HiddenFor(model => model.PhoneNumber)
                                             <div class="input-group">
                                                 <span class="input-group-text" id="basic-addon1">+974 </span>
-                                                <input type="text" disabled class="form-control" placeholder="Phone Number" value="@(Model.PhoneNumber == null?"No Phone Number Added":Model.PhoneNumber.Replace("+974",""))" aria-describedby="button-addon2">
-                                                <a href="@Url.Action("AddPhoneNumber","Manage")" class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">@(Model.PhoneNumber == null?"Add Phone Number":"Change Phone Number")</a>
+                                                <input type="text" disabled class="form-control" placeholder="Phone Number" value="@(Model.PhoneNumber == null ? "No Phone Number Added" : Model.PhoneNumber.Replace("+974", ""))" aria-describedby="button-addon2">
+                                                <a href="@Url.Action("AddPhoneNumber", "Manage")" class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">@(Model.PhoneNumber == null ? "Add Phone Number" : "Change Phone Number")</a>
                                             </div>
 
                                         </div>
@@ -146,130 +154,15 @@
                             </div>
                         </div>
 
-                        @using (Html.BeginForm("AddCreditCard", "Customers", FormMethod.Post, new { id = "addCard" }))
 
-                        {
-                            <div class="payment-type">
-                                <div class="card">
-                                    <div class="card-header border-bottom">
-                                        <h4 class="card-title">Payment Methods</h4>
-                                    </div>
-                                    <div class="card-body my-1 py-25">
-                                        <div class="row gx-4">
-                                            <div class="col-lg-6">
-                                                <h6 class="fw-bolder mb-2">Add Card</h6>
-
-                                                <div id="creditCardForm" class="row gx-2 gy-1 validate-form">
-
-                                                    <div class="col-12 mt-0">
-                                                        @Html.LabelFor(m => m.Carts.First().CreditCard.Number, htmlAttributes: new { @class = "form-label" })
-                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Number, new { htmlAttributes = new { @class = "form-control add-credit-card-mask", @placeholder = "XXXX XXXX XXXX XXXX", form = "addCard", value = "" } })
-                                                        @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.Number, "", new { @class = "text-danger" })
-
-                                                        @*<label class="form-label" for="addCardNumber">Card Number</label>
-                                        <div class="input-group input-group-merge">
-                                            <input id="addCardNumber" name="addCard" form="addCard" class="form-control add-credit-card-mask" type="text" placeholder="XXXX XXXX XXXX XXXX" aria-describedby="addCard2" data-msg="Please enter your credit card number" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">
-
-                                        </div>*@
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        @Html.LabelFor(m => m.Carts.First().CreditCard.Name, htmlAttributes: new { @class = "form-label" })
-                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Dania Itani", form = "addCard", value = "" } })
-                                                        @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.Name, "", new { @class = "text-danger" })
-                                                        @*<label class="form-label" for="addCardName">Name On Card</label>
-                                        <input type="text" id="addCardName" form="addCard" class="form-control" placeholder="John Doe" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">*@
-                                                    </div>
-
-                                                    <div class="col-6 col-md-3">
-                                                        @Html.LabelFor(m => m.Carts.First().CreditCard.Expiry, htmlAttributes: new { @class = "form-label" })
-                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.Expiry, new { htmlAttributes = new { @class = "form-control add-expiry-date-mask", @placeholder = "MM/YY", maxlength = "5", form = "addCard", value = "" } })
-                                                        @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.Expiry, "", new { @class = "text-danger" })
-                                                        @*<label class="form-label" for="addCardExpiryDate">Exp. Date</label>
-                                        <input type="text" id="addCardExpiryDate" form="addCard" class="form-control add-expiry-date-mask" placeholder="MM/YY" data-com.bitwarden.browser.user-edited="yes" aria-invalid="false">*@
-                                                    </div>
-
-                                                    <div class="col-6 col-md-3">
-                                                        @Html.LabelFor(m => m.Carts.First().CreditCard.CVV, htmlAttributes: new { @class = "form-label" })
-                                                        @Html.EditorFor(model => model.Carts.First().CreditCard.CVV, new { htmlAttributes = new { @class = "form-control add-cvv-code-mask", @placeholder = "CVV", @maxlength = "3", form = "addCard", value = "" } })
-                                                        @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.CVV, "", new { @class = "text-danger" })
+                     
 
 
-                                                        @*<label class="form-label" for="addCardCvv">CVV</label>
-                                        <input type="text" id="addCardCvv" form="addCard" class="form-control add-cvv-code-mask" maxlength="3" placeholder="cvv">*@
-                                                    </div>
-
-                                                    <div class="col-12 mt-1">
-                                                        @Html.LabelFor(model => model.Carts.First().CreditCard.Type, htmlAttributes: new { @class = "form-label" })
-
-                                                        @Html.DropDownList("Type", null, htmlAttributes: new { @class = "hide-search form-select select2-hidden-accessible", form = "addCard" })
-                                                        @Html.ValidationMessageFor(model => model.Carts.First().CreditCard.Type, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="col-12 mt-2 pt-1">
-                                                        <button type="submit" form="addCard" class="btn btn-primary me-1 w-100 waves-effect waves-float waves-light">Save Card For Future Payments</button>
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-                                            <div class="col-lg-6 mt-2 mt-lg-0">
-                                                <h6 class="fw-bolder mb-2">My Cards</h6>
-                                                <div class="added-cards">
-                                                    @if (Model.CreditCards.Where(cc => cc.Type != "Disabled").Count() == 0)
-                                                    {
-                                                        <div class="detail-amt discount-amt text-danger">No Cards Found</div>
-                                                    }
-                                                    else
-                                                    {
-                                                        foreach (var creditCard in Model.CreditCards.Where(cc => cc.Type != "Disabled"))
-                                                        {
-                                                            Html.RenderPartial("_AddedCard", creditCard);
-                                                        }
-                                                    }
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        }
-                        <!-- deactivate account  -->
-                        @*<div class="card">
-            <div class="card-header border-bottom">
-                <h4 class="card-title">Delete Account</h4>
-            </div>
-            <div class="card-body py-2 my-25">
-                <div class="alert alert-warning">
-                    <h4 class="alert-heading">Are you sure you want to delete your account?</h4>
-                    <div class="alert-body fw-normal">
-                        Once you delete your account, there is no going back. Please be certain.
-                    </div>
-                </div>
-
-                <form id="formAccountDeactivation" class="validate-form" onsubmit="return false">
-                    <div class="form-check">
-                        <input class="form-check-input"
-                               type="checkbox"
-                               name="accountActivation"
-                               id="accountActivation"
-                               data-msg="Please confirm you want to delete account" />
-                        <label class="form-check-label font-small-3" for="accountActivation">
-                            I confirm my account deactivation
-                        </label>
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-danger deactivate-account mt-1">Deactivate Account</button>
-                    </div>
-                </form>
-            </div>
-        </div>*@
+                       
                         <!--/ profile -->
                     </div>
-                        </div>
+                </div>
             </div>
         </div>
     </div>
+  
