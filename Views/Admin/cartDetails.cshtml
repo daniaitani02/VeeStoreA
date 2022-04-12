@@ -16,6 +16,8 @@
 <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.min.css">
 <!-- END: Page CSS-->
 
+<h2>Carts Items</h2>
+
 @if (ViewBag.errorAdminProd != null)
 {
     <div class="alert alert-danger" role="alert">
@@ -27,19 +29,15 @@
 }
 
 <br />
-<br />
 
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Cart Id #</th>
-                <th>Status</th>
-                <th>Amount</th>
-                <th>Item Count</th>
-                <th>Email</th>
-                <th>Paid At</th>
-                <th>Action</th>
+                <th>Products</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
             </tr>
         </thead>
 
@@ -48,59 +46,23 @@
             {
 
                 <tr>
-                    <td>@item.Id</td>
                     <td>
-                        @{
-                            if (item.Status == "Paid")
-                            {
-                                <span class="badge rounded-pill bg-success me-1">
-                                    @item.Status
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="badge rounded-pill bg-danger me-1">
-                                    @item.Status
-                                </span>
-                            }
-                    }
-                </td>
-                <td>
-                    <span class="badge rounded-pill badge-light-success me-1">
-                        @item.CartItems.Sum(x => x.Product.Price * x.Quantity) @item.Customer.Currency.Symbol
-                    </span>
-                </td>
-                <td>
-                    @item.CartItems.Where(x => x.CartId == item.Id).Count()
-                </td>
-                <td>
-                    <a type="button" class="btn btn-flat-warning" href="@Url.Action("Details", "Customers", new { id = item.Customer.Email + "/"})">@item.CustomerEmail</a>
-                </td>
-                <td>
-                    @{
-                        if (item.Status == "Paid")
-                        {
-                            @item.PaidAt
-                        }
-
-                    }
-                </td>
-                <td>
-                    @{
-                        if (item.Status == "Paid")
-                        {
-                            <a type="button" class="btn btn-outline-primary" href="@Url.Action("Receipt", "Transaction", new { id = item.Id })">Receipt</a>
-                        }
-                        else
-                        {
-                            <a type="button" class="btn btn-gradient-primary" href="@Url.Action("cartDetails", "Admin", new { id = item.Id })">View items</a>
-                        }
-                    }
-                </td>
-            </tr>
+                        <img src="~/Content/Images/Products/@item.Product.ImageName" alt="img-placeholder" class="me-75" height="100">
+                        <span class="fw-bold">@item.Product.Name</span>
+                    </td>
+                    <td>@item.Product.Description</td>
+                    <td>
+                        <span class="badge rounded-pill badge-light-success me-1">
+                            @item.Product.CartItems.Sum(x => x.Product.Price * x.Quantity) @item.Cart.Customer.Currency.Symbol
+                        </span>
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                </tr>
 
 
-        }
+            }
         </tbody>
     </table>
 </div>
