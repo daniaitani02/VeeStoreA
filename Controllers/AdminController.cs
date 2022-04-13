@@ -32,6 +32,14 @@ namespace VeeStoreA.Controllers
             return View(products);
             //return View(db.Products.ToList());
         }
+        public ActionResult Faq()
+        {
+            var faqs = from f in db.Faqs
+                           select f;
+            
+            return View(faqs);
+            //return View(db.Products.ToList());
+        }
 
         public ActionResult ToggleVisibility(int? id)
         {
@@ -61,7 +69,35 @@ namespace VeeStoreA.Controllers
 
             return RedirectToAction("Products");
         }
+        public ActionResult ToggleApproval(int? id)
+        {
 
+            Faq faq = db.Faqs.Find(id);
+            if (faq == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (faq.Status == "Approved")
+            {
+                faq.Status = "Awaiting approval";
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(faq.Answer))
+                {
+                    TempData["errorAdminFaq"] = "You cannot approve the question without the answer.";
+                }
+                else
+                {
+                    faq.Status = "Approved";
+                }
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Faq");
+        }
         // GET: Admin/Details/5
         public ActionResult cartDetails(int id)
         {
@@ -80,70 +116,7 @@ namespace VeeStoreA.Controllers
             return View(cart);
         }
 
-        // GET: Admin/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Admin/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Admin/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Admin/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Admin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+  
+       
     }
 }

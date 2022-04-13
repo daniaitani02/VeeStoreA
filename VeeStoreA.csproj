@@ -1047,6 +1047,7 @@
     <Content Include="Views\Faqs\Details.cshtml" />
     <Content Include="Views\Faqs\Edit.cshtml" />
     <Content Include="Views\Faqs\Index.cshtml" />
+    <Content Include="Views\Admin\FAQ.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
