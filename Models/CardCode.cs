@@ -11,12 +11,15 @@ namespace VeeStoreA.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class CardCode
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
+        [StringLength (60)]
         public string Code { get; set; }
+
         public string Status { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<System.DateTime> UsedAt { get; set; }
