@@ -49,24 +49,34 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProductId,Code,Status")] CardCode cardCode)
+        public ActionResult Create([Bind(Include = "Id,ProductId,Code")] CardCode cardCode)
         {
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cardCode.ProductId);
+
             if (ModelState.IsValid)
             {
+                if (db.CardCodes.Where(x => x.Code == cardCode.Code).Count() != 0)
+                {
+                    TempData["errorAdminCardC"] = "You cannot create a card code that is already present";
+                    return View();
+                }
                 DateTime now = DateTime.Now;
                 cardCode.CreatedAt = now;
+                cardCode.Status = "New";
                 db.CardCodes.Add(cardCode);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cardCode.ProductId);
+            
             return View(cardCode);
         }
 
         // GET: CardCodes/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            ViewBag.canEdit = true;
 
             if (id == null)
             {
@@ -78,13 +88,14 @@ namespace VeeStoreA.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cardCode.ProductId);
+
             if (cardCode.Status == "Used")
             {
                 TempData["errorAdminCardC"] = "You cannot edit or delete this card because it has been used";
-                return View(cardCode);
+                ViewBag.canEdit = false;
+                return RedirectToAction("Index");
             }
-
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cardCode.ProductId);
             return View(cardCode);
         }
 
@@ -95,13 +106,23 @@ namespace VeeStoreA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ProductId,Code,Status,CreatedAt,UsedAt")] CardCode cardCode)
         {
+            ViewBag.canEdit = true;
+
             if (ModelState.IsValid)
             {
+                ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cardCode.ProductId);
+
+                if (db.CardCodes.Where(x => x.Code == cardCode.Code && cardCode.Id != x.Id ).Count() != 0)
+                {
+                    TempData["errorAdminCardC"] = "You cannot edit a card code that is already present in another record";
+                    return View();
+                }
+
                 db.Entry(cardCode).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cardCode.ProductId);
+            
             return View(cardCode);
         }
 
@@ -113,11 +134,14 @@ namespace VeeStoreA.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CardCode cardCode = db.CardCodes.Find(id);
-            if (cardCode == null)
+            if (cardCode == null || cardCode.Status == "Used")
             {
-                return HttpNotFound();
+                TempData["errorAdminCardC"] = "You cannot edit or delete this card because it has been used";
+                return RedirectToAction("Index");
             }
-            return View(cardCode);
+            db.CardCodes.Remove(cardCode);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: CardCodes/Delete/5

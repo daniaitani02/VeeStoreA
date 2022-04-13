@@ -17,19 +17,40 @@ namespace VeeStoreA.Controllers
         // GET: Faqs
         public ActionResult Index(string faqSearchString)
         {
-            ViewBag.Message = "Your application description page.";
+           
 
             var faqs = from f in db.Faqs
                        select f;
+            faqs = faqs.Where(f => f.Status == "Approved");
+
             if (!String.IsNullOrEmpty(faqSearchString))
             {
                 faqs = faqs.Where(f => f.Question.Contains(faqSearchString));
-
             }
+            IEnumerable<Faq> faqItems = faqs;
+            ViewBag.faqItems = faqItems;
             ViewBag.faqsearch = faqSearchString;
-            return View(faqs);
+            return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index([Bind(Include = "Id,Question,Answer,Email,Name")] Faq faq)
+        {
+            if (ModelState.IsValid)
+            {
+                faq.Status = "Awaiting Approval";
+                db.Faqs.Add(faq);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
+            var faqs = from f in db.Faqs
+                       select f;
+            IEnumerable<Faq> faqItems = faqs;
+            ViewBag.faqItems = faqItems;
+     
+            return View(faq);
+        }
         // GET: Faqs/Details/5
         public ActionResult Details(int? id)
         {
@@ -56,7 +77,7 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Question,Answer,Status,Email,Name")] Faq faq)
+        public ActionResult Create([Bind(Include = "Id,Question,Answer,Email,Name")] Faq faq)
         {
             if (ModelState.IsValid)
             {
@@ -80,6 +101,7 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Status = new SelectList(new List<string> { "Approved", "Awaiting Approval" },faq.Status);
             return View(faq);
         }
 
@@ -94,12 +116,16 @@ namespace VeeStoreA.Controllers
             {
                 db.Entry(faq).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Faq","Admin");
             }
+            ViewBag.Status = new SelectList(new List<string> { "Approved", "Awaiting Approval" }, faq.Status);
+
             return View(faq);
         }
 
         // GET: Faqs/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,19 +137,16 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
-            return View(faq);
+    
+            db.Faqs.Remove(faq);
+            db.SaveChanges();
+            return RedirectToAction("Faq", "Admin");
+
         }
 
         // POST: Faqs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Faq faq = db.Faqs.Find(id);
-            db.Faqs.Remove(faq);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+       
+
 
         protected override void Dispose(bool disposing)
         {

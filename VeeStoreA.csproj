@@ -199,6 +199,7 @@
     <Compile Include="Controllers\CardCodesController.cs" />
     <Compile Include="Controllers\CartItemsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
+    <Compile Include="Controllers\CouponCodesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\FaqsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1047,6 +1048,12 @@
     <Content Include="Views\Faqs\Details.cshtml" />
     <Content Include="Views\Faqs\Edit.cshtml" />
     <Content Include="Views\Faqs\Index.cshtml" />
+    <Content Include="Views\Admin\FAQ.cshtml" />
+    <Content Include="Views\CouponCodes\Create.cshtml" />
+    <Content Include="Views\CouponCodes\Delete.cshtml" />
+    <Content Include="Views\CouponCodes\Details.cshtml" />
+    <Content Include="Views\CouponCodes\Edit.cshtml" />
+    <Content Include="Views\CouponCodes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
