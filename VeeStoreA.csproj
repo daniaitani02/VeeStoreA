@@ -429,6 +429,8 @@
     <Content Include="Content\Theme\app-assets\js\scripts\extensions\ext-component-ratings.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\forms\form-select2.min.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\forms\pickers\form-pickers.js" />
+    <Content Include="Content\Theme\app-assets\js\scripts\forms\pickers\form-pickers.min.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-checkout.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-details.js" />
     <Content Include="Content\Theme\app-assets\js\scripts\pages\app-ecommerce-details.min.js" />

@@ -46,7 +46,7 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Code,DiscountPercentage")] CouponCode couponCode)
+        public ActionResult Create([Bind(Include = "Id,Code,DiscountPercentage,ExpiryDate")] CouponCode couponCode,string ExpiryDate)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,8 @@ namespace VeeStoreA.Controllers
 
                 DateTime now = DateTime.Now;
                 couponCode.CreatedAt = now;
-                couponCode.ExpiryDate = now.AddDays(30);
+                couponCode.ExpiryDate = DateTime.Parse(ExpiryDate);
+                //couponCode.ExpiryDate = now.AddDays(30);
                 db.CouponCodes.Add(couponCode);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -97,7 +98,7 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Code,ExpiryDate,CreatedAt,DiscountPercentage")] CouponCode couponCode)
+        public ActionResult Edit([Bind(Include = "Id,Code,CreatedAt,DiscountPercentage")] CouponCode couponCode,string ExpiryDate)
         {
             ViewBag.canEdit = true;
 
@@ -108,7 +109,7 @@ namespace VeeStoreA.Controllers
                     TempData["errorAdminCouponC"] = "You cannot edit a coupon code that is already present in another record";
                     return View();
                 }
-
+                couponCode.ExpiryDate = DateTime.Parse(ExpiryDate);
                 db.Entry(couponCode).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -7,7 +7,10 @@
 
 <h2>Edit</h2>
 
-<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/forms/select/select2.min.css">
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/pickers/pickadate/pickadate.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/plugins/forms/pickers/form-pickadate.css">
 <style>
     .select2-selection__arrow b {
         display: none !important;
@@ -44,18 +47,29 @@
                         @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                     </div>
-
                     <div class="col-12 col-sm-6 mb-1">
                         @Html.LabelFor(model => model.DiscountPercentage, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.DiscountPercentage, new { htmlAttributes = new { @class = "form-control" } })
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.DiscountPercentage, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                            <span class="input-group-text">%</span>
+                        </div>
+
                         @Html.ValidationMessageFor(model => model.DiscountPercentage, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="col-12 col-sm-6 mb-1">
+                    <div class="col-12 col-md-6 mb-1 position-relative">
                         @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Status" } })
-                        @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+                        @*@Html.EditorFor(model => model.DiscountPercentage, new { htmlAttributes = new { @class = "form-control pickadate", placeholder = "Expiry Date" } })*@
+
+                        <input type="text" id="pd-default" name="ExpiryDate" class="form-control pickadate" placeholder="Expiry Date" value="@Model.ExpiryDate.ToString().Split(' ')[0]" />
+
                     </div>
+
+                    @*<div class="col-12 col-sm-6 mb-1">
+                            @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Status" } })
+                            @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+                        </div>*@
 
 
                     @Html.HiddenFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
@@ -83,3 +97,9 @@
 
 <script src="~/Content/Theme/app-assets/js/scripts/forms/form-select2.js"></script>
 
+<script src="~/Content/Theme/app-assets/vendors/js/ui/jquery.sticky.js"></script>
+<script src="~/Content/Theme/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+<script src="~/Content/Theme/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+<script src="~/Content/Theme/app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
+<script src="~/Content/Theme/app-assets/vendors/js/pickers/pickadate/legacy.js"></script>
+<script src="~/Content/Theme/app-assets/js/scripts/forms/pickers/form-pickers.js"></script>

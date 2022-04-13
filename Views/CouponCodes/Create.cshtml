@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
 
-<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/forms/select/select2.min.css">
+
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/pickers/pickadate/pickadate.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/css/plugins/forms/pickers/form-pickadate.css">
+
+
 <style>
     .select2-selection__arrow b {
         display: none !important;
@@ -43,11 +47,21 @@
 
                     <div class="col-12 col-sm-6 mb-1">
                         @Html.LabelFor(model => model.DiscountPercentage, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.DiscountPercentage, new { htmlAttributes = new { @class = "form-control" } })
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.DiscountPercentage, new { htmlAttributes = new { @class = "form-control",type="number" } })
+                            <span class="input-group-text">%</span>
+                        </div>
                         @Html.ValidationMessageFor(model => model.DiscountPercentage, "", new { @class = "text-danger" })
 
-                    </div>
 
+                    </div>
+                    <div class="col-12 col-md-6 mb-1 position-relative">
+                        @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "form-label" })
+                        @*@Html.EditorFor(model => model.DiscountPercentage, new { htmlAttributes = new { @class = "form-control pickadate", placeholder = "Expiry Date" } })*@
+                        
+                        <input type="text" id="pd-default" name="ExpiryDate" class="form-control pickadate" placeholder="Expiry Date" />
+
+                    </div>
 
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary mt-1 me-1 waves-effect waves-float waves-light">Add Card Code</button>
@@ -60,3 +74,11 @@
         </div>
     </div>
 }
+@Scripts.Render("~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js")
+
+<script src="~/Content/Theme/app-assets/vendors/js/ui/jquery.sticky.js"></script>
+<script src="~/Content/Theme/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+<script src="~/Content/Theme/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+<script src="~/Content/Theme/app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
+<script src="~/Content/Theme/app-assets/vendors/js/pickers/pickadate/legacy.js"></script>
+<script src="~/Content/Theme/app-assets/js/scripts/forms/pickers/form-pickers.js"></script>
