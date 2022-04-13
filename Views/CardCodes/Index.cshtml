@@ -15,19 +15,24 @@
     </div>
 }
 
+
 <section id="ecommerce-header">
     <div class="row">
         <div class="col-sm-12">
             <div class="ecommerce-header-items">
-                <div class="result-toggler">
-                    <h2 class="content-header-title float-start mb-0">Card Codes</h2>
-                </div>
+                <div class="col-12">
+                    <a type="button" class="btn btn-icon btn-gradient-primary waves-effect waves-float waves-light float-start" href="@Url.Action("AdminPanel", "Home")">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </a>
 
-                <div class="view-options d-flex float-end">
-                    @if (User.Identity.Name == "admin@admin.com")
-                    {
-                        @Html.ActionLink("Add New Card", "Create", null, new { @class = "btn btn-outline-primary" })
-                    }
+                    <h2 class="float-start" style="border: 0px; padding: 0px; padding-top: 5px;"> &nbsp; Card Codes</h2>
+                    <div class="view-options d-flex float-end">
+                        @if (User.Identity.Name == "admin@admin.com")
+                        {
+                            @Html.ActionLink("Add New Card", "Create", null, new { @class = "btn btn-outline-primary" })
+                        }
+
+                    </div>
 
                 </div>
             </div>
@@ -47,7 +52,7 @@
                     <tr>
                         <th>Card ID #</th>
                         <th>Card name</th>
-                        <th>Card Type</th>
+                        @*<th>Card Type</th>*@
                         <th>Code</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -64,7 +69,7 @@
                             <td>
                                 <span class="badge rounded-pill badge-light-warning me-1">@item.Product.Name</span>
                             </td>
-                            <td>@item.ProductId</td>
+                            @*<td>@item.ProductId</td>*@
                             <td>
                                 <span class="badge rounded-pill badge-light-info me-1">@item.Code</span>
                             </td>
