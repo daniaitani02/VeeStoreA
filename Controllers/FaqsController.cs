@@ -21,6 +21,8 @@ namespace VeeStoreA.Controllers
 
             var faqs = from f in db.Faqs
                        select f;
+            faqs = faqs.Where(f => f.Status == "Approved");
+
             if (!String.IsNullOrEmpty(faqSearchString))
             {
                 faqs = faqs.Where(f => f.Question.Contains(faqSearchString));
@@ -99,6 +101,7 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Status = new SelectList(new List<string> { "Approved", "Awaiting Approval" },faq.Status);
             return View(faq);
         }
 
@@ -113,12 +116,16 @@ namespace VeeStoreA.Controllers
             {
                 db.Entry(faq).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Faq","Admin");
             }
+            ViewBag.Status = new SelectList(new List<string> { "Approved", "Awaiting Approval" }, faq.Status);
+
             return View(faq);
         }
 
         // GET: Faqs/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -130,19 +137,16 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
-            return View(faq);
+    
+            db.Faqs.Remove(faq);
+            db.SaveChanges();
+            return RedirectToAction("Faq", "Admin");
+
         }
 
         // POST: Faqs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Faq faq = db.Faqs.Find(id);
-            db.Faqs.Remove(faq);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+       
+
 
         protected override void Dispose(bool disposing)
         {
