@@ -27,10 +27,10 @@
 
     <div class="card" data-select2-id="59">
         <div class="card-header border-bottom">
-            <h4 class="card-title">Create a Card Code</h4>
+            <h4 class="card-title">Add a Card Code</h4>
         </div>
         <div class="card-body py-2 my-25" data-select2-id="58">
-            <form class="validate-form mt-2 pt-50" novalidate="novalidate" data-select2-id="12">
+          
                 <div class="row" data-select2-id="57">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -40,10 +40,15 @@
                             @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
                         </div>*@
                     <div class="col-12 col-sm-6 mb-1">
-                        @Html.LabelFor(model => model.ProductId, "ProductId", htmlAttributes: new { @class = "form-label" })
+                        @Html.LabelFor(model => model.ProductId, "Product", htmlAttributes: new { @class = "form-label" })
 
-                        @Html.DropDownList("ProductId", null, new { htmlAttributes = new { @class = "hide-search form-select select2-hidden-accessible" } })
+                        @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "select2 form-select select2-hidden-accessible" })
+
                         @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+
+
+
+
                     </div>
                     <div class="col-12 col-sm-6 mb-1">
                         @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "form-label" })
@@ -53,21 +58,27 @@
                     </div>
 
                     @*<div class="col-12 col-sm-6 mb-1">
-                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @placeholder = "Product Name", @Value = "New" } })
-                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                    </div>*@
+                            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @placeholder = "Product Name", @Value = "New" } })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>*@
 
 
 
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary mt-1 me-1 waves-effect waves-float waves-light">Add Card Code</button>
 
-                        @Html.ActionLink("Back to card Codes", "Index", null, htmlAttributes: new { @class = "btn btn-outline-secondary mt-1 waves-effect" })
+                        @Html.ActionLink("Back to Card Codes", "Index", null, htmlAttributes: new { @class = "btn btn-outline-secondary mt-1 waves-effect" })
                     </div>
                 </div>
-            </form>
+          </div>
             <!--/ form -->
         </div>
-    </div>
+  
+  
 }
+
+@Scripts.Render("~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js")
+<script src="~/Content/Theme/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+
+<script src="~/Content/Theme/app-assets/js/scripts/forms/form-select2.js"></script>
