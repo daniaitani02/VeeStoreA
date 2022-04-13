@@ -10,7 +10,6 @@ using VeeStoreA.Models;
 
 namespace VeeStoreA.Controllers
 {
-    [Authorize(Users = "admin@admin.com")]
     public class CardCodesController : Controller
     {
         private VeeStoreDbEntities db = new VeeStoreDbEntities();
@@ -67,7 +66,6 @@ namespace VeeStoreA.Controllers
         // GET: CardCodes/Edit/5
         public ActionResult Edit(int? id)
         {
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -77,13 +75,6 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
-
-            if (cardCode.Status == "Used")
-            {
-                TempData["errorAdminCardC"] = "You cannot edit or delete this card because it has been used";
-                return View(cardCode);
-            }
-
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", cardCode.ProductId);
             return View(cardCode);
         }

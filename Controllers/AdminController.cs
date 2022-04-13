@@ -47,14 +47,7 @@ namespace VeeStoreA.Controllers
                 product.Status = "Invisible";
             } else
             {
-                if (db.CardCodes.Where(x => x.ProductId == product.Id && x.Status != "Used").Count() == 0)
-                {
-                    TempData["errorAdminProd"] = "You cannot toggle visibilty of a product that has no available card codes";
-                }
-                else
-                {
-                    product.Status = "Visible";
-                }
+                product.Status = "Visible";
             }
 
             db.SaveChanges();
