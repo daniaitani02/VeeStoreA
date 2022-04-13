@@ -286,21 +286,40 @@ This is a receipt for your recent purchase. 💵
 
             if (couponCodes.Count() == 0)
             {
-                TempData["error"] = "Coupoun Code is not valid";
+                TempData["error"] = "Coupon Code is not valid";
 
             }
             else
             {
                 CouponCode couponCode = couponCodes.First();
-                cart.CouponCodeId = couponCode.Id;
-                db.SaveChanges();
-                TempData["info"] = "Applied Coupon Code";
+                DateTime now = DateTime.Now;
+                DateTime expiryDate = DateTime.Parse(couponCode.ExpiryDate.ToString());
+
+                if (expiryDate < now)
+                {
+                    TempData["error"] = "Coupon Code has expired";
+                }
+                else
+                {
+                    cart.CouponCodeId = couponCode.Id;
+                    db.SaveChanges();
+                    TempData["info"] = "Applied Coupon Code";
+                }
+               
             }
 
 
 
             return RedirectToAction("Details", "Carts", new { id = cart.Id });
 
+        }
+        
+        public ActionResult RemoveCoupon()
+        {
+            Cart cart = GetUsersCart();
+            cart.CouponCodeId = null;
+            db.SaveChanges();
+            return RedirectToAction("Details", "Carts", new { id = cart.Id });
         }
 
 
