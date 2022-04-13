@@ -1,0 +1,192 @@
+﻿@model IEnumerable<VeeStoreA.Models.CouponCode>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ThemeLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountPercentage)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountPercentage)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@if (TempData["errorAdminCardC"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error</h4>
+        <div class="alert-body">
+            @TempData["errorAdminCardC"]
+        </div>
+    </div>
+}
+
+
+<section id="ecommerce-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ecommerce-header-items">
+                <div class="col-12">
+                    <a type="button" class="btn btn-icon btn-gradient-primary waves-effect waves-float waves-light float-start" href="@Url.Action("AdminPanel", "Home")">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </a>
+
+                    <h2 class="float-start" style="border: 0px; padding: 0px; padding-top: 5px;"> &nbsp; Card Codes</h2>
+                    <div class="view-options d-flex float-end">
+                        @if (User.Identity.Name == "admin@admin.com")
+                        {
+                            @Html.ActionLink("Add New Card", "Create", null, new { @class = "btn btn-outline-primary" })
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br />
+<div class="content">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+
+        <div class="table-responsive" style="padding-bottom: 100px;">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Card ID #</th>
+                        <th>Card name</th>
+                        @*<th>Card Type</th>*@
+                        <th>Code</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="padding-top: 20px; padding-bottom: 20px;">
+                                @item.Id
+                            </td>
+                            <td>
+                                <span class="badge rounded-pill badge-light-warning me-1">@item.Product.Name</span>
+                            </td>
+                            @*<td>@item.ProductId</td>*@
+                            <td>
+                                <span class="badge rounded-pill badge-light-info me-1">@item.Code</span>
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Status == "New")
+                                    {
+                                        <span class="badge rounded-pill badge-light-success me-1">New</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill badge-light-danger me-1">Used</span>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Status != "Used")
+                                    {
+                                        <div class="dropdown">
+                                            <button type="button"
+                                                    class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                     stroke-linecap="round" stroke-linejoin="round"
+                                                     class="feather feather-more-vertical">
+                                                    <circle cx="12" cy="12" r="1"></circle>
+                                                    <circle cx="12" cy="5" r="1"></circle>
+                                                    <circle cx="12" cy="19" r="1"></circle>
+                                                </svg>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="@Url.Action("Edit", "CardCodes" , new {
+												id=item.Id })">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                         class="feather feather-edit-2 me-50">
+                                                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z">
+                                                        </path>
+                                                    </svg>
+                                                    <span>Edit</span>
+                                                </a>
+                                                <a class="dropdown-item" href="@Url.Action("Delete", "CardCodes" , new {
+												id=item.Id })">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                         class="feather feather-trash me-50">
+                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                        </path>
+                                                    </svg>
+                                                    <span>Delete</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </td>
+                        </tr>
+
+
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- E-commerce Products Ends -->
+
+    </div>
+</div>
