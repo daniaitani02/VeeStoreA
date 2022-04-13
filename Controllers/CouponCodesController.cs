@@ -70,6 +70,8 @@ namespace VeeStoreA.Controllers
         // GET: CouponCodes/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.canEdit = true;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -79,6 +81,14 @@ namespace VeeStoreA.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (db.Carts.Where(c => c.CouponCode.Code == couponCode.Code && c.Status == "Paid").Count() != 0)
+            {
+                TempData["errorAdminCouponC"] = "You cannot edit or delete this coupon code because it has been used";
+                ViewBag.canEdit = false;
+                return RedirectToAction("Index");
+            }
+
             return View(couponCode);
         }
 
@@ -89,8 +99,16 @@ namespace VeeStoreA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Code,ExpiryDate,CreatedAt,DiscountPercentage")] CouponCode couponCode)
         {
+            ViewBag.canEdit = true;
+
             if (ModelState.IsValid)
             {
+                if (db.CouponCodes.Where(x => x.Code == couponCode.Code && couponCode.Id != x.Id).Count() != 0)
+                {
+                    TempData["errorAdminCouponC"] = "You cannot edit a coupon code that is already present in another record";
+                    return View();
+                }
+
                 db.Entry(couponCode).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -106,11 +124,14 @@ namespace VeeStoreA.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CouponCode couponCode = db.CouponCodes.Find(id);
-            if (couponCode == null)
+            if (couponCode == null || db.Carts.Where(x => x.CouponCode.Code == couponCode.Code).Count() != 0)
             {
-                return HttpNotFound();
+                TempData["errorAdminCouponC"] = "You cannot edit or delete this coupon card because it has been used";
+                return RedirectToAction("Index");
             }
-            return View(couponCode);
+            db.CouponCodes.Remove(couponCode);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: CouponCodes/Delete/5
