@@ -5,56 +5,58 @@
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/forms/select/select2.min.css">
+<style>
+    .select2-selection__arrow b {
+        display: none !important;
+    }
+</style>
+@if (TempData["errorAdminCouponC"] != null)
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>CouponCode</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DiscountPercentage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DiscountPercentage, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DiscountPercentage, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error</h4>
+        <div class="alert-body">
+            @TempData["errorAdminCouponC"]
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card" data-select2-id="59">
+        <div class="card-header border-bottom">
+            <h4 class="card-title">Create a Coupon Code</h4>
+        </div>
+        <div class="card-body py-2 my-25" data-select2-id="58">
+            <form class="validate-form mt-2 pt-50" novalidate="novalidate" data-select2-id="12">
+                <div class="row" data-select2-id="57">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="col-12 col-sm-6 mb-1">
+                        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="col-12 col-sm-6 mb-1">
+                        @Html.LabelFor(model => model.DiscountPercentage, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.DiscountPercentage, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DiscountPercentage, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary mt-1 me-1 waves-effect waves-float waves-light">Add Card Code</button>
+
+                        @Html.ActionLink("Back to Coupon Codes", "Index", null, htmlAttributes: new { @class = "btn btn-outline-secondary mt-1 waves-effect" })
+                    </div>
+                </div>
+            </form>
+            <!--/ form -->
+        </div>
+    </div>
+}

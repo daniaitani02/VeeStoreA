@@ -46,10 +46,19 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Code,ExpiryDate,CreatedAt,DiscountPercentage")] CouponCode couponCode)
+        public ActionResult Create([Bind(Include = "Id,Code,DiscountPercentage")] CouponCode couponCode)
         {
             if (ModelState.IsValid)
             {
+                if (db.CouponCodes.Where(x => x.Code == couponCode.Code).Count() != 0)
+                {
+                    TempData["errorAdminCouponC"] = "You cannot create a coupon code that is already present";
+                    return View();
+                }
+
+                DateTime now = DateTime.Now;
+                couponCode.CreatedAt = now;
+                couponCode.ExpiryDate = now.AddDays(30);
                 db.CouponCodes.Add(couponCode);
                 db.SaveChanges();
                 return RedirectToAction("Index");
