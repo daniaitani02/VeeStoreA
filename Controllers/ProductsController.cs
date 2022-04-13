@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using VeeStoreA.Models;
 
 namespace VeeStoreA.Controllers
@@ -84,6 +85,9 @@ namespace VeeStoreA.Controllers
                 products = products.Where(p => p.Ratings.Count() == 0);
             }
             ViewBag.categories = db.Categories.Select(c=>c.Name);
+
+            ViewBag.DirtySpaceForFooterHehe = db.Products.Count() / 3 * 700;
+
             return View(products);
             //return View(db.Products.ToList());
         }
@@ -133,7 +137,7 @@ namespace VeeStoreA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin@admin.com")]
-        public ActionResult Create([Bind(Include = "Id,Name,Price,Description,CategoryId,Status")] Product product)
+        public ActionResult Create([Bind(Include = "Id,Name,Price,ImageName,Description,CategoryId,Status")] Product product)
         {
             var dbProducts = db.Products;
             ViewBag.Status = new SelectList(new List<string> { "Visible", "Not Visible" });
@@ -148,7 +152,6 @@ namespace VeeStoreA.Controllers
                 }
                 DateTime now = DateTime.Now;
                 product.CreatedAt = now;
-                product.ImageName = "1.png";
                
 
                 System.Diagnostics.Debug.WriteLine(product.CategoryId);

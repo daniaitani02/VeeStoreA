@@ -52,6 +52,7 @@ namespace VeeStoreA.Controllers
             return View(faq);
         }
         // GET: Faqs/Details/5
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -67,6 +68,7 @@ namespace VeeStoreA.Controllers
         }
 
         // GET: Faqs/Create
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Create()
         {
             return View();
@@ -77,6 +79,7 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Create([Bind(Include = "Id,Question,Answer,Email,Name")] Faq faq)
         {
             if (ModelState.IsValid)
@@ -90,6 +93,7 @@ namespace VeeStoreA.Controllers
         }
 
         // GET: Faqs/Edit/5
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -110,6 +114,7 @@ namespace VeeStoreA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Edit([Bind(Include = "Id,Question,Answer,Status,Email,Name")] Faq faq)
         {
             if (ModelState.IsValid)
@@ -126,6 +131,7 @@ namespace VeeStoreA.Controllers
         // GET: Faqs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin@admin.com")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

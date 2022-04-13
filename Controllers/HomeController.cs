@@ -11,8 +11,10 @@ namespace VeeStoreA.Controllers
         private VeeStoreDbEntities db = new VeeStoreDbEntities();
         public ActionResult Index()
         {
+
+            var someProductsMyG = db.Products.OrderBy(n => Guid.NewGuid()).Take(3);
        
-            return View();
+            return View(someProductsMyG.ToList());
             
         }
 
@@ -64,6 +66,8 @@ namespace VeeStoreA.Controllers
 
             return View();
         }
+
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
