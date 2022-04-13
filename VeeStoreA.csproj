@@ -288,6 +288,14 @@
     <Content Include="Content\Images\Icons\payments\visa.png" />
     <Content Include="Content\Images\Products\1.png" />
     <Content Include="Content\Images\avatar.png" />
+    <Content Include="Content\Images\Products\Netflix.jpg" />
+    <Content Include="Content\Images\Products\PlayStation10.jpg" />
+    <Content Include="Content\Images\Products\PlayStation100.jpg" />
+    <Content Include="Content\Images\Products\PlayStation50.jpg" />
+    <Content Include="Content\Images\Products\Spotify.jpg" />
+    <Content Include="Content\Images\Products\Xbox10.jpg" />
+    <Content Include="Content\Images\Products\Xbox20.jpg" />
+    <Content Include="Content\Images\Products\Xbox50.jpg" />
     <Content Include="Content\Reciept_Template.txt" />
     <Content Include="Content\Theme\app-assets\css\bootstrap-extended.css" />
     <Content Include="Content\Theme\app-assets\css\bootstrap-extended.min.css" />

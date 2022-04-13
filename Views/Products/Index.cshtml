@@ -12,269 +12,270 @@
 <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/pages/app-ecommerce.css">
 <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/plugins/extensions/ext-component-toastr.css">
 <!-- END: Page CSS-->
-<div class="content-detached content-right">
-    <div class="content-body">
-      
-
-        <!-- E-commerce Content Section Starts -->
-        <section id="ecommerce-header">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="ecommerce-header-items">
-                        <div class="result-toggler">
-                            <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
-                                <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
-                            </button>
-                            <div class="search-results">@Model.Count() result(s) found</div>
-                        </div>
-                        <div class="view-options d-flex">
-                        
-                               
-                                @if (User.Identity.Name == "admin@admin.com")
-                                {
-                                    @Html.ActionLink("Add New Product", "Create",null,new { @class= "btn btn-outline-primary" })
-                                }
-
-                     
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- E-commerce Content Section Starts -->
-        <!-- E-commerce Search Bar Starts -->
-
-        @using (Html.BeginForm(null, null, FormMethod.Get, new { @class = "form-inline",id="search" }))
-        {
-            <section id="ecommerce-searchbar" class="ecommerce-searchbar">
-                <div class="row mt-1">
+<div>
+    <div class="sidebar-detached sidebar-left float-start">
+        <div class="sidebar">
+            <!-- Ecommerce Sidebar Starts -->
+            <div class="sidebar-shop">
+                <div class="row">
                     <div class="col-sm-12">
-                        <div class="input-group input-group-merge">
-
-                            <input type="text" value="@ViewBag.search"name="SearchString" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
-
-                            <span class="input-group-text"><i data-feather="search"></i></span>
-                        </div>
+                        <h6 class="filter-heading d-none d-lg-block">Filters</h6>
                     </div>
                 </div>
-
-            </section>
-
-        }
-        <!-- E-commerce Search Bar Ends -->
-        <!-- E-commerce Products Starts -->
-        <section id="ecommerce-products" class="grid-view">
-
-
-            @foreach (var product in Model)
-            {
-                Html.RenderPartial("_ProductCard", product);
-            }
-        </section>
-        <!-- E-commerce Products Ends -->
-    </div>
-</div>
-<div class="sidebar-detached sidebar-left">
-    <div class="sidebar">
-        <!-- Ecommerce Sidebar Starts -->
-        <div class="sidebar-shop">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h6 class="filter-heading d-none d-lg-block">Filters</h6>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <!-- Price Filter starts -->
-                    <div class="multi-range-price">
-                        <h6 class="filter-title mt-0">Price Range</h6>
-                        <ul class="list-unstyled price-range" id="price">
-                            <li>
-                                <div class="form-check">
-                                    <input type="radio" id="priceAll" name="price" class="form-check-input" form="search"  checked />
-                                    <label class="form-check-label" for="priceAll">All</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input type="radio" id="priceARange3" value="l30" name="price" class="form-check-input" form="search"/>
-                                    <label class="form-check-label" for="priceARange3">Less than 30QR</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input type="radio" id="priceRange1" value="b30x100" name="price" class="form-check-input" form="search" />
-                                    <label class="form-check-label" for="priceRange1">30QR - 100QR</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input type="radio" id="priceRange2" value="m300" name="price" class="form-check-input" form="search" />
-                                    <label class="form-check-label" for="priceRange2">More than 100QR </label>
-                                </div>
-                            </li>
-
-                           
-                        </ul>
-                    </div>
-                    <!-- Price Filter ends -->
-              
-                    <!-- Categories Starts -->
-                    <div id="product-categories">
-                        <h6 class="filter-title">Categories</h6>
-                        <ul class="list-unstyled categories-list">
-                            <li>
-                                <div class="form-check">
-                                    <input type="radio" id="all" form="search"  name="categoryfilter" value="" class="form-check-input" checked />
-                                    <label class="form-check-label" for="all">All</label>
-                                </div>
-                            </li>
-                            @foreach (var category in ViewBag.categories)
-                            {
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Price Filter starts -->
+                        <div class="multi-range-price">
+                            <h6 class="filter-title mt-0">Price Range</h6>
+                            <ul class="list-unstyled price-range" id="price">
                                 <li>
                                     <div class="form-check">
-                                        <input type="radio" id="@category" name="categoryfilter" value="@category" class="form-check-input" form="search"  />
-                                        <label class="form-check-label" for="@category">@category</label>
+                                        <input type="radio" id="priceAll" name="price" class="form-check-input" form="search" checked />
+                                        <label class="form-check-label" for="priceAll">All</label>
                                     </div>
                                 </li>
-                            }
+                                <li>
+                                    <div class="form-check">
+                                        <input type="radio" id="priceARange3" value="l30" name="price" class="form-check-input" form="search" />
+                                        <label class="form-check-label" for="priceARange3">Less than 30QR</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <input type="radio" id="priceRange1" value="b30x100" name="price" class="form-check-input" form="search" />
+                                        <label class="form-check-label" for="priceRange1">30QR - 100QR</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <input type="radio" id="priceRange2" value="m300" name="price" class="form-check-input" form="search" />
+                                        <label class="form-check-label" for="priceRange2">More than 100QR </label>
+                                    </div>
+                                </li>
 
 
-                        </ul>
+                            </ul>
+                        </div>
+                        <!-- Price Filter ends -->
+                        <!-- Categories Starts -->
+                        <div id="product-categories">
+                            <h6 class="filter-title">Categories</h6>
+                            <ul class="list-unstyled categories-list">
+                                <li>
+                                    <div class="form-check">
+                                        <input type="radio" id="all" form="search" name="categoryfilter" value="" class="form-check-input" checked />
+                                        <label class="form-check-label" for="all">All</label>
+                                    </div>
+                                </li>
+                                @foreach (var category in ViewBag.categories)
+                                {
+                                    <li>
+                                        <div class="form-check">
+                                            <input type="radio" id="@category" name="categoryfilter" value="@category" class="form-check-input" form="search" />
+                                            <label class="form-check-label" for="@category">@category</label>
+                                        </div>
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </div>
+                        <!-- Categories Ends -->
+                        <!-- Rating starts -->
+                        <div id="ratings">
+                            <h6 class="filter-title">Ratings</h6>
+                            <ul class="list-unstyled categories-list">
+                                <li class="form-check">
+                                    <input type="radio" id="rating1" form="search" name="ratings" value="" checked class="form-check-input" />
+                                    <label class="form-check-label" for="rating1">All</label>
+                                </li>
+
+                                <li class="form-check">
+                                    <input type="radio" id="rating2" form="search" name="ratings" value="5" class="form-check-input" />
+                                    @*<label class="form-check-label" for="@category">@category</label>*@
+
+                                    <div class="ratings-list  mb-0 mt-0">
+
+                                        <ul class="unstyled-list list-inline">
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+
+                                        </ul>
+
+                                        <div class="stars-received">@(Model.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 5).Count())</div>
+                                    </div>
+                                </li>
+                                <li class="form-check">
+                                    <input type="radio" id="rating3" name="ratings" form="search" value="4" class="form-check-input" />
+
+
+                                    <div class="ratings-list  mb-0 mt-0">
+
+                                        <ul class="unstyled-list list-inline">
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+
+                                        </ul>
+
+                                        <div class="stars-received">@(Model.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 4).Count())</div>
+                                    </div>
+                                </li>
+                                <li class="form-check">
+                                    <input type="radio" id="rating4" name="ratings" form="search" value="3" class="form-check-input" />
+                                    @*<label class="form-check-label" for="@category">@category</label>*@
+
+                                    <div class="ratings-list  mb-0 mt-0">
+
+                                        <ul class="unstyled-list list-inline">
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+
+                                        </ul>
+
+                                        <div class="stars-received">@(Model.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 3).Count())</div>
+                                    </div>
+                                </li>
+                                <li class="form-check">
+                                    <input type="radio" id="rating5" name="ratings" form="search" value="2" class="form-check-input" />
+                                    @*<label class="form-check-label" for="@category">@category</label>*@
+
+                                    <div class="ratings-list  mb-0 mt-0">
+
+                                        <ul class="unstyled-list list-inline">
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+
+                                        </ul>
+
+                                        <div class="stars-received">@(Model.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 2).Count())</div>
+                                    </div>
+                                </li>
+                                <li class="form-check  mb-0 mt-0">
+                                    <input type="radio" id="rating6" name="ratings" value="1" form="search" class="form-check-input" />
+                                    @*<label class="form-check-label" for="@category">@category</label>*@
+
+                                    <div class="ratings-list  mb-0 mt-0">
+
+                                        <ul class="unstyled-list list-inline">
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+
+                                        </ul>
+
+                                        <div class="stars-received">@(Model.Where(p => p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() == 0 ? 1 : p.Ratings.Count()) == 1).Count())</div>
+                                    </div>
+                                </li>
+                                <li class="form-check mb-0 mt-0">
+                                    <input type="radio" id="rating7" name="ratings" form="search" value="0" class="form-check-input" />
+                                    @*<label class="form-check-label" for="@category">@category</label>*@
+
+                                    <div class="ratings-list  mb-0 mt-0">
+
+                                        <ul class="unstyled-list list-inline">
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+
+                                        </ul>
+
+                                        <div class="stars-received">@(Model.Where(p => p.Ratings.Count() == 0).Count())</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Rating ends -->
+                        <!-- Clear Filters Starts -->
+                        <div id="clear-filters">
+                            <input form="search" type="submit" class="btn w-100 btn-primary" value="Filter Results" />
+                        </div>
+                        <!-- Clear Filters Ends -->
                     </div>
-                    <!-- Categories Ends -->
-                  
-                    <!-- Rating starts -->
-                    <div id="ratings">
-                        <h6 class="filter-title">Ratings</h6>
-                        <ul class="list-unstyled categories-list">
-                            <li class="form-check">
-                                <input type="radio" id="rating1"  form="search" name="ratings" value="" checked class="form-check-input" />
-                                <label class="form-check-label" for="rating1">All</label>
-                            </li>
-
-                            <li class="form-check">
-                                <input type="radio" id="rating2" form="search" name="ratings" value="5" class="form-check-input" />
-                                @*<label class="form-check-label" for="@category">@category</label>*@
-
-                                <div class="ratings-list  mb-0 mt-0">
-
-                                    <ul class="unstyled-list list-inline">
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-
-                                    </ul>
-
-                                    <div class="stars-received">@(Model.Where(p=>p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() ==0?1: p.Ratings.Count()) == 5).Count())</div>
-                                </div>
-                            </li>
-                            <li class="form-check">
-                                <input type="radio" id="rating3" name="ratings" form="search" value="4" class="form-check-input" />
-                             
-
-                                <div class="ratings-list  mb-0 mt-0">
-
-                                    <ul class="unstyled-list list-inline">
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-
-                                    </ul>
-
-                                    <div class="stars-received">@(Model.Where(p=>p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() ==0?1: p.Ratings.Count()) == 4).Count())</div>
-                                </div>
-                            </li>
-                            <li class="form-check">
-                                <input type="radio" id="rating4" name="ratings" form="search" value="3" class="form-check-input" />
-                                @*<label class="form-check-label" for="@category">@category</label>*@
-
-                                <div class="ratings-list  mb-0 mt-0">
-
-                                    <ul class="unstyled-list list-inline">
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-
-                                    </ul>
-
-                                    <div class="stars-received">@(Model.Where(p=>p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() ==0?1: p.Ratings.Count()) == 3).Count())</div>
-                                </div>
-                            </li>
-                            <li class="form-check">
-                                <input type="radio" id="rating5" name="ratings" form="search" value="2" class="form-check-input" />
-                                @*<label class="form-check-label" for="@category">@category</label>*@
-
-                                <div class="ratings-list  mb-0 mt-0">
-
-                                    <ul class="unstyled-list list-inline">
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-
-                                    </ul>
-
-                                    <div class="stars-received">@(Model.Where(p=>p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() ==0?1: p.Ratings.Count()) == 2).Count())</div>
-                                </div>
-                            </li>
-                            <li class="form-check  mb-0 mt-0">
-                                <input type="radio" id="rating6" name="ratings" value="1" form="search" class="form-check-input" />
-                                @*<label class="form-check-label" for="@category">@category</label>*@
-
-                                <div class="ratings-list  mb-0 mt-0">
-
-                                    <ul class="unstyled-list list-inline">
-                                        <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-
-                                    </ul>
-
-                                    <div class="stars-received">@(Model.Where(p=>p.Ratings.Sum(r => r.Stars) / (p.Ratings.Count() ==0?1: p.Ratings.Count()) == 1).Count())</div>
-                                </div>
-                            </li>
-                            <li class="form-check mb-0 mt-0">
-                                <input type="radio" id="rating7" name="ratings" form="search" value="0" class="form-check-input" />
-                                @*<label class="form-check-label" for="@category">@category</label>*@
-
-                                <div class="ratings-list  mb-0 mt-0">
-
-                                    <ul class="unstyled-list list-inline">
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                        <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-
-                                    </ul>
-
-                                    <div class="stars-received">@(Model.Where(p=>p.Ratings.Count() == 0).Count())</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Rating ends -->
-                    <!-- Clear Filters Starts -->
-                    <div id="clear-filters">
-                        <input form="search" type="submit" class="btn w-100 btn-primary" value="Filter Results" />
-                    </div>
-                    <!-- Clear Filters Ends -->
                 </div>
             </div>
-        </div>
-        <!-- Ecommerce Sidebar Ends -->
+            <!-- Ecommerce Sidebar Ends -->
 
+        </div>
+    </div>
+    <div class="content-detached content-right float-end">
+        <div class="content-body">
+
+
+            <!-- E-commerce Content Section Starts -->
+            <section id="ecommerce-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ecommerce-header-items">
+                            <div class="result-toggler">
+                                <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
+                                    <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
+                                </button>
+                                <div class="search-results">@Model.Count() result(s) found</div>
+                            </div>
+                            <div class="view-options d-flex">
+
+
+                                @if (User.Identity.Name == "admin@admin.com")
+                                {
+                                    @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-outline-primary" })
+                                }
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- E-commerce Content Section Starts -->
+            <!-- E-commerce Search Bar Starts -->
+
+            @using (Html.BeginForm(null, null, FormMethod.Get, new { @class = "form-inline", id = "search" }))
+            {
+                <section id="ecommerce-searchbar" class="ecommerce-searchbar">
+                    <div class="row mt-1">
+                        <div class="col-sm-12">
+                            <div class="input-group input-group-merge">
+
+                                <input type="text" value="@ViewBag.search" name="SearchString" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+
+                                <span class="input-group-text"><i data-feather="search"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+            }
+            <!-- E-commerce Search Bar Ends -->
+            <!-- E-commerce Products Starts -->
+            <section id="ecommerce-products" class="grid-view">
+
+
+                @foreach (var product in Model)
+                {
+                    Html.RenderPartial("_ProductCard", product);
+                }
+            </section>
+            <!-- E-commerce Products Ends -->
+        </div>
     </div>
 </div>
 <div class="sidenav-overlay"></div>
+<div style="width: 1px; height: @(ViewBag.DirtySpaceForFooterHehe)px"></div>
