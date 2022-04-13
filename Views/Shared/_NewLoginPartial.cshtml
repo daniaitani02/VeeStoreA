@@ -63,7 +63,7 @@
                             <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">@(User.Identity.GetUserName().Split('@')[0].ToUpper()) </span><span class="user-status">@(User.Identity.Name == "admin@admin.com"?"Admin":"Customer")</span></div><span class="avatar"><img class="round" src="~/Content/Images/avatar.png" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                           
+
                             @if (username == "admin@admin.com")
                             {
                                 <a class="dropdown-item" href="@Url.Action("AdminPanel","Home")"><i class="me-50" data-feather="activity"></i>Admin Panel</a>
@@ -72,9 +72,9 @@
                             else
                             {
                                 <a class="dropdown-item" href="@Url.Action("Details","Customers",new {id=username+"/" })"><i class="me-50" data-feather="user"></i> Profile</a>
+                                <a class="dropdown-item" href="@Url.Action("Orders","Customers",new {id=username+"/" })"><i class="me-50" data-feather="help-circle"></i> My Orders</a>
 
                             }
-                            <a class="dropdown-item" href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a>
                             <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="me-50" data-feather="power"></i> Logout</a>
                         </div>
                     </li>
