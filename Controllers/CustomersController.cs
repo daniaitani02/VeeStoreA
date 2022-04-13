@@ -118,18 +118,23 @@ namespace VeeStoreA.Controllers
         public ActionResult CreateCreditCard([Bind(Include = "Name,Number,CVV,Expiry")] CreditCard creditCard,string Type)
         {
             ViewBag.Type = new SelectList(new List<string> { "Visa", "Mastercard", "American Express" }, "Visa");
+            Customer customer = db.Customers.Find(User.Identity.Name);
             if (ModelState.IsValid)
             {
                 creditCard.CustomerEmail = User.Identity.Name;
                 creditCard.Type = Type;
                 db.CreditCards.Add(creditCard);
                 db.SaveChanges();
-                Customer customer = db.Customers.Find(User.Identity.Name);
+                
                 if (customer.CreditCards.Where(cc => cc.Type != "Disabled").Count() != 0)
                 {
                     ViewBag.creditCards = customer.CreditCards.Where(cc => cc.Type != "Disabled");
                 }
                 return View();
+            }
+            if (customer.CreditCards.Where(cc => cc.Type != "Disabled").Count() != 0)
+            {
+                ViewBag.creditCards = customer.CreditCards.Where(cc => cc.Type != "Disabled");
             }
             return View(creditCard);
         }
