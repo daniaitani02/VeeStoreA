@@ -16,20 +16,20 @@ namespace VeeStoreA.Controllers
             
         }
 
-        public ActionResult FAQ(string faqSearchString)
-        {
-            ViewBag.Message = "Your application description page.";
+        //public ActionResult FAQ(string faqSearchString)
+        //{
+        //    ViewBag.Message = "Your application description page.";
                         
-            var faqs = from f in db.Faqs
-                       select f;
-            if (!String.IsNullOrEmpty(faqSearchString))
-            {
-                faqs = faqs.Where(f => f.Question.Contains(faqSearchString));
+        //    var faqs = from f in db.Faqs
+        //               select f;
+        //    if (!String.IsNullOrEmpty(faqSearchString))
+        //    {
+        //        faqs = faqs.Where(f => f.Question.Contains(faqSearchString));
 
-            }
-            ViewBag.faqsearch = faqSearchString;
-            return View(faqs);
-        }
+        //    }
+        //    ViewBag.faqsearch = faqSearchString;
+        //    return View(faqs);
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult FaqCreate([Bind(Include = "Email,Name,Question")] Faq faq)

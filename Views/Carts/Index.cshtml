@@ -16,8 +16,15 @@
 <link rel="stylesheet" type="text/css" href="../Content/Theme/app-assets/css/components.min.css">
 <!-- END: Page CSS-->
 
-<h2>Carts</h2>
+<div class="col-12">
+    <a type="button" class="btn btn-icon btn-gradient-primary waves-effect waves-float waves-light float-start" href="@Url.Action("AdminPanel", "Home")">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </a>
 
+    <h2 class="content-header-title pd-1"> &nbsp; Carts</h2>
+
+
+</div>
 @if (ViewBag.errorAdminProd != null)
 {
     <div class="alert alert-danger" role="alert">
@@ -29,45 +36,45 @@
 }
 <!-- E-commerce Content Section Starts -->
 @*<section id="ecommerce-header">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="ecommerce-header-items">
-                <div class="result-toggler">
-                    <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
-                        <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
-                    </button>
-                    <div class="search-results">@Model.Count() result(s) found</div>
-                </div>
-                <div class="view-options d-flex">
-                    @if (User.Identity.Name == "admin@admin.com")
-                    {
-                        @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-outline-primary" })
-                    }
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ecommerce-header-items">
+                    <div class="result-toggler">
+                        <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
+                            <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
+                        </button>
+                        <div class="search-results">@Model.Count() result(s) found</div>
+                    </div>
+                    <div class="view-options d-flex">
+                        @if (User.Identity.Name == "admin@admin.com")
+                        {
+                            @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-outline-primary" })
+                        }
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>*@
+    </section>*@
 <!-- E-commerce Content Section Starts -->
 <!-- E-commerce Search Bar Starts -->
 @*@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-inline" }))
-{
-    <section id="ecommerce-searchbar" class="ecommerce-searchbar">
-        <div class="row mt-1">
-            <div class="col-sm-12">
-                <div class="input-group input-group-merge">
+    {
+        <section id="ecommerce-searchbar" class="ecommerce-searchbar">
+            <div class="row mt-1">
+                <div class="col-sm-12">
+                    <div class="input-group input-group-merge">
 
-                    <input type="text" name="SearchString" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+                        <input type="text" name="SearchString" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
 
-                    <span class="input-group-text"><i data-feather="search"></i></span>
+                        <span class="input-group-text"><i data-feather="search"></i></span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </section>
+        </section>
 
-}*@
+    }*@
 <!-- E-commerce Search Bar Ends -->
 <!-- E-commerce Products Starts -->
 
@@ -93,56 +100,58 @@
 
                 <tr>
                     <td>@item.Id</td>
-                    <td>@{
+                    <td>
+                        @{
+                            if (item.Status == "Paid")
+                            {
+                                <span class="badge rounded-pill bg-success me-1">
+                                    @item.Status
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill bg-danger me-1">
+                                    @item.Status
+                                </span>
+                            }
+                    }
+                </td>
+                <td>
+                    <span class="badge rounded-pill badge-light-success me-1">
+                        @item.CartItems.Sum(x => x.Product.Price * x.Quantity) @item.Customer.Currency.Symbol
+                    </span>
+                </td>
+                <td>
+                    @item.CartItems.Where(x => x.CartId == item.Id).Count()
+                </td>
+                <td>
+                    <a type="button" class="btn btn-flat-warning" href="@Url.Action("Details", "Customers", new { id = item.Customer.Email + "/"})">@item.CustomerEmail</a>
+                </td>
+                <td>
+                    @{
                         if (item.Status == "Paid")
                         {
-                            <span class="badge rounded-pill bg-success me-1">
-                                @item.Status
-                            </span>
+                            @item.PaidAt
                         }
-                        else
+
+                    }
+                </td>
+                <td>
+                    @{
+                        if (item.Status == "Paid")
                         {
-                            <span class="badge rounded-pill bg-danger me-1">
-                                @item.Status
-                            </span>
-                            }
+                            <a type="button" class="btn btn-outline-primary" href="@Url.Action("Receipt", "Transaction", new { id = item.Id })">Receipt</a>
                         }
-                    </td>
-                    <td>
-                        <span class="badge rounded-pill badge-light-success me-1">@item.CartItems.Sum(x => x.Product.Price * x.Quantity) @item.Customer.Currency.Symbol
-                            </span>
-                    </td>
-                    <td>
-                        @item.CartItems.Where(x => x.CartId == item.Id).Count()
-                    </td>
-                    <td>
-                        <a type="button" class="btn btn-flat-warning" href="@Url.Action("Details", "Customers", new { id = item.Customer.Email + "/"})">@item.CustomerEmail</a>
-                    </td>
-                    <td>
-                        @{
-                            if (item.Status == "Paid")
-                            {
-                                @item.PaidAt
-                                }
-
-                            }
-                    </td>
-                    <td>
-                        @{
-                            if (item.Status == "Paid")
-                            {
-                                <a type="button" class="btn btn-outline-primary" href="@Url.Action("Receipt", "Transaction", new { id = item.Id })">Receipt</a>
-                            }
-                            else if (item.CartItems.Where(x => x.CartId == item.Id).Count() != 0)
-                            {
-                                <a type="button" class="btn btn-gradient-primary" href="@Url.Action("cartDetails", "Admin", new { id = item.Id })">View items</a>
-                            }
+                        else if (item.CartItems.Where(x => x.CartId == item.Id).Count() != 0)
+                        {
+                            <a type="button" class="btn btn-gradient-primary" href="@Url.Action("cartDetails", "Admin", new { id = item.Id })">View items</a>
                         }
-                    </td>
-                </tr>
+                    }
+                </td>
+            </tr>
 
 
-            }
+        }
         </tbody>
     </table>
 </div>

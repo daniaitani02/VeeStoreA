@@ -200,6 +200,7 @@
     <Compile Include="Controllers\CartItemsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\FaqsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -975,7 +976,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -1042,6 +1042,11 @@
     <Content Include="Views\Customers\_AddedCard.cshtml" />
     <Content Include="Views\Admin\cartDetails.cshtml" />
     <Content Include="Views\Customers\CreateCreditCard.cshtml" />
+    <Content Include="Views\Faqs\Create.cshtml" />
+    <Content Include="Views\Faqs\Delete.cshtml" />
+    <Content Include="Views\Faqs\Details.cshtml" />
+    <Content Include="Views\Faqs\Edit.cshtml" />
+    <Content Include="Views\Faqs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

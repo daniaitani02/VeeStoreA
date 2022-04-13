@@ -30,11 +30,23 @@
 <section id="ecommerce-header">
     <div class="row">
         <div class="col-sm-12">
+            <a type="button" class="btn btn-icon btn-gradient-primary waves-effect waves-float waves-light float-start" href="@Url.Action("AdminPanel", "Home")">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </a>
+
+            <h2 class="content-header-title pd-1"> &nbsp; Products</h2>
+
+        </div>
+        
+        <div class="col-sm-12">
+
             <div class="ecommerce-header-items">
                 <div class="result-toggler">
+
                     <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
                         <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
                     </button>
+
                     <div class="search-results">@Model.Count() result(s) found</div>
                 </div>
                 <div class="view-options d-flex">
