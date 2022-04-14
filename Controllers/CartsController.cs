@@ -47,6 +47,7 @@ namespace VeeStoreA.Controllers
             }
             // Does the cart belong to the logged in user? If not, return Forbidden error
             if (cart.Customer.Email != User.Identity.Name && User.Identity.Name != "admin@admin.com") return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if(cart.Status == "Paid") { return RedirectToAction("Receipt","Transaction",new {id=cart.Id }); }
             //ViewBag.totalAmount = cart.CartItems.Sum(p => (int)p.Quantity * (int)p.Product.Price);
             ViewBag.Type = new SelectList(new List<string> { "Visa", "Mastercard","American Express" },"Visa");
             return View(cart);

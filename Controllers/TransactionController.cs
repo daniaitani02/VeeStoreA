@@ -165,6 +165,7 @@ namespace VeeStoreA.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
+            if (cart.Status == "Unpaid") { return RedirectToAction("MyCart", "Transaction"); }
             return View(cart);
         }
         public async Task<ActionResult> Checkout(int? id, string deliveryMethod, int creditCardId)
