@@ -123,6 +123,15 @@ namespace VeeStoreA.Controllers
             {
                 creditCard.CustomerEmail = User.Identity.Name;
                 creditCard.Type = Type;
+                if(db.CreditCards.Where(cc=> cc.Number == creditCard.Number && cc.Type != "Disabled").Count() != 0)
+                {
+                    TempData["errorCreditCard"] = "Th credit card is already used by another customer. Please ask the other customer to remove it";
+                    if (customer.CreditCards.Where(cc => cc.Type != "Disabled").Count() != 0)
+                    {
+                        ViewBag.creditCards = customer.CreditCards.Where(cc => cc.Type != "Disabled");
+                    }
+                    return View();
+                }
                 db.CreditCards.Add(creditCard);
                 db.SaveChanges();
                 

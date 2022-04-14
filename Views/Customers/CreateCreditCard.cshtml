@@ -2,10 +2,24 @@
 @using VeeStoreA.Models
 @{
 
-    ViewBag.Title = "CreateCreditCard";
+    ViewBag.Title = "My Credit Cards";
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
-
+@if (TempData["errorCreditCard"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error</h4>
+        <div class="alert-body">
+            @TempData["errorCreditCard"]
+        </div>
+    </div>
+}
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/forms/select/select2.min.css">
+<style>
+    .select2-selection__arrow b {
+        display: none !important;
+    }
+</style>
 <div class=" content">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -25,7 +39,7 @@
                     <ul class="nav nav-pills mb-2">
                         <!-- account -->
                         <li class="nav-item">
-                            <a class="nav-link"  href="@Url.Action("Details", "Customers", new { id = User.Identity.Name + "/"})">
+                            <a class="nav-link" href="@Url.Action("Details", "Customers", new { id = User.Identity.Name + "/"})">
                                 <i data-feather="user" class="font-medium-3 me-50"></i>
                                 <span class="fw-bold">Account</span>
                             </a>
@@ -143,3 +157,8 @@
         </div>
     </div>
 </div>
+@Scripts.Render("~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js")
+
+<script src="~/Content/Theme/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+
+<script src="~/Content/Theme/app-assets/js/scripts/forms/form-select2.js"></script>
