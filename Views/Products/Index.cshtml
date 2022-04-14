@@ -37,19 +37,19 @@
                                 <li>
                                     <div class="form-check">
                                         <input type="radio" id="priceARange3" value="l30" name="price" class="form-check-input" form="search" />
-                                        <label class="form-check-label" for="priceARange3">Less than 30QR</label>
+                                        <label class="form-check-label" for="priceARange3">Less than  @(30 * @ViewBag.Mutliplier) @ViewBag.CurrencySymbol</label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="form-check">
                                         <input type="radio" id="priceRange1" value="b30x100" name="price" class="form-check-input" form="search" />
-                                        <label class="form-check-label" for="priceRange1">30QR - 100QR</label>
+                                        <label class="form-check-label" for="priceRange1"> @(30 * @ViewBag.Mutliplier) @ViewBag.CurrencySymbol -  @(100 * @ViewBag.Mutliplier) @ViewBag.CurrencySymbol</label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="form-check">
-                                        <input type="radio" id="priceRange2" value="m300" name="price" class="form-check-input" form="search" />
-                                        <label class="form-check-label" for="priceRange2">More than 100QR </label>
+                                        <input type="radio" id="priceRange2" value="m100" name="price" class="form-check-input" form="search" />
+                                        <label class="form-check-label" for="priceRange2">More than @(100 * @ViewBag.Mutliplier) @ViewBag.CurrencySymbol </label>
                                     </div>
                                 </li>
 
@@ -246,7 +246,7 @@
             <!-- E-commerce Content Section Starts -->
             <!-- E-commerce Search Bar Starts -->
 
-            @using (Html.BeginForm(null, null, FormMethod.Get, new { @class = "form-inline", id = "search" }))
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-inline", id = "search" }))
             {
                 <section id="ecommerce-searchbar" class="ecommerce-searchbar">
                     <div class="row mt-1">
