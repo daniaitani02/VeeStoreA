@@ -26,11 +26,12 @@ namespace VeeStoreA.Models
         [StringLength(50)]
         [Required(ErrorMessage ="Please enter name of the product")]
         public string Name { get; set; }
-        [Range(1,2000,ErrorMessage = "Price in QAR")]
+        [Range(1,2000,ErrorMessage = "Price must between 1 and 2000")]
         
         public int Price { get; set; }
         public string Description { get; set; }
         public Nullable<int> CategoryId { get; set; }
+        [Required(ErrorMessage = "An image name is required")]
         public string ImageName { get; set; }
         public string Status { get; set; }
         public System.DateTime CreatedAt { get; set; }

@@ -11,14 +11,20 @@ namespace VeeStoreA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Faq
     {
         public int Id { get; set; }
+       
+        [Required(ErrorMessage = "Your Question is required")]
         public string Question { get; set; }
         public string Answer { get; set; }
         public string Status { get; set; }
+        
+        [Required(ErrorMessage = "Your Email is required")]
         public string Email { get; set; }
+        [Required (ErrorMessage ="Your Name is required")]
         public string Name { get; set; }
     }
 }

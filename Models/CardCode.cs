@@ -16,10 +16,12 @@ namespace VeeStoreA.Models
     public partial class CardCode
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Your must choose a product")]
         public int ProductId { get; set; }
-        [StringLength (60)]
+        [StringLength (50,MinimumLength =5)]
+        [Required(ErrorMessage = "The code is required")]
         public string Code { get; set; }
-
+        
         public string Status { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<System.DateTime> UsedAt { get; set; }

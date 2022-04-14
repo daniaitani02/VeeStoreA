@@ -22,15 +22,21 @@ namespace VeeStoreA.Models
         }
     
         public int Id { get; set; }
+
         public string CustomerEmail { get; set; }
 
         [Required]
+        [StringLength(16, MinimumLength = 16, ErrorMessage = "Length must be exactly 16")]
+        [Display(Name ="Card Number")]
         public string Number { get; set; }
         [Required]
+        [Display(Name = "Name on the Card")]
         public string Name { get; set; }
         [Required]
+        [Display(Name = "Expiry Date")]
         public string Expiry { get; set; }
         [Required]
+        [Display(Name = "Security Code (CVV)")]
         public int CVV { get; set; }
 
         public string Type { get; set; }
