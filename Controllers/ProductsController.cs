@@ -34,6 +34,7 @@ namespace VeeStoreA.Controllers
             }
             var products = from p in db.Products
                        select p;
+            products = products.Where(p => p.Status == "Visible");
            
             if (!String.IsNullOrEmpty(SearchString))
             {
