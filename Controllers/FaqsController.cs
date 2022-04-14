@@ -46,6 +46,7 @@ namespace VeeStoreA.Controllers
 
             var faqs = from f in db.Faqs
                        select f;
+            faqs = faqs.Where(f => f.Status == "Approved");
             IEnumerable<Faq> faqItems = faqs;
             ViewBag.faqItems = faqItems;
      

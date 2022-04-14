@@ -7,6 +7,12 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_ThemeLayout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="~/Content/Theme/app-assets/vendors/css/forms/select/select2.min.css">
+<style>
+    .select2-selection__arrow b {
+        display: none !important;
+    }
+</style>
 
 <div class=" content">
     <div class="content-overlay"></div>
@@ -90,79 +96,84 @@
                                 </div>
                             </div>
                         </div>
-                       </div>
+                    </div>
 
 
 
-                        <!-- profile -->
-                        <div class="card">
-                            <div class="card-header border-bottom">
-                                <h4 class="card-title">Profile Details</h4>
-                            </div>
-                            <div class="card-body py-2 my-25">
-                                <!-- form -->
-                                @using (Html.BeginForm("Edit", "Customers", FormMethod.Post, new { @class = "validate-form pt-50" }))
-                                {
-                                    @Html.AntiForgeryToken()
+                    <!-- profile -->
+                    <div class="card">
+                        <div class="card-header border-bottom">
+                            <h4 class="card-title">Profile Details</h4>
+                        </div>
+                        <div class="card-body py-2 my-25">
+                            <!-- form -->
+                            @using (Html.BeginForm("Edit", "Customers", FormMethod.Post, new { @class = "validate-form pt-50" }))
+                            {
+                                @Html.AntiForgeryToken()
 
-                                    <div class="row">
-                                        <div class="col-12 col-sm-6 mb-1">
-                                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
-                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
-                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-12 col-sm-6 mb-1">
-                                            @Html.LabelFor(model => model.Currency, "Currency", htmlAttributes: new { @class = "form-label" })
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name", required = true } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        @Html.LabelFor(model => model.Currency, "Currency", htmlAttributes: new { @class = "form-label" })
 
-                                            @Html.DropDownList("CurrencyId", null, htmlAttributes: new { @class = "hide-search form-select select2-hidden-accessible" })
-                                            @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-12 col-sm-6 mb-1">
-                                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
-                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @disabled = true } })
-                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 mb-1">
-                                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "form-label" })
-                                            @Html.HiddenFor(model => model.PhoneNumber)
-                                            <div class="input-group">
-                                                <span class="input-group-text" id="basic-addon1">+974 </span>
-                                                <input type="text" disabled class="form-control" placeholder="Phone Number" value="@(Model.PhoneNumber == null ? "No Phone Number Added" : Model.PhoneNumber.Replace("+974", ""))" aria-describedby="button-addon2">
-                                                <a href="@Url.Action("AddPhoneNumber", "Manage")" class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">@(Model.PhoneNumber == null ? "Add Phone Number" : "Change Phone Number")</a>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 mb-1">
-                                            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "form-label" })
-                                            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gender", @disabled = true } })
-                                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                                        </div>
-
-                                        <div class="col-12">
-                                            @Html.HiddenFor(model => model.JoinedAt)
-                                            @Html.HiddenFor(model => model.Email)
-                                            @Html.HiddenFor(model => model.Gender)
-                                            <input type="submit" value="Save Changes" class="btn btn-primary mt-1 me-1" />
-
-                                        </div>
+                                        @Html.DropDownList("CurrencyId", null, htmlAttributes: new { @class = "hide-search form-select select2-hidden-accessible" })
+                                        @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @disabled = true } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                     </div>
 
-                                }
-                                <!--/ form -->
-                            </div>
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "form-label" })
+                                        @Html.HiddenFor(model => model.PhoneNumber)
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon1">+974 </span>
+                                            <input type="text" disabled class="form-control" placeholder="Phone Number" value="@(Model.PhoneNumber == null ? "No Phone Number Added" : Model.PhoneNumber.Replace("+974", ""))" aria-describedby="button-addon2">
+                                            <a href="@Url.Action("AddPhoneNumber", "Manage")" class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">@(Model.PhoneNumber == null ? "Add Phone Number" : "Change Phone Number")</a>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "form-label" })
+                                        @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gender", @disabled = true } })
+                                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="col-12">
+                                        @Html.HiddenFor(model => model.JoinedAt)
+                                        @Html.HiddenFor(model => model.Email)
+                                        @Html.HiddenFor(model => model.Gender)
+                                        <input type="submit" value="Save Changes" class="btn btn-primary mt-1 me-1" />
+
+                                    </div>
+                                </div>
+
+                            }
+                            <!--/ form -->
                         </div>
-
-
-                     
-
-
-                       
-                        <!--/ profile -->
                     </div>
+
+
+
+
+
+
+                    <!--/ profile -->
                 </div>
             </div>
         </div>
     </div>
-  
+</div>
+
+@Scripts.Render("~/Content/Theme/app-assets/vendors/js/jquery/jquery.min.js")
+
+<script src="~/Content/Theme/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+
+<script src="~/Content/Theme/app-assets/js/scripts/forms/form-select2.js"></script>
