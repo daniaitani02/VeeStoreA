@@ -90,7 +90,8 @@
         <thead>
             <tr>
                 <th>Products</th>
-                <th>Description</th>
+                <th>Inventory</th>
+               
                 <th>Price</th>
                 <th>Category Name</th>
                 <th>Status</th>
@@ -106,14 +107,29 @@
                     <td>
                         <img src="~/Content/Images/Products/@product.ImageName" alt="img-placeholder" class="me-75" height="100">
                         <span class="fw-bold">@product.Name</span>
+                      
+                    </td>
+                    <td>
+                        @product.CardCodes.Where(cc => cc.Status == "New").Count()
+                     <span> - </span>
                         @{
-                            if (Model.Count(x => x.CategoryId == product.CategoryId) <= 3)
+                            if (product.CardCodes.Where(cc => cc.Status == "New").Count() > 3)
                             {
-                                <span class="badge rounded-pill badge-light-warning me-1">low Stock</span>
+                                <span class="badge rounded-pill badge-light-warning me-1"> Low Stock</span>
                             }
+                            else if (product.CardCodes.Where(cc => cc.Status == "New").Count() == 0)
+                            {
+
+
+<span class="badge rounded-pill badge-light-danger me-1"> Out of Stock</span>
+                }
+                else
+                {
+                    <span class="badge rounded-pill badge-light-primary me-1"> In Stock</span>
+                }
                         }
                     </td>
-                    <td>@product.Description</td>
+                   
                     <td>
                         @product.Price
                     </td>
