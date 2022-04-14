@@ -81,19 +81,31 @@
 
                                 @foreach (var faqItem in (IEnumerable<VeeStoreA.Models.Faq>)ViewBag.faqItems)
                                 {
-
                                     <div class="card accordion-item">
-                                        <h2 class="accordion-header" id="paymentTwo">
-                                            <button class="accordion-button" data-bs-toggle="collapse" role="button" data-bs-target="#faq-payment-two" aria-expanded="true" aria-controls="faq-payment-two">
+                                        <h2 class="accordion-header" id="@faqItem.Id">
+                                            <button class="accordion-button" data-bs-toggle="collapse" role="button" data-bs-target="#faq-payment-@faqItem.Id" aria-expanded="true" aria-controls="faq-payment-@faqItem.Id">
                                                 @faqItem.Question
                                             </button>
                                         </h2>
-                                        <div id="faq-payment-two" class="collapse show" aria-labelledby="paymentTwo" data-bs-parent="#faq-payment-qna">
+
+                                        <div id="faq-payment-@faqItem.Id" class="accordion-collapse collapse" aria-labelledby="@faqItem.Id" data-bs-parent="#faq-payment-qna" style="">
+                                            <div class="accordion-body">
+                                               @faqItem.Answer
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="card accordion-item">
+                                        <h2 class="accordion-header" id="@(faqItem.Id)-q">
+                                            <button class="accordion-button" data-bs-toggle="collapse" role="button" data-bs-target="#@faqItem.Id" aria-expanded="true" aria-controls="@faqItem.Id">
+                                                @faqItem.Question
+                                            </button>
+                                        </h2>
+                                        <div id="@faqItem.Id" class="accordion-collapse collapse" aria-labelledby="@(faqItem.Id)-q" data-bs-parent="#faq-payment-qna">
                                             <div class="accordion-body">
                                                 @faqItem.Answer
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 }
 
 

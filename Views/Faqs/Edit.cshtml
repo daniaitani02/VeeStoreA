@@ -54,12 +54,12 @@
                     </div>
                     <div class="col-12 col-sm-6 mb-1">
                         @Html.LabelFor(model => model.Question, htmlAttributes: new { @class = "form-label" })
-                        @Html.TextAreaFor(m => m.Question, 4, 4, new { @class = "form-control" })
+                        @Html.TextAreaFor(m => m.Question, 4, 4, new { @class = "form-control", required = true })
                         @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-12 col-sm-6 mb-1">
                         @Html.LabelFor(model => model.Answer, htmlAttributes: new { @class = "form-label" })
-                        @Html.TextAreaFor(m => m.Answer, 4, 4, new { @class = "form-control" })
+                        @Html.TextAreaFor(m => m.Answer, 4, 4, new { @class = "form-control", required = true })
                         @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
                     </div>
 
